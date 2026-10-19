@@ -1,13 +1,13 @@
 # TripSync – Requirements Document
 
-|                   |                                                 |
-| ----------------- | ----------------------------------------------- |
-| **Produs**        | TripSync – Planificator colaborativ de excursii |
-| **Product Owner** | Ghidic Vladislav                                |
-| **Scrum Master**  | Oprea Marina                                    |
-| **Echipa**        | Oprea Maria, Ghidic Vladislav                   |
-| **Versiune**      | 0.2 (draft)                                     |
-| **Data**          | 19/10/2026                                      |
+|                   |                                                   |
+| ----------------- | ------------------------------------------------- |
+| **Produs**        | TripSync – Planificator colaborativ de excursii   |
+| **Product Owner** | Ghidic Vladislav                                  |
+| **Scrum Master**  | Oprea Marina                                      |
+| **Echipa**        | Oprea Maria, Ghidic Vladislav, Suciu Delia Bianca |
+| **Versiune**      | 0.2 (draft)                                       |
+| **Data**          | 19/10/2026                                        |
 
 ## Istoric versiuni
 
