@@ -4,15 +4,17 @@
 | ----------------- | ----------------------------------------------- |
 | **Produs**        | TripSync – Planificator colaborativ de excursii |
 | **Product Owner** | Ghidic Vladislav                                |
+| **Scrum master**  |                                                 |
 | **Echipa**        |                                                 |
-| **Versiune**      | 0.1 (draft)                                     |
-| **Data**          |                                                 |
+| **Versiune**      | 0.2 (draft)                                     |
+| **Data**          | 19/10/2026                                      |
 
 ## Istoric versiuni
 
-| Versiune | Data       | Autor         | Modificări        |
-| -------- | ---------- | ------------- | ----------------- |
-| 0.1      | 16/10/2026 | Product Owner | Versiune inițială |
+| Versiune | Data       | Autor            | Modificări                               |
+| -------- | ---------- | ---------------- | ---------------------------------------- |
+| 0.1      | 16/10/2026 | Ghidic Vladislav | Versiune inițială                        |
+| 0.2      | 19/10/2026 | Ghidic Vladislav | Reformulare si aduagare usecasuri uitate |
 
 ---
 
@@ -39,7 +41,7 @@ Organizarea unei excursii în grup este un proces haotic și timp-consuming. Dac
 
 ## 3. Product Goal
 
-Un grup de prieteni poate decide rapid și echitabil ce activități include într-o excursie, care este bugetul comun și preferințele tuturor.
+Un grup de prieteni poate decide rapid și echitabil ce activități include într-o excursie, ținând cont de preferințele tuturor și fără a depăși bugetul comun.
 
 ## 4. Utilizatori
 
@@ -53,7 +55,7 @@ Un grup de prieteni poate decide rapid și echitabil ce activități include în
 
 | ID   | Regula                                                                                                                                                                    |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| R-01 | Costul total al activităților selectate de algoritm nu poate depăși bugetul grupului.                                                                                     |
+| R-01 | Costul total al activităților selectate de algoritm nu poate depăși bugetul grupului. Costul unei activități este impartit egal per persoană.                             |
 | R-02 | Scorul de preferință este un număr întreg între 1 și 5.                                                                                                                   |
 | R-03 | Un participant are un singur vot per activitate, pe care îl poate modifica până la închiderea votării.                                                                    |
 | R-04 | Doar membrii unui grup pot vedea și modifica datele grupului.                                                                                                             |
@@ -63,6 +65,9 @@ Un grup de prieteni poate decide rapid și echitabil ce activități include în
 | R-08 | Destinațiile se votează prin **da/nu**, iar activitățile prin **scor 1–5**.                                                                                               |
 | R-09 | Scorul de grup al unei activități se calculează ca medie a scorurilor.                                                                                                    |
 | R-10 | Votarea nu se poate modifica după închidere.                                                                                                                              |
+| R-11 | Durata totală a activităților selectate nu poate depăși numărul de ore pe zile propuse. Orele dint-o zi este setat de Origanizator .                                      |
+| R-12 | O activitate fără niciun scor nu este luată în calcul de algoritm.                                                                                                        |
+| R-13 | Destinația aleasă este cea cu cele mai multe voturi. In caz de egalitate decide Organizatorul.                                                                            |
 
 ## 6. Cerințe funcționale
 
@@ -85,7 +90,7 @@ Prioritate: **M** = Must, **S** = Should, **C** = Could.
 | FR-06 | Organizatorul poate invita participanți prin link sau email.                   | M          |
 | FR-07 | Un utilizator se poate alătura unui grup pe baza invitației.                   | M          |
 | FR-08 | Un participant poate părăsi grupul, iar Organizatorul poate elimina un membru. | C          |
-| FR-09 | Participantul poate genera un link read-only pentru Vizitatori.                | S          |
+| FR-09 | Un utilizator poate genera și revoca un link read-only pentru Vizitatori.      | S          |
 
 ### 6.3 Propuneri
 
@@ -136,7 +141,7 @@ Prioritate: **M** = Must, **S** = Should, **C** = Could.
 
 | ID     | Categorie       | Cerința                                                                                            |
 | ------ | --------------- | -------------------------------------------------------------------------------------------------- |
-| NFR-01 | Securitate      | Parolele sunt stocate hash. Accesul la datele unui grup este permis doar membrilor (BR-04).        |
+| NFR-01 | Securitate      | Parolele sunt stocate hash. Accesul la datele unui grup este permis doar membrilor (R-04).         |
 | NFR-02 | Securitate      | Linkurile de invitație și linkurile read-only sunt tokenuri aleatorii și pot fi revocate.          |
 | NFR-03 | Performanță     | Generarea itinerarului sa fie rapid                                                                |
 | NFR-04 | Corectitudine   | Bugetul nu este niciodată depășit de rezultatul algoritmului (R-01).                               |
@@ -151,33 +156,47 @@ Diagrama de mai jos prezintă actorii și cazurile de utilizare. Relațiile de g
 
 ```mermaid
 flowchart LR
-    V(["Vizitator"])
-    P(["Participant"])
-    O(["Organizator"])
-
+    subgraph Users
+      V(["Vizitator"])
+      P(["Participant"])
+      O(["Organizator"])
+    end
 
     subgraph TripSync
         PUC1("Înregistrare / Autentificare")
         OUC1("Înregistrare / Autentificare")
-        UC2("Creare grup")
-        UC3("Setare buget, dată, durată")
-        UC4("Invitare participanți")
+
+        subgraph Admin
+          UC2("Creare grup")
+          UC3("Setare buget, dată, durată")
+          UC4("Invitare participanți")
+          UC8("Aprobare / respingere propunere")
+          UC11("Închidere votare")
+          UC15("Editare manuală itinerar")
+          UC16("Aprobare itinerar final")
+          UC22("Eliminare membru")
+          UC25("Setare constrângeri")
+        end
+
+        subgraph Algoridm
+          UC12("Generare itinerar optim")
+          UC13("Calcul scor grup")
+        end
+
         UC5("Alăturare la grup")
         UC6("Propunere destinație")
         UC7("Propunere activitate")
-        UC8("Aprobare / respingere propunere")
         UC9("Votare destinație")
-        UC10("Acordare scor activitate")
-        UC11("Închidere votare")
-        UC12("Generare itinerar optim")
-        UC13("Calcul scor grup")
-        UC14("Vizualizare motiv includere / excludere")
-        UC15("Editare manuală itinerar")
-        UC16("Aprobare itinerar final")
+        UC14("Vizualizare motiv includere / excludere propunere")
         UC17("Vizualizare itinerar")
         UC18("Înregistrare cheltuială")
         UC19("Vizualizare sold per persoană")
         UC20("Generare link read-only")
+        UC21("Părăsire grup")
+        UC23("Editare / ștergere propunere")
+        UC24("Vizualizare rezultate vot")
+        UC26("Vizualizare buget cheltuit / rămas")
+        UC27("Revocare link")
     end
 
     V --> UC17
@@ -185,23 +204,8 @@ flowchart LR
     O --> OUC1
     OUC1 --> UC2
     PUC1 --> UC5
-    UC2 --> UC3
-    UC2 --> UC5
-    UC2 --> UC4
-    UC2 --> UC8
-    UC2 --> UC11
-    UC2 --> UC13
-    UC2 --> UC15
-    UC2 --> UC16
-    UC5 --> UC6
-    UC5 --> UC7
-    UC5 --> UC9
-    UC5 --> UC10
-    UC5 --> UC14
-    UC5 --> UC17
-    UC5 --> UC18
-    UC5 --> UC19
-    UC5 --> UC20
+    UC2 --> UC3 & UC5 & UC4 & UC8 & UC11 & UC13 & UC15 & UC16 & UC22 & UC25
+    UC5 --> UC6 & UC7 & UC9 & UC14 & UC17 & UC18 & UC19 & UC20 & UC21 & UC23 & UC24 & UC26 & UC27
     UC12 --> UC17
     UC13 --> UC12
     UC15 --> UC13
