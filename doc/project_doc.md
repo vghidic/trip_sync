@@ -4,8 +4,8 @@
 | ----------------- | ----------------------------------------------- |
 | **Produs**        | TripSync – Planificator colaborativ de excursii |
 | **Product Owner** | Ghidic Vladislav                                |
-| **Scrum master**  |                                                 |
-| **Echipa**        |                                                 |
+| **Scrum Master**  | Oprea Marina                                    |
+| **Echipa**        | Oprea Maria, Ghidic Vladislav                   |
 | **Versiune**      | 0.2 (draft)                                     |
 | **Data**          | 19/10/2026                                      |
 
@@ -15,6 +15,7 @@
 | -------- | ---------- | ---------------- | ---------------------------------------- |
 | 0.1      | 16/10/2026 | Ghidic Vladislav | Versiune inițială                        |
 | 0.2      | 19/10/2026 | Ghidic Vladislav | Reformulare si aduagare usecasuri uitate |
+| 0.3      | 19/10/2026 | Ghidic Vladislav | Adaugat Scrum Master                     |
 
 ---
 
@@ -178,7 +179,7 @@ flowchart LR
           UC25("Setare constrângeri")
         end
 
-        subgraph Algoridm
+        subgraph Algoritm
           UC12("Generare itinerar optim")
           UC13("Calcul scor grup")
         end
