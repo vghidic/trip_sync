@@ -1,21 +1,22 @@
 # TripSync – Requirements Document
 
-|                   |                                                   |
-| ----------------- | ------------------------------------------------- |
-| **Produs**        | TripSync – Planificator colaborativ de excursii   |
-| **Product Owner** | Ghidic Vladislav                                  |
-| **Scrum Master**  | Oprea Marina                                      |
-| **Echipa**        | Oprea Maria, Ghidic Vladislav, Suciu Delia Bianca |
-| **Versiune**      | 0.2 (draft)                                       |
-| **Data**          | 19/10/2026                                        |
+|                   |                                                                       |
+| ----------------- | --------------------------------------------------------------------- |
+| **Produs**        | TripSync – Planificator colaborativ de excursii                       |
+| **Product Owner** | Ghidic Vladislav                                                      |
+| **Scrum Master**  | Oprea Marina                                                          |
+| **Echipa**        | Oprea Maria, Ghidic Vladislav, Suciu Delia Bianca, Stoian Robert Alin |
+| **Versiune**      | 0.4 (draft)                                                           |
+| **Data**          | 19/10/2026                                                            |
 
 ## Istoric versiuni
 
-| Versiune | Data       | Autor            | Modificări                               |
-| -------- | ---------- | ---------------- | ---------------------------------------- |
-| 0.1      | 16/10/2026 | Ghidic Vladislav | Versiune inițială                        |
-| 0.2      | 19/10/2026 | Ghidic Vladislav | Reformulare si aduagare usecasuri uitate |
-| 0.3      | 19/10/2026 | Ghidic Vladislav | Adaugat Scrum Master                     |
+| Versiune | Data       | Autor            | Modificări                                      |
+| -------- | ---------- | ---------------- | ----------------------------------------------- |
+| 0.1      | 16/10/2026 | Ghidic Vladislav | Versiune inițială                               |
+| 0.2      | 19/10/2026 | Ghidic Vladislav | Reformulare si aduagare usecasuri uitate        |
+| 0.3      | 19/10/2026 | Ghidic Vladislav | Adaugat Scrum Master                            |
+| 0.4      | 20/10/2026 | Ghidic Vladislav | Corecții gramaticale și un nou use case diagram |
 
 ---
 
@@ -25,17 +26,17 @@ Documentul descrie problema abordată de TripSync, utilizatorii, cerințele func
 
 ## 2. Descrierea problemei
 
-Organizarea unei excursii în grup este un proces haotic și timp-consuming. Dacă nu există o persoană care doreste sa organizeze grupul, deciziile se amână, iar discuțiile se pierd între mesaje.
+Organizarea unei excursii în grup este un proces haotic și time-consuming. Dacă nu există o persoană care dorește să organizeze grupul, deciziile se amână, iar discuțiile se pierd între mesaje.
 
 **Cine are problema.** Grupuri de prieteni (3–10 persoane) care vor să plece împreună într-o excursie.
 
-**Cum se rezolvă astăzi.** Prin chat-uri de grup, polls si fisiere EXEL.
+**Cum se rezolvă astăzi.** Prin chat-uri de grup, sondaje și fișiere Excel.
 
 **Ce nu funcționează:**
 
 - ideile și propunerile se pierd în conversații lungi;
 - preferințele membrilor nu sunt luate în calcul în mod egal, iar decizia o impune cel mai activ din grup;
-- bugetul se depășește pentru că nimeni nu sta sa caluleze totalul activităților alese;
+- bugetul se depășește pentru că nimeni nu stă să calculeze totalul activităților alese;
 - nu este clar cine a plătit ce și cine cui datorează bani.
 
 **Ce aduce TripSync.** O aplicație în care grupul propune destinații și activități, votează, iar sistemul selectează automat setul de activități care maximizează preferințele grupului fără a depăși bugetul.
@@ -56,7 +57,7 @@ Un grup de prieteni poate decide rapid și echitabil ce activități include în
 
 | ID   | Regula                                                                                                                                                                    |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| R-01 | Costul total al activităților selectate de algoritm nu poate depăși bugetul grupului. Costul unei activități este impartit egal per persoană.                             |
+| R-01 | Costul total al activităților selectate de algoritm nu poate depăși bugetul grupului. Costul unei activități este împărțit egal per persoană.                             |
 | R-02 | Scorul de preferință este un număr întreg între 1 și 5.                                                                                                                   |
 | R-03 | Un participant are un singur vot per activitate, pe care îl poate modifica până la închiderea votării.                                                                    |
 | R-04 | Doar membrii unui grup pot vedea și modifica datele grupului.                                                                                                             |
@@ -66,9 +67,9 @@ Un grup de prieteni poate decide rapid și echitabil ce activități include în
 | R-08 | Destinațiile se votează prin **da/nu**, iar activitățile prin **scor 1–5**.                                                                                               |
 | R-09 | Scorul de grup al unei activități se calculează ca medie a scorurilor.                                                                                                    |
 | R-10 | Votarea nu se poate modifica după închidere.                                                                                                                              |
-| R-11 | Durata totală a activităților selectate nu poate depăși numărul de ore pe zile propuse. Orele dint-o zi este setat de Origanizator .                                      |
+| R-11 | Durata totală a activităților selectate nu poate depăși numărul de ore pe zile propuse. Numărul de ore dintr-o zi este setat de Organizator.                              |
 | R-12 | O activitate fără niciun scor nu este luată în calcul de algoritm.                                                                                                        |
-| R-13 | Destinația aleasă este cea cu cele mai multe voturi. In caz de egalitate decide Organizatorul.                                                                            |
+| R-13 | Destinația aleasă este cea cu cele mai multe voturi. În caz de egalitate decide Organizatorul.                                                                            |
 
 ## 6. Cerințe funcționale
 
@@ -114,12 +115,12 @@ Prioritate: **M** = Must, **S** = Should, **C** = Could.
 
 ### 6.5 Algoritm de selecție
 
-| ID    | Cerința                                                                                                          | Prioritate |
-| ----- | ---------------------------------------------------------------------------------------------------------------- | ---------- |
-| FR-19 | Sistemul calculează scorul de grup pentru fiecare activitate (R-09).                                             | M          |
-| FR-20 | Gnerarea setului optim de activități care maximizează scorul total în limita bugetului și a timpului disponibil. | M          |
-| FR-21 | Organizatorul poate seta constrângeri: activități obligatorii, buget maxim pe zi/ saptamana.                     | C          |
-| FR-22 | Participantul poate vedea motivul includerii sau excluderii fiecărei activități.                                 | S          |
+| ID    | Cerința                                                                                                           | Prioritate |
+| ----- | ----------------------------------------------------------------------------------------------------------------- | ---------- |
+| FR-19 | Sistemul calculează scorul de grup pentru fiecare activitate.                                                     | M          |
+| FR-20 | Generarea setului optim de activități care maximizează scorul total în limita bugetului și a timpului disponibil. | M          |
+| FR-21 | Organizatorul poate seta constrângeri: activități obligatorii, buget maxim pe zi/ săptămână.                      | C          |
+| FR-22 | Participantul poate vedea motivul includerii sau excluderii fiecărei activități.                                  | S          |
 
 ### 6.6 Itinerar
 
@@ -142,10 +143,10 @@ Prioritate: **M** = Must, **S** = Should, **C** = Could.
 
 | ID     | Categorie       | Cerința                                                                                            |
 | ------ | --------------- | -------------------------------------------------------------------------------------------------- |
-| NFR-01 | Securitate      | Parolele sunt stocate hash. Accesul la datele unui grup este permis doar membrilor (R-04).         |
+| NFR-01 | Securitate      | Parolele sunt stocate hash. Accesul la datele unui grup este permis doar membrilor.                |
 | NFR-02 | Securitate      | Linkurile de invitație și linkurile read-only sunt tokenuri aleatorii și pot fi revocate.          |
-| NFR-03 | Performanță     | Generarea itinerarului sa fie rapid                                                                |
-| NFR-04 | Corectitudine   | Bugetul nu este niciodată depășit de rezultatul algoritmului (R-01).                               |
+| NFR-03 | Performanță     | Generarea itinerarului să fie rapidă.                                                              |
+| NFR-04 | Corectitudine   | Bugetul nu este niciodată depășit de rezultatul algoritmului.                                      |
 | NFR-05 | Utilizabilitate | Interfața este utilizabilă pe telefon.                                                             |
 | NFR-06 | Persistență     | Datele sunt păstrate între sesiuni într-o bază de date.                                            |
 | NFR-07 | Testabilitate   | Logica algoritmului este separată de interfață și acoperită de teste unitare.                      |
@@ -157,10 +158,69 @@ Diagrama de mai jos prezintă actorii și cazurile de utilizare. Relațiile de g
 
 ```mermaid
 flowchart LR
+    V(["Vizitator"])
+    P(["Participant"])
+    O(["Organizator"])
+
+    O ==>|generalizare| P
+    P ==>|generalizare| V
+
+    subgraph TripSync
+        UC_Reg["Înregistrare/Autentificare"]
+
+        UC_Grup["Creare grup"]
+        UC_Set["Setare buget, dată, durată"]
+        UC_Inv["Invitare participanți"]
+        UC_Elim["Eliminare membru"]
+        UC_Join["Alăturare / Părăsire grup"]
+        UC_Link["Generare / Revocare link read-only"]
+
+        UC_PropDest["Propunere destinație / activitate"]
+        UC_EditProp["Editare / ștergere propunere"]
+        UC_Approve["Aprobare / respingere propunere"]
+
+        UC_VotDest["Votare destinație / activitate"]
+        UC_Rez["Vizualizare rezultate vot"]
+        UC_Close["Închidere votare"]
+
+        UC_Gen["Generare itinerar optim"]
+        UC_Calc["Calcul scor grup"]
+        UC_Constr["Setare constrângeri"]
+        UC_EditIt["Editare itinerar"]
+        UC_ApproveIt["Aprobare itinerar final"]
+        UC_View["Vizualizare itinerar"]
+        UC_Motiv["Vizualizare motiv includere / excludere"]
+
+        UC_Exp["Înregistrare cheltuială"]
+        UC_Budget["Vizualizare buget cheltuit / rămas"]
+        UC_Sold["Vizualizare sold per persoană"]
+    end
+
+    %% Vizitator
+    V --- UC_View
+
+    %% Participant
+    P --- UC_Reg & UC_Join & UC_Link
+    P --- UC_PropDest & UC_EditProp
+    P --- UC_VotDest & UC_Rez
+    P --- UC_Exp & UC_Budget & UC_Sold
+
+    %% Organizator (în plus față de Participant)
+    O --- UC_Grup & UC_Set & UC_Inv & UC_Elim & UC_Approve & UC_Close
+    O --- UC_Gen & UC_Constr & UC_EditIt & UC_ApproveIt
+
+    %% Relații între use case-uri
+    UC_Gen -.->|"«include»"| UC_Calc
+    UC_Constr -.->|"«extinde»"| UC_Gen
+    UC_Motiv -.->|"«extinde»"| UC_View
+```
+
+```mermaid
+flowchart LR
     subgraph Users
-      V(["Vizitator"])
-      P(["Participant"])
-      O(["Organizator"])
+      V["Vizitator"]
+      P["Participant"]
+      O["Organizator"]
     end
 
     subgraph TripSync
@@ -214,7 +274,7 @@ flowchart LR
 
 ```
 
-### Descriere cazurilor principale
+### Descrierea cazurilor principale
 
 | Caz de utilizare              | Actor                   | Condiții                                                 | Rezultat                                                                |
 | ----------------------------- | ----------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -224,10 +284,10 @@ flowchart LR
 | Vizualizare itinerar          | Vizitator / Participant | Itinerar aprobat (pentru Vizitator: link valid)          | Itinerar afișat read-only.                                              |
 | Vizualizare sold per persoană | Participant             | Cel puțin o cheltuială înregistrată                      | Lista „cine datorează cât și cui".                                      |
 
-## 9. Presupuneri si Limitări
+## 9. Presupuneri și limitări
 
 - Se folosește o singură denominarea valutara pe grup.
-- Nu există plăți reale, aplicația doar evidențiază cine cat datorează.
+- Nu există plăți reale, aplicația doar evidențiază cine cât datorează.
 - Costurile sunt introduse manual.
 - Un utilizator poate face parte din mai multe grupuri.
 
