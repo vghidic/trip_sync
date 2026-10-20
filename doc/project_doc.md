@@ -2,7 +2,7 @@
 
 |                   |                                                                       |
 | ----------------- | --------------------------------------------------------------------- |
-| **Produs**        | TripSync – Planificator colaborativ de excursii                       |
+| **Produs**        | TripSync - Planificator colaborativ de excursii                       |
 | **Product Owner** | Ghidic Vladislav                                                      |
 | **Scrum Master**  | Oprea Marina                                                          |
 | **Echipa**        | Oprea Maria, Ghidic Vladislav, Suciu Delia Bianca, Stoian Robert Alin |
@@ -17,6 +17,7 @@
 | 0.2      | 19/10/2026 | Ghidic Vladislav | Reformulare si aduagare usecasuri uitate        |
 | 0.3      | 19/10/2026 | Ghidic Vladislav | Adaugat Scrum Master                            |
 | 0.4      | 20/10/2026 | Ghidic Vladislav | Corecții gramaticale și un nou use case diagram |
+| 0.5      | 20/10/2026 | Ghidic Vladislav | Fix use case diagram                            |
 
 ---
 
@@ -28,7 +29,7 @@ Documentul descrie problema abordată de TripSync, utilizatorii, cerințele func
 
 Organizarea unei excursii în grup este un proces haotic și time-consuming. Dacă nu există o persoană care dorește să organizeze grupul, deciziile se amână, iar discuțiile se pierd între mesaje.
 
-**Cine are problema.** Grupuri de prieteni (3–10 persoane) care vor să plece împreună într-o excursie.
+**Cine are problema.** Grupuri de prieteni (4+ persoane) care vor să plece împreună într-o excursie.
 
 **Cum se rezolvă astăzi.** Prin chat-uri de grup, sondaje și fișiere Excel.
 
@@ -155,65 +156,6 @@ Prioritate: **M** = Must, **S** = Should, **C** = Could.
 ## 8. Use Case Diagram
 
 Diagrama de mai jos prezintă actorii și cazurile de utilizare. Relațiile de generalizare dintre actori sunt: **Organizator → Participant** (Organizatorul moștenește tot ce poate face Participantul) și **Participant → Vizitator** (Participantul poate vedea tot ce vede Vizitatorul).
-
-```mermaid
-flowchart LR
-    V(["Vizitator"])
-    P(["Participant"])
-    O(["Organizator"])
-
-    O ==>|generalizare| P
-    P ==>|generalizare| V
-
-    subgraph TripSync
-        UC_Reg["Înregistrare/Autentificare"]
-
-        UC_Grup["Creare grup"]
-        UC_Set["Setare buget, dată, durată"]
-        UC_Inv["Invitare participanți"]
-        UC_Elim["Eliminare membru"]
-        UC_Join["Alăturare / Părăsire grup"]
-        UC_Link["Generare / Revocare link read-only"]
-
-        UC_PropDest["Propunere destinație / activitate"]
-        UC_EditProp["Editare / ștergere propunere"]
-        UC_Approve["Aprobare / respingere propunere"]
-
-        UC_VotDest["Votare destinație / activitate"]
-        UC_Rez["Vizualizare rezultate vot"]
-        UC_Close["Închidere votare"]
-
-        UC_Gen["Generare itinerar optim"]
-        UC_Calc["Calcul scor grup"]
-        UC_Constr["Setare constrângeri"]
-        UC_EditIt["Editare itinerar"]
-        UC_ApproveIt["Aprobare itinerar final"]
-        UC_View["Vizualizare itinerar"]
-        UC_Motiv["Vizualizare motiv includere / excludere"]
-
-        UC_Exp["Înregistrare cheltuială"]
-        UC_Budget["Vizualizare buget cheltuit / rămas"]
-        UC_Sold["Vizualizare sold per persoană"]
-    end
-
-    %% Vizitator
-    V --- UC_View
-
-    %% Participant
-    P --- UC_Reg & UC_Join & UC_Link
-    P --- UC_PropDest & UC_EditProp
-    P --- UC_VotDest & UC_Rez
-    P --- UC_Exp & UC_Budget & UC_Sold
-
-    %% Organizator (în plus față de Participant)
-    O --- UC_Grup & UC_Set & UC_Inv & UC_Elim & UC_Approve & UC_Close
-    O --- UC_Gen & UC_Constr & UC_EditIt & UC_ApproveIt
-
-    %% Relații între use case-uri
-    UC_Gen -.->|"«include»"| UC_Calc
-    UC_Constr -.->|"«extinde»"| UC_Gen
-    UC_Motiv -.->|"«extinde»"| UC_View
-```
 
 ```mermaid
 flowchart LR
