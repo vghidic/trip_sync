@@ -7,7 +7,7 @@
 | **Scrum Master**  | Oprea Marina                                                          |
 | **Echipa**        | Oprea Maria, Ghidic Vladislav, Suciu Delia Bianca, Stoian Robert Alin |
 | **Versiune**      | 0.4 (draft)                                                           |
-| **Data**          | 19/10/2026                                                            |
+| **Data**          | 20/10/2026                                                            |
 
 ## Istoric versiuni
 
