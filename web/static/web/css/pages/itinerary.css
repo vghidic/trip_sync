@@ -1,0 +1,30 @@
+/* Itinerary screen. */
+
+.itinerary__ideas-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+}
+
+.itinerary__ideas-title {
+    font-size: var(--t-display-m);
+}
+
+.itinerary__ideas-count {
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.itinerary__ideas-lede {
+    margin: var(--s-3) 0 var(--s-5);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.itinerary__nudge {
+    margin-top: var(--s-5);
+}

@@ -1,0 +1,14 @@
+/* Helpers used only by /styleguide/ to lay out its demos. Keeping them
+   here means the reference page needs no inline styles either. */
+
+.sg-type-section {
+    font-size: var(--t-display-m);
+}
+
+.sg-type-card {
+    font-size: var(--t-display-s);
+}
+
+.sg-vote-pair {
+    width: 240px;
+}

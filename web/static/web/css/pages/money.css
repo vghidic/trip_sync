@@ -1,0 +1,89 @@
+/* The money screens: what it has cost, and who owes whom. */
+
+.money__meters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6);
+    padding: var(--s-5);
+    background: var(--c-sand);
+    border-radius: var(--r-lg);
+    margin-bottom: var(--s-6);
+}
+
+.money__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-4);
+}
+
+.money__head h2 {
+    font-size: var(--t-display-m);
+}
+
+/* Who has put money in so far, in the rail. */
+.paid-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-2) 0;
+}
+
+.paid-row__name {
+    flex: 1;
+    min-width: 0;
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.paid-row__amount {
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+/* ---- balances screen ---- */
+
+.balances__group + .balances__group {
+    margin-top: var(--s-7);
+}
+
+.balances__group-title {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-3);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.balances__group-title--up {
+    color: var(--c-ok-fg);
+}
+
+.balances__group-title--down {
+    color: var(--c-warn-fg);
+}
+
+.settle-list {
+    margin-top: var(--s-4);
+}
+
+.settle-note {
+    margin-top: var(--s-4);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+@media (max-width: 720px) {
+    .money__meters {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .money__head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

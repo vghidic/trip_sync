@@ -1,0 +1,158 @@
+/* The read-only link: what a visitor sees, and how a member hands it out.
+
+   The visitor view has no nav and no app chrome. It is a document someone
+   was sent, so it reads as one: a narrow column, generous spacing, nothing
+   to click. */
+
+.share-view {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.share-view__hero {
+    margin-bottom: var(--s-8);
+}
+
+.share-view__hero .photo {
+    border-radius: var(--r-lg);
+}
+
+.share-view__place {
+    margin-top: var(--s-5);
+    font-size: var(--t-display-l);
+}
+
+.share-view__dates {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+}
+
+.share-view__day + .share-view__day {
+    margin-top: var(--s-8);
+}
+
+.share-view__day-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-bottom: var(--s-3);
+    margin-bottom: var(--s-5);
+    border-bottom: var(--border);
+}
+
+.share-view__day-title {
+    font-size: var(--t-display-m);
+}
+
+.share-view__day-note {
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.share-view__foot {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-10);
+    padding-top: var(--s-5);
+    border-top: var(--border);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+/* The header of the visitor view: brand, and a reminder of what this is. */
+.share-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--s-6) var(--page-pad);
+}
+
+/* ---- managing the link ---- */
+
+.share-panel {
+    padding: var(--s-6);
+}
+
+.share-panel__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.share-panel__actions {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+}
+
+/* What a visitor can and cannot see, side by side. */
+.visibility {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6);
+    margin-top: var(--s-7);
+}
+
+.visibility__title {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-3);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.visibility__title--shown {
+    color: var(--c-ok-fg);
+}
+
+.visibility__title--hidden {
+    color: var(--c-muted);
+}
+
+.visibility__item {
+    display: flex;
+    gap: var(--s-2);
+    padding: var(--s-2) 0;
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    line-height: var(--lh-snug);
+}
+
+.visibility__item--hidden {
+    color: var(--c-muted);
+}
+
+@media (max-width: 720px) {
+    .visibility {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .share-panel__actions {
+        flex-direction: column;
+    }
+}
+
+/* The day's map, under the plans it belongs to. */
+.share-view__map {
+    margin-top: var(--s-5);
+}
+
+.share-view__map-note {
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}

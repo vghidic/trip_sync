@@ -1,0 +1,132 @@
+/* The chain of decisions, in the order the group settles them. */
+
+.chain {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+
+.chain__item {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* The one waiting on you is the only card that raises its voice. */
+.chain__item.is-open {
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 1px var(--c-primary);
+}
+
+.chain__item.is-locked {
+    background: none;
+    border-style: dashed;
+    box-shadow: none;
+}
+
+.chain__number {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-pill);
+    background: var(--c-sand);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.chain__item.is-settled .chain__number {
+    background: var(--c-ok-bg);
+    color: var(--c-ok-fg);
+}
+
+.chain__item.is-open .chain__number {
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+.chain__kind {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.chain__title {
+    margin-top: var(--s-1);
+    font-size: var(--t-display-s);
+}
+
+.chain__blurb {
+    margin-top: var(--s-2);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.chain__result {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    color: var(--c-ok-fg);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.chain__meta {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.chain__side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--s-3);
+    text-align: right;
+}
+
+/* A thin line connecting one decision to the next. */
+.chain__item + .chain__item {
+    position: relative;
+}
+
+.chain__item + .chain__item::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--s-5) + 15px);
+    top: calc(var(--s-4) * -1);
+    width: 2px;
+    height: var(--s-4);
+    background: var(--c-line-strong);
+}
+
+@media (max-width: 720px) {
+    .chain__item {
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: var(--s-3);
+        padding: var(--s-4);
+    }
+
+    .chain__side {
+        grid-column: 2;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .chain__item + .chain__item::before {
+        left: calc(var(--s-4) + 15px);
+    }
+}

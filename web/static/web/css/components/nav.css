@@ -1,0 +1,84 @@
+/* Primary navigation: pills in the header on desktop, a tab bar on mobile. */
+
+.main-nav {
+    justify-self: center;
+    display: flex;
+    gap: var(--s-2);
+}
+
+.main-nav__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-4);
+    border-radius: var(--r-md);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.main-nav__item:hover {
+    background: var(--c-sand-soft);
+    text-decoration: none;
+}
+
+.main-nav__item.is-active {
+    background: var(--c-primary-soft);
+    color: var(--c-primary);
+    font-weight: 600;
+}
+
+/* ---- mobile tab bar ---- */
+
+.tab-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 20;
+    display: none;
+    background: var(--c-bg);
+    border-top: var(--border);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-bar__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: var(--s-2) 0 var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 500;
+}
+
+.tab-bar__item:hover {
+    text-decoration: none;
+}
+
+.tab-bar__item.is-active {
+    color: var(--c-primary);
+}
+
+/* The grab bar at the bottom of the mobile frames in the design. */
+.tab-bar__handle {
+    width: 134px;
+    height: 5px;
+    margin: 0 auto var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--c-ink);
+}
+
+@media (max-width: 720px) {
+    .main-nav {
+        display: none;
+    }
+
+    .tab-bar {
+        display: block;
+    }
+
+    .tab-bar__items {
+        display: flex;
+    }
+}

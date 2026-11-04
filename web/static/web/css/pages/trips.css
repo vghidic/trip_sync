@@ -1,0 +1,218 @@
+/* Trips dashboard. */
+
+.trips__greeting {
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.trips__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin: var(--s-3) 0 var(--s-7);
+}
+
+.trips__title {
+    font-size: var(--t-display-l);
+}
+
+/* ---- the featured trip ---- */
+
+.trip-card {
+    overflow: hidden;
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    color: inherit;
+    display: block;
+}
+
+.trip-card:hover {
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+}
+
+.trip-card .photo {
+    border-radius: 0;
+}
+
+.trip-card__body {
+    padding: var(--s-5) var(--s-6) var(--s-6);
+}
+
+.trip-card__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-4);
+}
+
+.trip-card__name {
+    font-size: var(--t-display-m);
+}
+
+.trip-card__dates {
+    margin-top: var(--s-1);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.trip-card__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-5);
+    margin-top: var(--s-5);
+}
+
+.trip-card__progress {
+    flex: 1;
+    max-width: 320px;
+}
+
+.trip-card__settled {
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.trip-card__segments {
+    margin-top: var(--s-2);
+}
+
+/* ---- secondary trips ---- */
+
+.trip-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-4);
+}
+
+.trip-row__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.trip-row__name {
+    display: block;
+    font-size: var(--t-display-s);
+}
+
+.trip-row__meta {
+    display: block;
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.trip-row__status {
+    display: block;
+    margin-top: var(--s-2);
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.trip-row__chevron {
+    flex: none;
+    color: var(--c-muted);
+}
+
+/* ---- "your move" rail ---- */
+
+.your-move {
+    padding: var(--s-5) var(--s-6) var(--s-6);
+}
+
+.your-move__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.your-move__title {
+    margin-top: var(--s-4);
+    font-size: var(--t-display-m);
+}
+
+.your-move__sub {
+    margin-top: var(--s-2);
+    color: rgba(255, 255, 255, 0.86);
+    font-size: var(--t-sm);
+}
+
+.your-move__facts {
+    margin-top: var(--s-5);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--t-sm);
+}
+
+.your-move__fact {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+}
+
+.your-move__cta {
+    margin-top: var(--s-5);
+    padding-top: var(--s-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Prose block under the rail card. */
+.rail-prose__title {
+    font-size: var(--t-display-m);
+}
+
+.rail-prose__body {
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.rail-prose__next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-top: var(--s-5);
+    padding-top: var(--s-4);
+    border-top: var(--border);
+    font-size: var(--t-xs);
+}
+
+.rail-prose__next dt {
+    color: var(--c-muted);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.rail-prose__next dd {
+    margin: 0;
+    color: var(--c-ink);
+}
+
+@media (max-width: 720px) {
+    .trip-card__foot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--s-3);
+    }
+
+    .trip-card__progress {
+        max-width: none;
+        width: 100%;
+    }
+}

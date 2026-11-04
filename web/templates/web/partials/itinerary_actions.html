@@ -1,0 +1,23 @@
+{% comment %}
+Switch between the plan and the map, and share the weekend. Expects `view`
+set to "list" or "map".
+{% endcomment %}
+<div class="itinerary-actions">
+  <nav class="view-toggle" aria-label="Itinerary view">
+    <a class="view-toggle__item{% if view == 'list' %} is-active{% endif %}"
+       href="{% url 'web:itinerary' trip.slug %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-list"></use></svg>
+      Plan
+    </a>
+    <a class="view-toggle__item{% if view == 'map' %} is-active{% endif %}"
+       href="{% url 'web:itinerary_map' trip.slug %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+      Map
+    </a>
+  </nav>
+
+  <a class="btn btn--ghost btn--sm" href="{% url 'web:share_manage' trip.slug %}">
+    <svg class="icon icon--sm" aria-hidden="true"><use href="#i-link"></use></svg>
+    Share
+  </a>
+</div>

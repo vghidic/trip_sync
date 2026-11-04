@@ -1,0 +1,81 @@
+{% extends "web/base.html" %}
+
+{% block title %}{{ decision.title }} &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ decision.index }}</p>
+    <h1 class="page-head__title">{{ decision.title }}</h1>
+    <p class="page-head__lede">{{ decision.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div class="stack">
+
+      <div class="banner">
+        <svg class="icon banner__icon" aria-hidden="true"><use href="#i-plane"></use></svg>
+        <div class="banner__body">
+          <p class="banner__title">{{ decision.route.title }}</p>
+          <p class="banner__note">{{ decision.route.note }}</p>
+        </div>
+      </div>
+
+      <div class="decision__meta-row">
+        <span>{{ decision.meta }}</span>
+        <span class="decision__count">{{ decision.options|length }} options</span>
+      </div>
+
+      <div class="decision__options">
+        {% for option in decision.options %}
+          <article class="option{% if option.selected %} is-selected{% endif %}">
+            <div class="option__media">
+              <div class="photo photo--{{ option.photo }} photo--landscape"></div>
+              <span class="option__radio" aria-hidden="true"></span>
+            </div>
+            <div class="option__body">
+              <h2 class="option__title">{{ option.name }}</h2>
+              <p class="option__meta">{{ option.meta }}</p>
+              <p class="option__price">
+                <span class="option__amount">{{ option.price }}</span>
+                <span class="option__price-note">{{ option.price_note }}</span>
+              </p>
+              <p class="option__total">{{ option.total }}</p>
+
+              <dl class="option__rows">
+                {% for label, value in option.rows %}
+                  <div class="option__row">
+                    <dt>{{ label }}</dt>
+                    <dd>{{ value }}</dd>
+                  </div>
+                {% endfor %}
+              </dl>
+
+              <p class="option__blurb">{{ option.blurb }}</p>
+            </div>
+            <div class="option__foot">
+              <span>
+                <span class="option__votes">
+                  {{ option.votes }} vote{{ option.votes|pluralize }}
+                </span>
+                <span class="option__voters">{{ option.vote_names }}</span>
+              </span>
+              {% if option.flag %}<span class="flag">{{ option.flag }}</span>{% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <p class="footnote decision__footnote">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        {{ decision.footnote }}
+      </p>
+
+    </div>
+
+    <aside class="split__rail">
+      {% include "web/partials/decision_rail.html" %}
+    </aside>
+  </div>
+{% endblock %}

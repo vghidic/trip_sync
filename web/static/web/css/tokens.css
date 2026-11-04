@@ -1,0 +1,95 @@
+/* Design tokens.
+   Every other stylesheet reads from here; no raw colours or sizes elsewhere. */
+
+:root {
+    /* ---- colour ---- */
+    --c-bg: #f6f3ee;
+    --c-surface: #ffffff;
+    --c-sand: #ece5d8;
+    --c-sand-soft: #f0ebe1;
+
+    --c-primary: #1a46e5;
+    --c-primary-strong: #1538c4;
+    --c-primary-soft: #e8edfd;
+    --c-on-primary: #ffffff;
+
+    --c-ink: #15150f;
+    --c-body: #3b3b34;
+    /* Greys for secondary text. Both clear WCAG AA (4.5:1) on every
+     surface below except --c-faint, which is for placeholder text
+     only - never for content someone has to read. */
+    --c-muted: #67675f;
+    --c-faint: #9a9a90;
+
+    --c-line: #e6e0d5;
+    --c-line-strong: #d7d0c2;
+
+    --c-ok-bg: #e4efe1;
+    --c-ok-fg: #2f6b3a;
+    --c-warn-bg: #efe9de;
+    --c-warn-fg: #6d5c3c;
+
+    /* ---- type ---- */
+    --font-display:
+        "Iowan Old Style", "Palatino Linotype", "Source Serif 4", Georgia,
+        "Times New Roman", serif;
+    --font-sans:
+        system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+
+    --t-display-xl: 3.5rem; /* page titles: "Room for the good stuff." */
+    --t-display-l: 2.5rem; /* hero titles */
+    --t-display-m: 1.875rem; /* section titles */
+    --t-display-s: 1.4rem; /* card titles */
+    --t-lg: 1.125rem;
+    --t-md: 1rem;
+    --t-sm: 0.875rem;
+    --t-xs: 0.8125rem;
+    --t-xxs: 0.6875rem; /* eyebrows, all-caps labels */
+
+    --lh-tight: 1.1;
+    --lh-snug: 1.3;
+    --lh-normal: 1.55;
+
+    --ls-eyebrow: 0.09em;
+
+    /* ---- space (4px scale) ---- */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.25rem;
+    --s-6: 1.5rem;
+    --s-7: 2rem;
+    --s-8: 2.5rem;
+    --s-10: 4rem;
+
+    /* ---- shape ---- */
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --r-pill: 999px;
+
+    --border: 1px solid var(--c-line);
+    --shadow-sm: 0 1px 2px rgba(21, 21, 15, 0.04);
+    --shadow-md: 0 2px 10px rgba(21, 21, 15, 0.06);
+
+    /* ---- layout ---- */
+    --page-max: 1280px;
+    --page-pad: 2rem;
+    --rail: 368px; /* right-hand column on two-column screens */
+    --header-h: 88px;
+    --bottom-nav-h: 64px;
+
+    --focus-ring: 0 0 0 3px rgba(26, 70, 229, 0.28);
+}
+
+@media (max-width: 900px) {
+    :root {
+        --page-pad: 1.25rem;
+        --t-display-xl: 2.125rem;
+        --t-display-l: 1.875rem;
+        --t-display-m: 1.5rem;
+        --header-h: 64px;
+    }
+}

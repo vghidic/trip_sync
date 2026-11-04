@@ -1,0 +1,110 @@
+{% extends "web/base.html" %}
+
+{% block title %}Decisions &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ trip.destination }} &middot; {{ trip.dates }}</p>
+    <h1 class="page-head__title">What&rsquo;s left to decide.</h1>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <div class="hub__head">
+        <p class="meta">
+          {{ settled_count }} settled &middot; {{ open_count }} open &middot;
+          {{ pending_proposals }} proposal{{ pending_proposals|pluralize }} waiting
+        </p>
+        <div class="hub__actions">
+          <a class="btn btn--ghost" href="{% url 'web:propose' trip.slug 'activity' %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+            Propose something
+          </a>
+        </div>
+      </div>
+
+      <ol class="chain">
+        {% for item in chain %}
+          <li class="chain__item is-{{ item.state }}">
+            <span class="chain__number">
+              {% if item.state == 'settled' %}
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+              {% else %}
+                {{ item.number }}
+              {% endif %}
+            </span>
+
+            <div>
+              <span class="chain__kind">{{ item.kind }}</span>
+              <h2 class="chain__title">{{ item.title }}</h2>
+              <p class="chain__blurb">{{ item.blurb }}</p>
+              {% if item.result %}
+                <p class="chain__result">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                  {{ item.result }}
+                </p>
+              {% endif %}
+              <p class="chain__meta">{{ item.meta }}</p>
+            </div>
+
+            <div class="chain__side">
+              {% if item.state == 'open' %}
+                <span class="badge badge--soft">{{ item.status }}</span>
+                <a class="btn btn--sm" href="{{ item.url }}">{{ item.cta }}</a>
+              {% elif item.state == 'settled' %}
+                <span class="badge badge--ok">{{ item.status }}</span>
+                <a class="link-quiet" href="{{ item.url }}">{{ item.cta }}</a>
+              {% else %}
+                <span class="badge">{{ item.status }}</span>
+                <a class="link-quiet" href="{{ item.url }}">{{ item.cta }}</a>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+
+      <div class="card"><div class="card__body">
+        <h2 class="hub-status__title">Waiting on the group.</h2>
+        <p class="hub-status__count">
+          {{ trip.decisions_settled }} of {{ trip.decisions_total }} settled
+        </p>
+        <div class="segments hub-status__segments">
+          {% for filled in trip_progress %}
+            <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+          {% endfor %}
+        </div>
+        <p class="progress-block__note">
+          Three votes are still open and two people have not had their say on
+          the Saturday.
+        </p>
+      </div></div>
+
+      <div class="card card--tint next-decision">
+        <div class="next-decision__head">
+          <span class="next-decision__label">Organizer only</span>
+        </div>
+        <div class="stack stack--tight flow-sm">
+          <a class="btn btn--spread" href="{% url 'web:proposals' trip.slug %}">
+            Review {{ pending_proposals }} proposal{{ pending_proposals|pluralize }}
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </a>
+          <a class="btn btn--ghost btn--spread" href="{% url 'web:close_vote' trip.slug 'activities' %}">
+            Close the Saturday vote
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </a>
+          <a class="btn btn--ghost btn--spread" href="{% url 'web:constraints' trip.slug %}">
+            Set build constraints
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

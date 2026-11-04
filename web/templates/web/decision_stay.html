@@ -1,0 +1,66 @@
+{% extends "web/base.html" %}
+
+{% block title %}{{ decision.title }} &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ decision.index }}</p>
+    <h1 class="page-head__title">{{ decision.title }}</h1>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <div class="decision__meta-row">
+        <span class="decision__meta">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-calendar"></use></svg>
+          {{ decision.meta }}
+        </span>
+        <span class="decision__count">{{ decision.options|length }} options</span>
+      </div>
+
+      <div class="decision__options">
+        {% for option in decision.options %}
+          <article class="option option--row-mobile{% if option.selected %} is-selected{% endif %}">
+            <div class="option__media">
+              <div class="photo photo--{{ option.photo }} photo--landscape"></div>
+              <span class="option__radio" aria-hidden="true"></span>
+            </div>
+            <div class="option__body">
+              <h2 class="option__title">{{ option.name }}</h2>
+              <p class="option__meta">{{ option.meta }}</p>
+              <p class="option__price">
+                <span class="option__amount">{{ option.price }}</span>
+                <span class="option__price-note">{{ option.price_note }}</span>
+              </p>
+              <p class="option__badge">
+                <span class="badge badge--{{ option.badge_tone }}">
+                  {% if option.badge_tone == 'ok' %}
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+                  {% endif %}
+                  {{ option.badge }}
+                </span>
+              </p>
+            </div>
+            <div class="option__foot">
+              <span>
+                <span class="option__votes">
+                  {{ option.votes }} vote{{ option.votes|pluralize }}
+                </span>
+                <span class="option__voters">{{ option.vote_names }}</span>
+              </span>
+              {% if option.flag %}<span class="flag">{{ option.flag }}</span>{% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <aside class="split__rail">
+      {% include "web/partials/decision_rail.html" %}
+    </aside>
+  </div>
+{% endblock %}

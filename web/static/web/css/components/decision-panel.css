@@ -1,0 +1,95 @@
+/* Right-hand rail of a decision screen: who owns it, who has voted, and the
+   call to action for the signed-in user. */
+
+.owner-card {
+    padding: var(--s-5);
+    background: var(--c-sand);
+    border-radius: var(--r-lg);
+}
+
+.owner-card__who {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+}
+
+.owner-card__label {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.owner-card__name {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.owner-card__rule {
+    height: 1px;
+    margin: var(--s-4) 0;
+    background: var(--c-line-strong);
+    border: 0;
+}
+
+.owner-card__due {
+    color: var(--c-ink);
+    font-size: var(--t-md);
+    font-weight: 500;
+}
+
+/* The action panel ("vote not submitted"). */
+.action-panel {
+    padding: var(--s-5);
+    background: var(--c-primary-soft);
+    border-radius: var(--r-lg);
+}
+
+.action-panel__status {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-primary);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.action-panel__title {
+    margin-top: var(--s-3);
+    font-size: var(--t-display-s);
+}
+
+.action-panel__note {
+    margin-top: var(--s-2);
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+}
+
+.action-panel__cta {
+    margin-top: var(--s-4);
+}
+
+.action-panel__foot {
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+/* Closing note under the rail ("A plan, not a booking."). */
+.rail-note__title {
+    font-size: var(--t-display-s);
+}
+
+.rail-note__body {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}

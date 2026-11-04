@@ -1,0 +1,119 @@
+/* Buttons. Default is the filled blue; modifiers cover the other shapes. */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--s-5);
+    border: 1px solid transparent;
+    border-radius: var(--r-md);
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+    font-size: var(--t-sm);
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.btn:hover {
+    background: var(--c-primary-strong);
+    text-decoration: none;
+}
+
+.btn--block {
+    width: 100%;
+}
+
+/* Wide call to action with the label left and the icon pinned right. */
+.btn--spread {
+    width: 100%;
+    justify-content: space-between;
+    padding: var(--s-4) var(--s-5);
+    font-size: var(--t-md);
+}
+
+.btn--ghost {
+    background: var(--c-surface);
+    border-color: var(--c-line-strong);
+    color: var(--c-ink);
+}
+
+.btn--ghost:hover {
+    background: var(--c-sand-soft);
+    border-color: var(--c-line-strong);
+}
+
+/* Used inside the blue "your move" card, where the surface is inverted. */
+.btn--on-primary {
+    background: var(--c-surface);
+    color: var(--c-primary);
+}
+
+.btn--on-primary:hover {
+    background: var(--c-surface);
+    color: var(--c-primary-strong);
+}
+
+.btn--quiet {
+    background: none;
+    color: var(--c-primary);
+    padding: var(--s-2) 0;
+    font-weight: 600;
+}
+
+.btn--quiet:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+.btn--sm {
+    padding: var(--s-2) var(--s-3);
+    font-size: var(--t-xs);
+}
+
+/* Round "+" / arrow affordance. */
+.btn--round {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: var(--r-pill);
+    background: var(--c-primary-soft);
+    color: var(--c-primary);
+}
+
+.btn--round:hover {
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+/* Yes / No pair on the destination vote. */
+.vote-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+}
+
+.vote-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    padding: var(--s-3);
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-md);
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.vote-btn:hover {
+    background: var(--c-sand-soft);
+}
+
+.vote-btn.is-chosen {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: var(--c-on-primary);
+}

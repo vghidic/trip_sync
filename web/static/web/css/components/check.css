@@ -1,0 +1,74 @@
+/* A checkbox drawn as a full-width row, for lists the organizer ticks
+   through (activities to pin into the itinerary). */
+
+.check {
+    display: block;
+    position: relative;
+}
+
+.check + .check {
+    margin-top: var(--s-3);
+}
+
+.check input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.check__face {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-md);
+    cursor: pointer;
+}
+
+.check__box {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    flex: none;
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-sm);
+    background: var(--c-surface);
+    color: transparent;
+}
+
+.check input:checked + .check__face {
+    border-color: var(--c-primary);
+}
+
+.check input:checked + .check__face .check__box {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+.check input:focus-visible + .check__face {
+    box-shadow: var(--focus-ring);
+}
+
+.check__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.check__name {
+    display: block;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.check__meta {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}

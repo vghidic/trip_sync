@@ -1,0 +1,47 @@
+{% extends "web/propose_base.html" %}
+
+{% block fields %}
+  <div class="field">
+    <label class="field__label" for="activity-name">What is it?</label>
+    <input class="input" id="activity-name" name="name" type="text"
+           placeholder="Visit a museum" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="activity-category">Category</label>
+    <select class="select" id="activity-category" name="category">
+      {% for category in propose.categories %}
+        <option>{{ category }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field-pair">
+    <div class="field">
+      <label class="field__label" for="activity-cost">Cost per person</label>
+      <div class="input-group">
+        <span class="input-group__affix">&euro;</span>
+        <input class="input" id="activity-cost" name="cost" type="text"
+               inputmode="numeric" placeholder="30">
+      </div>
+    </div>
+    <div class="field">
+      <label class="field__label" for="activity-hours">How long</label>
+      <select class="select" id="activity-hours" name="hours">
+        {% for duration in propose.durations %}
+          <option>{{ duration }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="activity-blurb">
+      Why this one
+      <span class="field__optional">Optional</span>
+    </label>
+    <textarea class="textarea" id="activity-blurb" name="blurb"
+              placeholder="A line to sell it to the others."></textarea>
+  </div>
+
+{% endblock %}

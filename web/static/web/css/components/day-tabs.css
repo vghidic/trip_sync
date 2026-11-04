@@ -1,0 +1,93 @@
+/* Day selector on the itinerary. */
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--s-4);
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    color: inherit;
+}
+
+.day:hover {
+    border-color: var(--c-line-strong);
+    text-decoration: none;
+}
+
+.day.is-active {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+.day__num {
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-m);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.day.is-active .day__num {
+    color: var(--c-on-primary);
+}
+
+.day__weekday {
+    display: block;
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.day__note {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.day.is-active .day__note {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* Day heading with its status chip. */
+.day-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin: var(--s-8) 0 var(--s-5);
+}
+
+.day-head h2 {
+    font-size: var(--t-display-m);
+}
+
+@media (max-width: 720px) {
+    .days {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--s-3);
+    }
+
+    .day {
+        padding: var(--s-3);
+        gap: var(--s-2);
+    }
+
+    .day__num {
+        font-size: var(--t-display-s);
+    }
+
+    .day-head {
+        margin: var(--s-6) 0 var(--s-4);
+    }
+}

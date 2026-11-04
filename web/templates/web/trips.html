@@ -1,0 +1,109 @@
+{% extends "web/base.html" %}
+
+{% block title %}Your trips &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <p class="trips__greeting">Hey {{ user_profile.name }}, let&rsquo;s get out there</p>
+
+  <div class="trips__head">
+    <h1 class="trips__title">Your trips</h1>
+    <a class="btn" href="{% url 'web:new_trip' %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+      New trip
+    </a>
+  </div>
+
+  <div class="split">
+    <div class="stack">
+
+      <a class="trip-card" href="{% url 'web:trip_overview' trip.slug %}">
+        <div class="photo photo--{{ trip.photo }} photo--hero">
+          <span class="badge badge--light photo__chip photo__chip--right">
+            {{ trip.countdown|upper }}
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+          </span>
+        </div>
+        <div class="trip-card__body">
+          <div class="trip-card__row">
+            <div>
+              <h2 class="trip-card__name">{{ trip.destination }}</h2>
+              <p class="trip-card__dates">{{ trip.dates_long }}</p>
+            </div>
+            <span class="btn btn--round" aria-hidden="true">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+            </span>
+          </div>
+          <div class="trip-card__foot">
+            <div class="trip-card__progress">
+              <p class="trip-card__settled">
+                {{ trip.decisions_settled }} of {{ trip.decisions_total }} decisions settled
+              </p>
+              <div class="segments trip-card__segments">
+                {% for filled in trip_progress %}
+                  <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="avatar-stack">
+              {% for friend in trip.friends %}
+                <span class="avatar avatar--sm{% if friend.is_me %} avatar--me{% endif %}"
+                      title="{{ friend.name }}">{{ friend.initials }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </a>
+
+      {% for other in other_trips %}
+        <a class="card card--link trip-row" href="#">
+          <span class="photo photo--{{ other.photo }} photo--thumb-lg"></span>
+          <span class="trip-row__body">
+            <span class="trip-row__name">{{ other.name }}</span>
+            <span class="trip-row__meta">{{ other.meta }}</span>
+            <span class="trip-row__status">{{ other.status }}</span>
+          </span>
+          <svg class="icon trip-row__chevron" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
+        </a>
+      {% endfor %}
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+
+      <div class="card card--primary your-move">
+        <p class="your-move__head">
+          Your move
+          <span class="badge badge--count">1 needs you</span>
+        </p>
+        <h2 class="your-move__title">{{ next_decision.title }}</h2>
+        <p class="your-move__sub">{{ next_decision.subtitle }}</p>
+        <div class="your-move__facts stack stack--tight">
+          <span class="your-move__fact">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-users"></use></svg>
+            {{ next_decision.voted }} of {{ next_decision.voters }} voted
+          </span>
+          <span class="your-move__fact">{{ next_decision.note }}</span>
+        </div>
+        <div class="your-move__cta">
+          <a class="btn btn--on-primary btn--spread"
+             href="{% url 'web:decision' trip.slug next_decision.slug %}">
+            {{ next_decision.cta }}
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-prose">
+        <h2 class="rail-prose__title">A weekend, coming together.</h2>
+        <p class="rail-prose__body">
+          Six friends. Two nights.
+        </p>
+        <dl class="rail-prose__next">
+          <dt>Next up</dt>
+          <dd>{{ trip.destination }} &middot; {{ trip.dates }}</dd>
+        </dl>
+      </div>
+
+    </aside>
+  </div>
+{% endblock %}

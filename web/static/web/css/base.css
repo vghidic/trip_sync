@@ -1,0 +1,113 @@
+/* Reset and element defaults. */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--c-bg);
+    color: var(--c-body);
+    font-family: var(--font-sans);
+    font-size: var(--t-md);
+    line-height: var(--lh-normal);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--lh-tight);
+    letter-spacing: -0.01em;
+}
+
+p {
+    margin: 0;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: var(--c-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--r-sm);
+}
+
+/* ---- text helpers ---- */
+
+.eyebrow {
+    margin: 0;
+    color: var(--c-primary);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.eyebrow--muted {
+    color: var(--c-muted);
+}
+
+.meta {
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.meta--xs {
+    font-size: var(--t-xs);
+}
+
+.link-quiet {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    white-space: nowrap;
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.footnote {
+    display: flex;
+    gap: var(--s-2);
+    align-items: flex-start;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}

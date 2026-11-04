@@ -1,0 +1,81 @@
+/* "On the maybe list": suggestions that have not become decisions yet. */
+
+.idea {
+    overflow: hidden;
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.idea .photo {
+    border-radius: 0;
+}
+
+.idea__body {
+    padding: var(--s-4) var(--s-5) var(--s-5);
+}
+
+.idea__title {
+    font-size: var(--t-display-s);
+}
+
+.idea__meta {
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.idea__add {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+/* Compact variant: icon, two lines of text, a plus on the right. */
+.idea--row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    background: var(--c-sand-soft);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.idea--row .idea__body {
+    flex: 1;
+    padding: 0;
+}
+
+.idea--row .idea__title {
+    font-family: var(--font-sans);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.idea--row .idea__meta {
+    font-size: var(--t-xs);
+}
+
+.idea__icon {
+    flex: none;
+    color: var(--c-muted);
+}
+
+.idea__plus {
+    flex: none;
+    background: none;
+    border: 0;
+    color: var(--c-ink);
+    padding: var(--s-1);
+    border-radius: var(--r-sm);
+}
+
+.idea__plus:hover {
+    background: var(--c-sand);
+}

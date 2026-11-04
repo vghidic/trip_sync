@@ -1,0 +1,94 @@
+{% extends "web/base.html" %}
+
+{% block title %}Build the Saturday &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ build.eyebrow }}</p>
+    <h1 class="page-head__title">{{ build.title }}</h1>
+    <p class="page-head__lede">{{ build.lede }}</p>
+  </div>
+
+  <div>
+    <div>
+
+      <div class="build__meters">
+        {% for meter in build.meters %}
+          <div class="meter">
+            <div class="meter__head">
+              <span class="meter__label">{{ meter.label }}</span>
+              <span class="meter__value">{{ meter.value }}</span>
+            </div>
+            <div class="meter__track">
+              <span class="meter__fill" style="width: {{ meter.pct }}%"></span>
+            </div>
+            <p class="meter__note">{{ meter.note }}</p>
+          </div>
+        {% endfor %}
+        <div>
+          <span class="meter__label">{{ build.score.label }}</span>
+          <p class="build__score-value">{{ build.score.value }}</p>
+          <p class="meter__note">{{ build.score.note }}</p>
+        </div>
+      </div>
+
+      <section class="outcome-group">
+        <div class="outcome-group__head">
+          <h2 class="outcome-group__title">In the day</h2>
+          <span class="meta">{{ build.included|length }} activities</span>
+        </div>
+
+        {% for item in build.included %}
+          <article class="outcome">
+            <span class="outcome__time">{{ item.time }}</span>
+            <span class="photo photo--{{ item.photo }} photo--thumb"></span>
+            <div>
+              <h3 class="outcome__name">{{ item.name }}</h3>
+              <p class="outcome__meta">{{ item.meta }}</p>
+              <p class="outcome__reason">
+                <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                  <use href="#i-check-circle"></use>
+                </svg>
+                {{ item.reason }}
+              </p>
+            </div>
+            <div class="outcome__score">
+              <span class="outcome__score-value">{{ item.score }}</span>
+              <span class="outcome__score-label">Group score</span>
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+
+      <section class="outcome-group">
+        <div class="outcome-group__head">
+          <h2 class="outcome-group__title">Left out</h2>
+          <span class="meta">{{ build.excluded|length }} activit{{ build.excluded|pluralize:"y,ies" }}</span>
+        </div>
+
+        {% for item in build.excluded %}
+          <article class="outcome outcome--out">
+            <span class="photo photo--{{ item.photo }} photo--thumb"></span>
+            <div>
+              <h3 class="outcome__name">{{ item.name }}</h3>
+              <p class="outcome__meta">{{ item.meta }}</p>
+              <p class="outcome__reason">
+                <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                  <use href="#i-info"></use>
+                </svg>
+                {{ item.reason }}
+              </p>
+            </div>
+            <div class="outcome__score">
+              <span class="outcome__score-value">{{ item.score }}</span>
+              <span class="outcome__score-label">Group score</span>
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+
+    </div>
+  </div>
+{% endblock %}

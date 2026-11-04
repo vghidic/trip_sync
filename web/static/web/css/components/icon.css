@@ -1,0 +1,43 @@
+/* Inline SVG icons drawn from the sprite in partials/icons.html.
+   They inherit colour from the text around them. */
+
+.icon {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon--sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icon--lg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--xl {
+    width: 30px;
+    height: 30px;
+}
+
+/* Quieter than the text it sits next to. */
+.icon--muted {
+    color: var(--c-muted);
+}
+
+/* Nudged down to sit on the first line of a paragraph beside it. */
+.icon--lead {
+    margin-top: 2px;
+}
+
+/* The sprite itself renders nothing; it only has to be in the document. */
+.icon-sprite {
+    position: absolute;
+}

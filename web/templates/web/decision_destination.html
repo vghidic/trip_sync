@@ -1,0 +1,64 @@
+{% extends "web/base.html" %}
+
+{% block title %}{{ decision.title }} &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <h1 class="page-head__title">{{ decision.title }}</h1>
+  </div>
+
+  <div class="decision__meta-row">
+    <span>Somewhere missing? Add it while the vote is open.</span>
+    <a class="btn btn--ghost btn--sm"
+       href="{% url 'web:propose' trip.slug 'destination' %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+      Propose a place
+    </a>
+  </div>
+
+  <div class="split">
+    <div>
+      <div class="decision__options">
+        {% for option in decision.options %}
+          <article class="option">
+            <div class="option__media">
+              <div class="photo photo--{{ option.photo }} photo--landscape"></div>
+            </div>
+            <div class="option__body">
+              <p class="eyebrow eyebrow--muted">{{ option.country }}</p>
+              <h2 class="option__title option__title--display">{{ option.name }}</h2>
+              <p class="option__blurb">{{ option.blurb }}</p>
+              <div class="option__tally">
+                <span>
+                  <span class="option__tally-yes">{{ option.yes }} yes</span>
+                  <span class="option__voters">Yes: {{ option.yes_names }}</span>
+                </span>
+                <span class="option__tally-no">{{ option.no }} no</span>
+              </div>
+            </div>
+            <div class="option__actions">
+              <div class="vote-pair">
+                <button class="vote-btn{% if option.my_vote == 'yes' %} is-chosen{% endif %}"
+                        type="button">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+                  Yes
+                </button>
+                <button class="vote-btn{% if option.my_vote == 'no' %} is-chosen{% endif %}"
+                        type="button">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg>
+                  No
+                </button>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <aside class="split__rail">
+      {% include "web/partials/decision_rail.html" %}
+    </aside>
+  </div>
+{% endblock %}

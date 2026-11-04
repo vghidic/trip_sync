@@ -1,0 +1,121 @@
+/* Activity row with the 1-5 preference scale (R-02, R-09). */
+
+.score-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-4);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.score-row__title {
+    margin-top: var(--s-1);
+    font-size: var(--t-display-s);
+}
+
+.score-row__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.score-row__meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+}
+
+.score-row__mean {
+    text-align: right;
+}
+
+.score-row__value {
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-m);
+    font-weight: 600;
+}
+
+.score-row__out-of {
+    color: var(--c-muted);
+    font-family: var(--font-display);
+    font-size: var(--t-display-s);
+}
+
+.score-row__submitted {
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.score-row__foot {
+    grid-column: 2 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-top: var(--s-3);
+    margin-top: var(--s-3);
+    border-top: var(--border);
+}
+
+.score-row__own {
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+}
+
+/* ---- the scale itself ---- */
+
+.scale {
+    display: flex;
+    gap: var(--s-2);
+}
+
+.scale__step {
+    width: 34px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-sm);
+    background: var(--c-surface);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.scale__step:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+}
+
+.scale__step.is-chosen {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: var(--c-on-primary);
+    font-weight: 600;
+}
+
+@media (max-width: 720px) {
+    .score-row {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .score-row__mean {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .score-row__foot {
+        grid-column: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

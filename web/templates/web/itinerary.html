@@ -1,0 +1,75 @@
+{% extends "web/base.html" %}
+
+{% block title %}Itinerary &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ itinerary.eyebrow }}</p>
+    <h1 class="page-head__title">{{ itinerary.title }}</h1>
+    <p class="page-head__lede">{{ itinerary.lede }}</p>
+  </div>
+
+  {% include "web/partials/itinerary_actions.html" %}
+
+  <div>
+    <div>
+
+      <div class="days">
+        {% for day in itinerary.days %}
+          <a class="day{% if day.active %} is-active{% endif %}" href="#">
+            <span class="day__num">{{ day.num }}</span>
+            <span>
+              <span class="day__weekday">{{ day.weekday }}</span>
+              <span class="day__note">{{ day.note }}</span>
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+
+      <div class="day-head">
+        <h2>{{ itinerary.day_title }}</h2>
+        <span class="badge badge--ok">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+          {{ itinerary.day_status }}
+        </span>
+      </div>
+
+      <div class="timeline">
+        {% for entry in itinerary.entries %}
+          {% if not forloop.first %}
+            <p class="timeline__gap">{{ itinerary.gap_label }}</p>
+          {% endif %}
+          <div class="timeline__entry">
+            <div class="timeline__time">
+              {{ entry.time }}
+              <svg class="icon timeline__mark" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+            </div>
+            <div class="timeline__card">
+              <div>
+                <h3 class="timeline__title">{{ entry.title }}</h3>
+                <p class="timeline__place">{{ entry.place }}</p>
+                <p class="timeline__meta">{{ entry.meta }}</p>
+              </div>
+              <svg class="icon icon--lg timeline__icon" aria-hidden="true">
+                <use href="#i-{{ entry.icon }}"></use>
+              </svg>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <a class="banner banner--nudge itinerary__nudge"
+         href="{% url 'web:decision' trip.slug 'stay' %}">
+        <svg class="icon banner__icon" aria-hidden="true"><use href="#i-bed"></use></svg>
+        <span class="banner__body">
+          <span class="banner__title">{{ itinerary.nudge.title }}</span>
+          <span class="banner__note">{{ itinerary.nudge.note }}</span>
+        </span>
+        <svg class="icon banner__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+      </a>
+
+    </div>
+  </div>
+{% endblock %}

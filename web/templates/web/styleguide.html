@@ -1,0 +1,404 @@
+{% extends "web/base.html" %}
+
+{% block title %}Style guide &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <p class="eyebrow">Reference</p>
+    <h1 class="page-head__title">The pieces.</h1>
+    <p class="page-head__lede">
+      Every component in the UI layer, on one page. Build new screens out of
+      these rather than new CSS.
+    </p>
+  </div>
+
+  <div class="stack stack--loose">
+
+    <section>
+      <div class="section-head"><h2>Colour</h2></div>
+      <div class="grid-3">
+        <div class="card card__body"><strong>--c-primary</strong><p class="meta">Actions, active state, links</p></div>
+        <div class="card card--sand card__body"><strong>--c-sand</strong><p class="meta">Owner cards, strips, avatars</p></div>
+        <div class="card card--tint card__body"><strong>--c-primary-soft</strong><p class="meta">Next decision, nudges</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Type</h2></div>
+      <div class="card"><div class="card__body stack stack--tight">
+        <p class="eyebrow">Eyebrow &middot; all caps</p>
+        {# a specimen, not a heading: the page already has its h1 #}
+        <p class="page-head__title">Page title</p>
+        <h2 class="sg-type-section">Section title</h2>
+        <h3 class="sg-type-card">Card title</h3>
+        <p>Body copy sits in the sans face; everything above is the display serif.</p>
+        <p class="meta">Meta text, 14px, muted.</p>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Buttons</h2></div>
+      <div class="card"><div class="card__body row row--wrap">
+        <button class="btn" type="button">Primary</button>
+        <button class="btn btn--ghost" type="button">Ghost</button>
+        <button class="btn btn--sm" type="button">Small</button>
+        <button class="btn btn--quiet" type="button">Quiet</button>
+        <span class="btn btn--round"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        <div class="vote-pair sg-vote-pair">
+          <button class="vote-btn is-chosen" type="button">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg> Yes
+          </button>
+          <button class="vote-btn" type="button">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg> No
+          </button>
+        </div>
+      </div></div>
+      <div class="card flow-sm"><div class="card__body">
+        <button class="btn btn--spread" type="button">
+          Wide call to action
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </button>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Badges &amp; progress</h2></div>
+      <div class="card"><div class="card__body stack">
+        <div class="row row--wrap">
+          <span class="badge">Neutral</span>
+          <span class="badge badge--ok">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg> Within budget
+          </span>
+          <span class="badge badge--warn">&euro;28 over budget</span>
+          <span class="badge badge--soft">Soft</span>
+          <span class="badge badge--place">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg> Portugal
+          </span>
+          <span class="flag">Selected</span>
+        </div>
+        <div class="segments">
+          {% for filled in vote_progress %}
+            <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+          {% endfor %}
+        </div>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>People</h2></div>
+      <div class="card"><div class="card__body stack">
+        <div class="row">
+          {% for friend in trip.friends %}
+            <span class="avatar{% if friend.is_me %} avatar--me{% endif %}">{{ friend.initials }}</span>
+          {% endfor %}
+        </div>
+        <div class="avatar-stack">
+          {% for friend in trip.friends %}
+            <span class="avatar avatar--sm{% if friend.is_me %} avatar--me{% endif %}">{{ friend.initials }}</span>
+          {% endfor %}
+        </div>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>The 1&ndash;5 scale</h2></div>
+      <div class="card"><div class="card__body">
+        <div class="scale">
+          {% for step in score_range %}
+            <button class="scale__step{% if step == 4 %} is-chosen{% endif %}" type="button">{{ step }}</button>
+          {% endfor %}
+        </div>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Form controls</h2></div>
+      <div class="card"><div class="card__body">
+        <nav class="stepper new-trip__stepper" aria-label="Example">
+          <span class="stepper__step is-done">
+            <span class="stepper__bar"></span>
+            <span class="stepper__label">Done</span>
+          </span>
+          <span class="stepper__step is-current">
+            <span class="stepper__bar"></span>
+            <span class="stepper__label">Current</span>
+          </span>
+          <span class="stepper__step">
+            <span class="stepper__bar"></span>
+            <span class="stepper__label">To come</span>
+          </span>
+        </nav>
+
+        <div class="field">
+          <label class="field__label" for="sg-text">Text field</label>
+          <input class="input" id="sg-text" type="text" placeholder="Placeholder">
+          <p class="field__hint">A hint sits under the control, never beside it.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="sg-area">
+            Textarea <span class="field__optional">Optional</span>
+          </label>
+          <textarea class="textarea" id="sg-area" placeholder="A sentence is plenty."></textarea>
+        </div>
+
+        <div class="field-pair">
+          <div class="field">
+            <label class="field__label" for="sg-amount">With a prefix</label>
+            <div class="input-group">
+              <span class="input-group__affix">&euro;</span>
+              <input class="input" id="sg-amount" type="text" value="2700">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label" for="sg-select">Select</label>
+            <select class="select" id="sg-select">
+              <option>EUR &middot; &euro;</option>
+              <option>RON &middot; lei</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="derived">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-wallet"></use></svg>
+          A value worked out from the fields above
+        </p>
+
+        <fieldset class="fieldset flow-lg">
+          <legend class="fieldset__legend">Segmented choice</legend>
+          <div class="choices">
+            <label class="choice">
+              <input type="radio" name="sg-choice">
+              <span class="choice__face">
+                <span class="choice__value">4 hours</span>
+                <span class="choice__note">Easy</span>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="sg-choice" checked>
+              <span class="choice__face">
+                <span class="choice__value">6 hours</span>
+                <span class="choice__note">Balanced</span>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="sg-choice">
+              <span class="choice__face">
+                <span class="choice__value">8 hours</span>
+                <span class="choice__note">Full</span>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <span class="field__label">Chips</span>
+          <div class="chips">
+            <span class="chip">
+              <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-mail"></use></svg>
+              name@example.com
+              <button class="chip__remove" type="button" aria-label="Remove">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field__label">Value to copy</span>
+          <div class="copy-row">
+            <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
+            <span class="copy-row__value">tripsync.app/join/7f3b-91ac-24de</span>
+            <button class="btn btn--ghost btn--sm" type="button">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Planning</h2></div>
+      <div class="card"><div class="card__body stack">
+
+        <div class="meter">
+          <div class="meter__head">
+            <span class="meter__label">Activity budget</span>
+            <span class="meter__value">&euro;240 of &euro;360</span>
+          </div>
+          <div class="meter__track">
+            <span class="meter__fill" style="width: 67%"></span>
+          </div>
+          <p class="meter__note">A quantity against a ceiling &mdash; not a count of votes.</p>
+        </div>
+
+        <div>
+          <label class="check">
+            <input type="checkbox" checked>
+            <span class="check__face">
+              <span class="check__box">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+              </span>
+              <span class="check__body">
+                <span class="check__name">Pinned into the itinerary</span>
+                <span class="check__meta">&euro;0 &middot; 2 hours</span>
+              </span>
+            </span>
+          </label>
+          <label class="check">
+            <input type="checkbox">
+            <span class="check__face">
+              <span class="check__box">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+              </span>
+              <span class="check__body">
+                <span class="check__name">Left to the scores</span>
+                <span class="check__meta">&euro;30 / person &middot; 2 hours</span>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <article class="outcome">
+          <span class="outcome__time">10:00</span>
+          <span class="photo photo--alfama photo--thumb"></span>
+          <div>
+            <h3 class="outcome__name">In the day</h3>
+            <p class="outcome__meta">&euro;0 / person &middot; 2 hours</p>
+            <p class="outcome__reason">
+              <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                <use href="#i-check-circle"></use>
+              </svg>
+              Every outcome says why it is in or out.
+            </p>
+          </div>
+          <div class="outcome__score">
+            <span class="outcome__score-value">4.50</span>
+            <span class="outcome__score-label">Group score</span>
+          </div>
+        </article>
+
+        <article class="outcome outcome--out">
+          <span class="photo photo--azulejo photo--thumb"></span>
+          <div>
+            <h3 class="outcome__name">Left out</h3>
+            <p class="outcome__meta">&euro;30 / person &middot; 2 hours</p>
+            <p class="outcome__reason">
+              <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                <use href="#i-info"></use>
+              </svg>
+              Dashed and quiet, so the day reads as the plan.
+            </p>
+          </div>
+          <div class="outcome__score">
+            <span class="outcome__score-value">4.00</span>
+            <span class="outcome__score-label">Group score</span>
+          </div>
+        </article>
+
+      </div></div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Money</h2></div>
+      <div class="card card--flat">
+        <div class="expense">
+          <span class="expense__icon">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-bed"></use></svg>
+          </span>
+          <span>
+            <span class="expense__name">An expense, split evenly</span>
+            <span class="expense__meta">
+              <span class="expense__by">
+                <span class="avatar avatar--sm">JU</span>
+                Jules paid
+              </span>
+              <span>Split 6 ways &middot; &euro;74 each</span>
+              <span>Sat, May 22</span>
+            </span>
+          </span>
+          <span class="expense__amount">&euro;444</span>
+        </div>
+        <div class="expense">
+          <span class="expense__icon">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+          </span>
+          <span>
+            <span class="expense__name">A partial split</span>
+            <span class="expense__meta">
+              <span class="expense__by">
+                <span class="avatar avatar--sm">MA</span>
+                Maya paid
+              </span>
+              <span class="expense__split--part">Maya, Leo, Nina &middot; &euro;8 each</span>
+            </span>
+          </span>
+          <span class="expense__amount">&euro;24</span>
+        </div>
+      </div>
+
+      <div class="grid-2 flow-sm">
+        <div class="card"><div class="card__body">
+          <div class="balance">
+            <span class="avatar avatar--sm">JU</span>
+            <span>
+              <span class="balance__name">Owed money</span>
+              <span class="balance__note">Paid &euro;444, share &euro;153.50</span>
+            </span>
+            <span class="balance__amount balance__amount--up">+&euro;290.50</span>
+          </div>
+          <div class="balance">
+            <span class="avatar avatar--sm avatar--me">VG</span>
+            <span>
+              <span class="balance__name">Owes money</span>
+              <span class="balance__note">Paid nothing, share &euro;153.50</span>
+            </span>
+            <span class="balance__amount balance__amount--down">&minus;&euro;153.50</span>
+          </div>
+        </div></div>
+
+        <div>
+          <div class="settle is-mine">
+            <span class="settle__who">
+              <span class="avatar avatar--sm avatar--me">VG</span>
+              You
+            </span>
+            <svg class="icon icon--sm settle__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            <span class="settle__who">
+              <span class="avatar avatar--sm">JU</span>
+              Jules
+            </span>
+            <span class="settle__amount">&euro;153.50</span>
+          </div>
+          <div class="settle">
+            <span class="settle__who">
+              <span class="avatar avatar--sm">LE</span>
+              Leo
+            </span>
+            <svg class="icon icon--sm settle__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            <span class="settle__who">
+              <span class="avatar avatar--sm">TH</span>
+              Theo
+            </span>
+            <span class="settle__amount">&euro;24.50</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Image slots</h2></div>
+      <div class="grid-3">
+        <div class="photo photo--lisbon photo--landscape"></div>
+        <div class="photo photo--casa photo--landscape"></div>
+        <div class="photo photo--sail photo--landscape"></div>
+      </div>
+      <p class="meta flow-sm">
+        Gradient placeholders. Drop a file into <code>web/static/web/img/</code>
+        and override the matching rule in <code>components/photo.css</code>.
+      </p>
+    </section>
+
+  </div>
+{% endblock %}

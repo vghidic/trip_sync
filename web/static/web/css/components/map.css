@@ -1,0 +1,195 @@
+/* The drawn map of a day: the stay, the stops and the route between them.
+
+   The map itself is an inline SVG (partials/map_lisbon.html) so it inherits
+   the theme colours and needs no tiles or network. */
+
+.map {
+    overflow: hidden;
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* The order of the day, drawn between the pins. */
+.map__route {
+    stroke: var(--c-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 2 10;
+}
+
+.map__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.map__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-5);
+    border-top: var(--border);
+}
+
+.map__key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+}
+
+.map__key-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+/* The little marks in the key, matching what is drawn on the map. */
+.map__mark {
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+.map__mark--base {
+    background: var(--c-surface);
+    border: 2px solid var(--c-primary);
+    color: var(--c-primary);
+}
+
+.map__mark--route {
+    width: 22px;
+    height: 0;
+    border-radius: 0;
+    border-top: 3px dotted var(--c-primary);
+    background: none;
+}
+
+/* ---- the stops beside the map ---- */
+
+.map-stop {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: var(--s-3);
+    align-items: start;
+}
+
+.map-stop__pin {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--r-pill);
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+    font-size: var(--t-xs);
+    font-weight: 700;
+}
+
+.map-stop__pin--base {
+    background: var(--c-surface);
+    border: 2px solid var(--c-primary);
+    color: var(--c-primary);
+}
+
+.map-stop__time {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.map-stop__name {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-lg);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+}
+
+.map-stop__meta {
+    display: block;
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+/* The walk from one stop to the next, drawn as a connector. */
+.map-leg {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-2) 0 var(--s-2) 0;
+    margin-left: 13px;
+    border-left: 2px dotted var(--c-line-strong);
+    padding-left: calc(var(--s-3) + 19px);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+/* ---- list / map switch ---- */
+
+.view-toggle {
+    display: inline-flex;
+    padding: 3px;
+    background: var(--c-sand);
+    border-radius: var(--r-md);
+}
+
+.view-toggle__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-4);
+    border-radius: var(--r-sm);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.view-toggle__item:hover {
+    text-decoration: none;
+    color: var(--c-ink);
+}
+
+.view-toggle__item.is-active {
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.itinerary-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-6);
+}
+
+@media (max-width: 720px) {
+    .itinerary-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--s-3);
+    }
+
+    .view-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .view-toggle__item {
+        justify-content: center;
+    }
+}

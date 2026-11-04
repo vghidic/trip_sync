@@ -1,0 +1,61 @@
+/* Member avatars: initials on sand, blue for the signed-in user. */
+
+.avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background: var(--c-sand);
+    color: var(--c-body);
+    font-size: var(--t-xs);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.avatar--me {
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+}
+
+.avatar--sm {
+    width: 32px;
+    height: 32px;
+    font-size: var(--t-xxs);
+}
+
+/* Overlapping row used on the trip card. */
+.avatar-stack {
+    display: flex;
+}
+
+.avatar-stack .avatar {
+    margin-left: -10px;
+    border: 2px solid var(--c-surface);
+}
+
+.avatar-stack .avatar:first-child {
+    margin-left: 0;
+}
+
+/* Named, evenly spread row used on the overview screen. */
+.people {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-4);
+}
+
+.people__person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-2);
+    min-width: 56px;
+}
+
+.people__name {
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}

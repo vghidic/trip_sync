@@ -1,0 +1,48 @@
+/* Single entry point: the only stylesheet a template needs to link.
+
+   Order matters — tokens, then element defaults, then layout, then the
+   components, then the few page-specific rules that sit on top. */
+
+@import url("tokens.css");
+@import url("base.css");
+@import url("layout.css");
+
+@import url("components/icon.css");
+@import url("components/header.css");
+@import url("components/nav.css");
+@import url("components/breadcrumb.css");
+@import url("components/tabs.css");
+@import url("components/button.css");
+@import url("components/card.css");
+@import url("components/form.css");
+@import url("components/stepper.css");
+@import url("components/photo.css");
+@import url("components/avatar.css");
+@import url("components/badge.css");
+@import url("components/progress.css");
+@import url("components/stat-card.css");
+@import url("components/banner.css");
+@import url("components/check.css");
+@import url("components/meter.css");
+@import url("components/decision-list.css");
+@import url("components/proposal.css");
+@import url("components/outcome.css");
+@import url("components/option-card.css");
+@import url("components/score-row.css");
+@import url("components/decision-panel.css");
+@import url("components/day-tabs.css");
+@import url("components/timeline.css");
+@import url("components/map.css");
+@import url("components/idea-card.css");
+@import url("components/expense.css");
+
+@import url("pages/trips.css");
+@import url("pages/new-trip.css");
+@import url("pages/overview.css");
+@import url("pages/decisions.css");
+@import url("pages/planning.css");
+@import url("pages/itinerary.css");
+@import url("pages/money.css");
+@import url("pages/styleguide.css");
+@import url("pages/join.css");
+@import url("pages/share.css");

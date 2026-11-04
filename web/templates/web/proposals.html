@@ -1,0 +1,90 @@
+{% extends "web/base.html" %}
+
+{% block title %}Proposals &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Organizer &middot; {{ proposals.pending|length }} waiting</p>
+    <h1 class="page-head__title">What the group suggested.</h1>
+    <p class="page-head__lede">
+      Approve what should go to a vote and say why you turned the rest down.
+      Approved ideas join the scoring; rejected ones stay visible, so nobody
+      wonders what happened to theirs.
+    </p>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <div class="stack">
+        {% for item in proposals.pending %}
+          <article class="proposal">
+            <div>
+              <p class="proposal__who">
+                <span class="avatar avatar--sm">{{ item.by|slice:":2"|upper }}</span>
+                {{ item.by }} &middot; {{ item.when }}
+              </p>
+              <h2 class="proposal__title">{{ item.name }}</h2>
+              <p class="proposal__meta">{{ item.meta }}</p>
+              <p class="proposal__blurb">{{ item.blurb }}</p>
+            </div>
+            <div class="proposal__actions">
+              <button class="btn" type="button">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+                Approve
+              </button>
+              <button class="btn btn--ghost" type="button">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg>
+                Reject
+              </button>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <div class="section-head flow-xl">
+        <h2>Already decided</h2>
+      </div>
+      <div class="card"><div class="card__body">
+        {% for item in proposals.decided %}
+          <div class="verdict-row">
+            <span class="badge badge--{% if item.state == 'approved' %}ok{% else %}warn{% endif %}">
+              {{ item.state|capfirst }}
+            </span>
+            <span class="verdict-row__body">
+              <span class="verdict-row__name">{{ item.name }}</span>
+              <span class="verdict-row__note">
+                {{ item.kind }} &middot; {{ item.by }} &middot; {{ item.note }}
+              </span>
+            </span>
+          </div>
+        {% endfor %}
+      </div></div>
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">A short list scores better.</p>
+          <p class="organizer-note__body">
+            Everyone scores every approved activity from 1 to 5. Four or five
+            proposals is about as much as a group will rate honestly.
+          </p>
+        </div>
+      </div>
+
+      <div class="rail-note">
+        <h2 class="rail-note__title">Rejecting isn&rsquo;t deleting.</h2>
+        <p class="rail-note__body">
+          A rejected proposal stays on this page with your reason against it.
+          The person who suggested it can edit and propose it again while
+          voting is open.
+        </p>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

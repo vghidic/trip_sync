@@ -1,0 +1,105 @@
+{% extends "web/base.html" %}
+
+{% comment %}
+Shell for every step of the create-a-trip flow: breadcrumb, heading, the
+stepper and the running summary. A step template only fills in `fields`.
+{% endcomment %}
+
+{% block title %}{{ step.title }} &middot; New trip{% endblock %}
+
+{% block content %}
+  <div class="crumbs">
+    <div class="crumbs__trail">
+      <a class="crumbs__back" href="{% url 'web:trips' %}" aria-label="Back to your trips">
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+      </a>
+      <a class="crumbs__link" href="{% url 'web:trips' %}">Your trips</a>
+      <span class="crumbs__sep" aria-hidden="true">/</span>
+      <span class="crumbs__current">New trip</span>
+    </div>
+  </div>
+
+  <div class="new-trip__head">
+    <p class="eyebrow">New trip &middot; Step {{ step_number }} of {{ step_total }}</p>
+    <h1 class="new-trip__title">{{ step.title }}</h1>
+    <p class="new-trip__lede">{{ step.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div class="card new-trip__form">
+
+      <nav class="stepper new-trip__stepper" aria-label="Progress">
+        {% for item in steps %}
+          <a class="stepper__step{% if item.is_done %} is-done{% endif %}{% if item.is_current %} is-current{% endif %}"
+             href="{% url 'web:new_trip_step' item.slug %}"
+             {% if item.is_current %}aria-current="step"{% endif %}>
+            <span class="stepper__bar"></span>
+            <span class="stepper__label">{{ item.label }}</span>
+          </a>
+        {% endfor %}
+      </nav>
+
+      <form method="post"
+            action="{% url 'web:new_trip_step' step.slug %}"
+            novalidate>
+        {% csrf_token %}
+
+        {% block fields %}{% endblock %}
+
+        <div class="step-actions">
+          {% if prev_slug %}
+            <a class="step-actions__back" href="{% url 'web:new_trip_step' prev_slug %}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              Back
+            </a>
+          {% else %}
+            <a class="step-actions__back" href="{% url 'web:trips' %}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              Cancel
+            </a>
+          {% endif %}
+          <button class="btn" type="submit">
+            {{ step.next }}
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="card"><div class="card__body">
+        <h2 class="draft__title">Your trip so far</h2>
+        <ul class="draft__list">
+          {% for item in summary %}
+            <li class="draft__item{% if not item.filled %} is-pending{% endif %}">
+              <svg class="icon icon--sm draft__mark" aria-hidden="true">
+                <use href="{% if item.filled %}#i-check-circle{% else %}#i-circle{% endif %}"></use>
+              </svg>
+              <span>
+                <span class="draft__label">{{ item.label }}</span>
+                <span class="draft__value">
+                  {% if item.filled %}{{ item.value }}{% else %}{{ item.pending }}{% endif %}
+                </span>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div></div>
+
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+          <use href="#i-info"></use>
+        </svg>
+        <div>
+          <p class="organizer-note__title">You&rsquo;ll be the organizer.</p>
+          <p class="organizer-note__body">
+            That means you set the dates and the budget, invite people, approve
+            proposals and close the voting. Everything else the group decides
+            together.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

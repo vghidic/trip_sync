@@ -1,0 +1,116 @@
+/* One activity in the generated itinerary, with the reason it is in or out
+   (FR-22). Reads as a plan when included, as an explanation when not. */
+
+.outcome {
+    display: grid;
+    grid-template-columns: 64px auto minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.outcome + .outcome {
+    margin-top: var(--s-3);
+}
+
+.outcome--out {
+    background: none;
+    border-style: dashed;
+    box-shadow: none;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.outcome__time {
+    padding-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.outcome__name {
+    font-size: var(--t-display-s);
+}
+
+.outcome__meta {
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.outcome__reason {
+    display: flex;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: var(--border);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+    line-height: var(--lh-snug);
+}
+
+.outcome--out .outcome__reason {
+    color: var(--c-muted);
+}
+
+.outcome__score {
+    text-align: right;
+}
+
+.outcome__score-value {
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-s);
+    font-weight: 600;
+}
+
+.outcome__score-label {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+/* Heading above a group of outcomes. */
+.outcome-group + .outcome-group {
+    margin-top: var(--s-7);
+}
+
+.outcome-group__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-4);
+}
+
+.outcome-group__title {
+    font-size: var(--t-display-m);
+}
+
+@media (max-width: 720px) {
+    .outcome,
+    .outcome--out {
+        grid-template-columns: auto minmax(0, 1fr);
+        padding: var(--s-4);
+    }
+
+    .outcome__time {
+        grid-column: 1 / -1;
+        padding-top: 0;
+    }
+
+    .outcome__score {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .outcome__reason {
+        grid-column: 1 / -1;
+    }
+}

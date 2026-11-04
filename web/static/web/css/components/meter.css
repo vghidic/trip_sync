@@ -1,0 +1,44 @@
+/* A continuous bar for a quantity against a ceiling: budget used, hours
+   planned. Unlike `.segments`, which counts discrete votes or decisions. */
+
+.meter__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-3);
+}
+
+.meter__label {
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.meter__value {
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.meter__track {
+    height: 6px;
+    margin-top: var(--s-3);
+    border-radius: var(--r-pill);
+    background: var(--c-line-strong);
+    overflow: hidden;
+}
+
+.meter__fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--r-pill);
+    background: var(--c-primary);
+}
+
+.meter__note {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}

@@ -1,0 +1,59 @@
+/* Full-width informational strips. */
+
+.banner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-sand);
+    border-radius: var(--r-lg);
+}
+
+.banner__icon {
+    flex: none;
+    color: var(--c-muted);
+}
+
+.banner__title {
+    display: block;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.banner__note {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+/* Clickable nudge towards an open decision. */
+.banner--nudge {
+    background: var(--c-primary-soft);
+    color: inherit;
+}
+
+.banner--nudge:hover {
+    text-decoration: none;
+    filter: brightness(0.98);
+}
+
+.banner--nudge .banner__title {
+    color: var(--c-primary);
+    font-weight: 500;
+}
+
+.banner--nudge .banner__note {
+    color: var(--c-primary);
+}
+
+.banner__arrow {
+    margin-left: auto;
+    flex: none;
+    color: var(--c-primary);
+}
+
+.banner__body {
+    min-width: 0;
+}

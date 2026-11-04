@@ -1,0 +1,82 @@
+/* Progress through a multi-step flow. Reads like the segmented decision bar
+   elsewhere in the app, with a label under each segment. */
+
+.stepper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: var(--s-3);
+}
+
+.stepper__step {
+    display: block;
+    color: inherit;
+}
+
+.stepper__step:hover {
+    text-decoration: none;
+}
+
+.stepper__bar {
+    display: block;
+    height: 5px;
+    border-radius: var(--r-pill);
+    background: var(--c-line-strong);
+}
+
+.stepper__step.is-done .stepper__bar,
+.stepper__step.is-current .stepper__bar {
+    background: var(--c-primary);
+}
+
+.stepper__label {
+    display: block;
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.stepper__step.is-current .stepper__label {
+    color: var(--c-primary);
+    font-weight: 600;
+}
+
+/* Back / continue row at the foot of a step. */
+.step-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-top: var(--s-7);
+    padding-top: var(--s-5);
+    border-top: var(--border);
+}
+
+.step-actions__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.step-actions__back:hover {
+    color: var(--c-ink);
+    text-decoration: none;
+}
+
+@media (max-width: 720px) {
+    .stepper__label {
+        display: none;
+    }
+
+    .step-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: var(--s-3);
+    }
+
+    .step-actions__back {
+        justify-content: center;
+    }
+}

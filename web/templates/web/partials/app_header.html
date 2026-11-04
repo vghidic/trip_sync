@@ -1,0 +1,31 @@
+{% comment %}Top bar. `nav_section` marks the active primary destination.{% endcomment %}
+<header class="app-header">
+  <div class="app-header__inner">
+    <a class="brand" href="{% url 'web:trips' %}">Trip Sync</a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a class="main-nav__item{% if nav_section == 'trips' %} is-active{% endif %}"
+         href="{% url 'web:trips' %}">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-compass"></use></svg>
+        Trips
+      </a>
+      <a class="main-nav__item{% if nav_section == 'inbox' %} is-active{% endif %}" href="#">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-chat"></use></svg>
+        Inbox
+      </a>
+      <a class="main-nav__item{% if nav_section == 'you' %} is-active{% endif %}" href="#">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-circle"></use></svg>
+        You
+      </a>
+    </nav>
+
+    <div class="app-header__actions">
+      <button class="icon-button" type="button" aria-label="Notifications">
+        <svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg>
+      </button>
+      <span class="avatar avatar--me" title="{{ user_profile.name }}">
+        {{ user_profile.initials }}
+      </span>
+    </div>
+  </div>
+</header>

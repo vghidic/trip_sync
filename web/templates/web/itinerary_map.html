@@ -1,0 +1,101 @@
+{% extends "web/base.html" %}
+
+{% block title %}Map &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ itinerary.eyebrow }}</p>
+    <h1 class="page-head__title">Where the weekend happens.</h1>
+    <p class="page-head__lede">
+      {{ map.day }} &middot; {{ map.note }} The dotted line is the order, not
+      a route to follow turn by turn.
+    </p>
+  </div>
+
+  {% include "web/partials/itinerary_actions.html" %}
+
+  <div class="split">
+    <div>
+      <div class="map">
+        {% include "web/partials/map_lisbon.html" with show_base=True %}
+
+        <div class="map__foot">
+          <div class="map__key">
+            <span class="map__key-item">
+              <span class="map__mark map__mark--base">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-bed"></use></svg>
+              </span>
+              Where you&rsquo;re staying
+            </span>
+            <span class="map__key-item">
+              <span class="map__mark">1</span>
+              Stops, in order
+            </span>
+            <span class="map__key-item">
+              <span class="map__mark map__mark--route"></span>
+              The day&rsquo;s route
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <p class="footnote flow-sm">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        {{ map.caveat }}
+      </p>
+    </div>
+
+    <aside class="split__rail">
+      <div class="card"><div class="card__body">
+
+        <div class="map-stop">
+          <span class="map-stop__pin map-stop__pin--base">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-bed"></use></svg>
+          </span>
+          <span>
+            <span class="map-stop__time">{{ map.base.label }}</span>
+            <span class="map-stop__name">{{ map.base.name }}</span>
+            <span class="map-stop__meta">{{ map.base.meta }}</span>
+          </span>
+        </div>
+
+        {% for stop in map.stops %}
+          <p class="map-leg">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            {{ stop.leg }}
+          </p>
+          <div class="map-stop">
+            <span class="map-stop__pin">{{ stop.pin }}</span>
+            <span>
+              <span class="map-stop__time">{{ stop.time }}</span>
+              <span class="map-stop__name">{{ stop.name }}</span>
+              <span class="map-stop__meta">{{ stop.meta }}</span>
+            </span>
+          </div>
+        {% endfor %}
+
+        <p class="map-leg">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          {{ map.back }}
+        </p>
+
+        <hr class="divider">
+
+        <div class="row row--wrap">
+          {% for total in map.totals %}
+            <span class="strip__item">
+              <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-{{ total.icon }}"></use></svg>
+              <span>
+                <span class="strip__label">{{ total.label }}</span>
+                <span class="strip__value">{{ total.value }}</span>
+              </span>
+            </span>
+          {% endfor %}
+        </div>
+
+      </div></div>
+    </aside>
+  </div>
+{% endblock %}

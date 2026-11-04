@@ -1,0 +1,116 @@
+{% extends "web/base.html" %}
+
+{% block title %}Money &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">{{ trip.destination }} &middot; {{ trip.dates }}</p>
+    <h1 class="page-head__title">What it&rsquo;s cost so far.</h1>
+    <p class="page-head__lede">
+      Five things have been paid for between you. Nothing has moved between
+      anyone yet &mdash; this is just the running total.
+    </p>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <div class="money__meters">
+        <div class="meter">
+          <div class="meter__head">
+            <span class="meter__label">Spent of the budget</span>
+            <span class="meter__value">{{ money.spent }} of {{ money.budget }}</span>
+          </div>
+          <div class="meter__track">
+            <span class="meter__fill" style="width: {{ money.spent_pct }}%"></span>
+          </div>
+          <p class="meter__note">{{ money.remaining }}</p>
+        </div>
+        <div class="meter">
+          <div class="meter__head">
+            <span class="meter__label">Your share so far</span>
+            <span class="meter__value">
+              {{ money.your_share }} of {{ money.your_budget }}
+            </span>
+          </div>
+          <div class="meter__track">
+            <span class="meter__fill" style="width: {{ money.your_share_pct }}%"></span>
+          </div>
+          <p class="meter__note">{{ money.your_share_note }}</p>
+        </div>
+      </div>
+
+      <div class="money__head">
+        <h2>Everything paid for</h2>
+        <a class="btn btn--ghost btn--sm" href="{% url 'web:expense_new' trip.slug %}">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+          Add an expense
+        </a>
+      </div>
+
+      <div class="card card--flat">
+        {% for item in expenses %}
+          <div class="expense">
+            <span class="expense__icon">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-{{ item.icon }}"></use></svg>
+            </span>
+            <span>
+              <span class="expense__name">{{ item.name }}</span>
+              <span class="expense__meta">
+                <span class="expense__by">
+                  <span class="avatar avatar--sm">{{ item.initials }}</span>
+                  {{ item.by }} paid
+                </span>
+                <span class="{% if not item.everyone %}expense__split--part{% endif %}">
+                  {{ item.split }}
+                </span>
+                <span>{{ item.date }}</span>
+              </span>
+            </span>
+            <span class="expense__amount">{{ item.amount }}</span>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+
+      <div class="card card--tint figure">
+        <p class="figure__label">{{ money.position.label }}</p>
+        <p class="figure__amount">{{ money.position.amount }}</p>
+        <p class="figure__note">{{ money.position.note }}</p>
+        <a class="btn btn--spread figure__cta"
+           href="{% url 'web:balances' trip.slug %}">
+          See who owes whom
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+      </div>
+
+      <div class="card"><div class="card__body">
+        <h2 class="draft__title">Put in so far</h2>
+        <div class="flow-sm">
+          {% for person in money.paid_so_far %}
+            <div class="paid-row">
+              <span class="avatar avatar--sm{% if person.is_me %} avatar--me{% endif %}">
+                {{ person.initials }}
+              </span>
+              <span class="paid-row__name">
+                {% if person.is_me %}You{% else %}{{ person.name }}{% endif %}
+              </span>
+              <span class="paid-row__amount">{{ person.amount }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div></div>
+
+      <p class="footnote">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        {{ money.disclaimer }}
+      </p>
+
+    </aside>
+  </div>
+{% endblock %}

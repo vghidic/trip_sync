@@ -1,0 +1,78 @@
+{% extends "web/base.html" %}
+
+{% block title %}Close the vote &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Organizer &middot; This cannot be undone</p>
+    <h1 class="page-head__title">{{ close.title }}</h1>
+    <p class="page-head__lede">{{ close.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div class="confirm">
+      <div class="card"><div class="card__body">
+
+        <p class="vote-progress__count">
+          {{ close.voted }} of {{ close.voters }} people voted
+        </p>
+        <div class="segments vote-progress__segments">
+          {% for filled in vote_progress %}
+            <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+          {% endfor %}
+        </div>
+        <p class="meta">
+          Still to vote: {{ close.outstanding|join:", " }} &middot; due
+          {{ close.due }}
+        </p>
+
+        <div class="confirm__effects">
+          {% for effect in close.effects %}
+            <p class="confirm__effect">
+              <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                <use href="#i-check-circle"></use>
+              </svg>
+              {{ effect }}
+            </p>
+          {% endfor %}
+        </div>
+
+        <form class="confirm__actions" method="post" action="">
+          {% csrf_token %}
+          <button class="btn" type="submit">
+            Close voting now
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+          </button>
+          <a class="step-actions__back" href="{% url 'web:decisions' trip.slug %}">
+            Leave it open
+          </a>
+        </form>
+
+      </div></div>
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">Why it locks</p>
+          <p class="organizer-note__body">
+            The itinerary is worked out from the scores as they stand. If they
+            could still change, the plan everyone agreed to would quietly
+            become a different plan.
+          </p>
+        </div>
+      </div>
+
+      <div class="rail-note">
+        <h2 class="rail-note__title">In no hurry?</h2>
+        <p class="rail-note__body">
+          Nudge the two who haven&rsquo;t voted instead. An activity nobody
+          scored is left out of the build entirely.
+        </p>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% comment %}
+Breadcrumb + the three trip tabs. Expects `trip` and `active_tab`
+(one of overview / decisions / itinerary).
+{% endcomment %}
+<div class="crumbs">
+  <div class="crumbs__trail">
+    <a class="crumbs__back" href="{% url 'web:trips' %}" aria-label="Back to your trips">
+      <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+    </a>
+    <a class="crumbs__link" href="{% url 'web:trips' %}">Your trips</a>
+    <span class="crumbs__sep" aria-hidden="true">/</span>
+    <span class="crumbs__current">{{ trip.name }}</span>
+  </div>
+  <button class="crumbs__more" type="button" aria-label="Trip options">&hellip;</button>
+</div>
+
+<nav class="tabs" aria-label="Trip sections">
+  <a class="tabs__item{% if active_tab == 'overview' %} is-active{% endif %}"
+     href="{% url 'web:trip_overview' trip.slug %}">Overview</a>
+  <a class="tabs__item{% if active_tab == 'decisions' %} is-active{% endif %}"
+     href="{% url 'web:decisions' trip.slug %}">Decisions</a>
+  <a class="tabs__item{% if active_tab == 'itinerary' %} is-active{% endif %}"
+     href="{% url 'web:itinerary' trip.slug %}">Itinerary</a>
+  <a class="tabs__item{% if active_tab == 'money' %} is-active{% endif %}"
+     href="{% url 'web:money' trip.slug %}">Money</a>
+</nav>

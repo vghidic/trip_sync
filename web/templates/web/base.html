@@ -1,0 +1,30 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Trip Sync{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'web/css/main.css' %}">
+</head>
+<body>
+  {% include "web/partials/icons.html" %}
+
+  <div class="app">
+    {% comment %}
+    Screens reached from outside the app - an invite link, signing in - have
+    no nav to show, so they override these two blocks.
+    {% endcomment %}
+    {% block chrome_top %}
+      {% include "web/partials/app_header.html" %}
+    {% endblock %}
+
+    <main class="{% block page_class %}page{% endblock %}">
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block chrome_bottom %}
+      {% include "web/partials/tab_bar.html" %}
+    {% endblock %}
+  </div>
+</body>
+</html>

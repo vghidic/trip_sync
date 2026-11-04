@@ -1,0 +1,338 @@
+/* Form controls. */
+
+.field + .field,
+.field + .field-pair,
+.field-pair + .field,
+.field-pair + .field-pair,
+.field + .fieldset {
+    margin-top: var(--s-5);
+}
+
+.field__label {
+    display: block;
+    margin-bottom: var(--s-2);
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.field__hint {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+.field__optional {
+    margin-left: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    font-weight: 400;
+}
+
+.input,
+.textarea,
+.select {
+    width: 100%;
+    padding: var(--s-3) var(--s-4);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-md);
+    color: var(--c-ink);
+    font-family: inherit;
+    font-size: var(--t-md);
+    line-height: 1.4;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: var(--c-faint);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: var(--focus-ring);
+}
+
+.textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+.select {
+    appearance: none;
+    padding-right: var(--s-8);
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--c-muted) 50%),
+        linear-gradient(135deg, var(--c-muted) 50%, transparent 50%);
+    background-position:
+        right 20px center,
+        right 14px center;
+    background-size:
+        6px 6px,
+        6px 6px;
+    background-repeat: no-repeat;
+}
+
+/* A select tucked into the end of an input, for a unit that belongs to the
+   number beside it - the trip currency against the budget. It reads as one
+   control: the border is the group's, not the select's. */
+.input-group__select {
+    flex: none;
+    align-self: stretch;
+    padding: 0 var(--s-7) 0 var(--s-3);
+    border: 0;
+    border-left: 1px solid var(--c-line);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    background-color: transparent;
+    color: var(--c-body);
+    font-family: inherit;
+    font-size: var(--t-sm);
+    cursor: pointer;
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--c-muted) 50%),
+        linear-gradient(135deg, var(--c-muted) 50%, transparent 50%);
+    background-position:
+        right 16px center,
+        right 10px center;
+    background-size:
+        6px 6px,
+        6px 6px;
+    background-repeat: no-repeat;
+}
+
+.input-group__select:hover {
+    background-color: var(--c-sand-soft);
+}
+
+.input-group__select:focus {
+    outline: none;
+    background-color: var(--c-sand-soft);
+}
+
+/* Input with a fixed prefix or suffix, e.g. a currency sign. */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-md);
+}
+
+.input-group:focus-within {
+    border-color: var(--c-primary);
+    box-shadow: var(--focus-ring);
+}
+
+.input-group__affix {
+    display: grid;
+    place-items: center;
+    padding: 0 var(--s-4);
+    color: var(--c-muted);
+    font-size: var(--t-md);
+}
+
+.input-group__affix + .input,
+.input-group .input + .input-group__affix {
+    border: 0;
+    padding-left: 0;
+}
+
+.input-group .input {
+    border: 0;
+    background: none;
+}
+
+.input-group .input:focus {
+    box-shadow: none;
+}
+
+/* Two fields side by side (a date range, an amount and a count). */
+.field-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-4);
+}
+
+.field-pair .field + .field {
+    margin-top: 0;
+}
+
+/* Grouped fields with their own heading. */
+.fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.fieldset__legend {
+    padding: 0;
+    margin-bottom: var(--s-2);
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+/* Segmented choice: a row of radio buttons drawn as cards. */
+.choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: var(--s-3);
+}
+
+.choice {
+    position: relative;
+}
+
+.choice input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.choice__face {
+    display: block;
+    padding: var(--s-3) var(--s-4);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-md);
+    text-align: center;
+    cursor: pointer;
+}
+
+.choice__value {
+    display: block;
+    color: var(--c-ink);
+    font-size: var(--t-md);
+    font-weight: 600;
+}
+
+.choice__note {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.choice input:checked + .choice__face {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+}
+
+.choice input:checked + .choice__face .choice__value,
+.choice input:checked + .choice__face .choice__note {
+    color: var(--c-on-primary);
+}
+
+.choice input:focus-visible + .choice__face {
+    box-shadow: var(--focus-ring);
+}
+
+/* A value the app works out from what was typed above. */
+.derived {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+}
+
+/* ---- chips: the people invited so far ---- */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-2) var(--s-2) var(--s-3);
+    background: var(--c-sand);
+    border-radius: var(--r-pill);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.chip__remove {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: var(--r-pill);
+    color: var(--c-muted);
+}
+
+.chip__remove:hover {
+    background: var(--c-line-strong);
+    color: var(--c-ink);
+}
+
+/* Row of an input and the button that acts on it. */
+.input-row {
+    display: flex;
+    gap: var(--s-3);
+}
+
+.input-row .input,
+.input-row .input-group {
+    flex: 1;
+}
+
+/* A read-only value to copy, e.g. the invite link. */
+.copy-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-4);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+}
+
+.copy-row__value {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+@media (max-width: 720px) {
+    .field-pair {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .field-pair .field + .field {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 720px) {
+    .choices {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--s-2);
+    }
+
+    .choice__face {
+        padding: var(--s-3) var(--s-2);
+    }
+
+    .choice__value {
+        font-size: var(--t-sm);
+    }
+}

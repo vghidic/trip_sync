@@ -1,0 +1,207 @@
+/* Expenses, balances and the payments that settle them. */
+
+.expense {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: center;
+    padding: var(--s-4) var(--s-5);
+    border-top: var(--border);
+}
+
+.expense:first-child {
+    border-top: 0;
+}
+
+.expense__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background: var(--c-sand);
+    color: var(--c-body);
+}
+
+.expense__name {
+    display: block;
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-lg);
+    font-weight: 600;
+}
+
+.expense__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-1) var(--s-3);
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.expense__by {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+}
+
+/* A split that is not "everyone" is worth pointing at. */
+.expense__split--part {
+    color: var(--c-primary);
+}
+
+.expense__amount {
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-s);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ---- where everyone stands ---- */
+
+.balance {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-3) 0;
+    border-top: var(--border);
+}
+
+.balance:first-child {
+    border-top: 0;
+}
+
+.balance__name {
+    display: block;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.balance__note {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.balance__amount {
+    font-size: var(--t-md);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.balance__amount--up {
+    color: var(--c-ok-fg);
+}
+
+.balance__amount--down {
+    color: var(--c-warn-fg);
+}
+
+/* ---- the shortest way to settle ---- */
+
+.settle {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.settle + .settle {
+    margin-top: var(--s-3);
+}
+
+/* Your own payment is the one you came here for. */
+.settle.is-mine {
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 1px var(--c-primary);
+}
+
+.settle__who {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.settle__arrow {
+    color: var(--c-muted);
+}
+
+.settle__amount {
+    margin-left: auto;
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-s);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ---- the one number you look for ---- */
+
+.figure {
+    padding: var(--s-5) var(--s-6) var(--s-6);
+}
+
+.figure__label {
+    color: var(--c-primary);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.figure__amount {
+    margin-top: var(--s-2);
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: var(--t-display-l);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.figure__note {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.figure__cta {
+    margin-top: var(--s-5);
+}
+
+@media (max-width: 720px) {
+    .expense {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--s-3);
+        padding: var(--s-4);
+    }
+
+    .expense__amount {
+        grid-column: 2;
+        font-size: var(--t-lg);
+    }
+
+    .settle {
+        flex-wrap: wrap;
+        padding: var(--s-4);
+    }
+
+    .settle__amount {
+        width: 100%;
+        margin-left: 0;
+        margin-top: var(--s-2);
+    }
+}

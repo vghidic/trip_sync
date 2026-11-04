@@ -1,0 +1,131 @@
+/* Trip overview. */
+
+.overview__hero {
+    border-radius: var(--r-lg);
+}
+
+.friends-card {
+    margin-top: var(--s-5);
+}
+
+.friends-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+}
+
+.friends-card__label {
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.friends-card__invite {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.overview__then {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-5);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+/* ---- rail ---- */
+
+.progress-block__title {
+    font-size: var(--t-display-m);
+}
+
+.progress-block__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+}
+
+.progress-block__count {
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.progress-block__segments {
+    margin-top: var(--s-4);
+}
+
+.progress-block__note {
+    margin-top: var(--s-4);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.next-decision {
+    padding: var(--s-5);
+}
+
+.next-decision__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+}
+
+.next-decision__label {
+    color: var(--c-primary);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.next-decision__due {
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.next-decision__icon {
+    margin: var(--s-5) 0 var(--s-3);
+    color: var(--c-primary);
+}
+
+.next-decision__title {
+    font-size: var(--t-display-m);
+}
+
+.next-decision__meta {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.next-decision__cta {
+    margin-top: var(--s-5);
+}
+
+.agreed__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+}
+
+.agreed__title {
+    font-size: var(--t-display-m);
+}
+
+.agreed__body {
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}

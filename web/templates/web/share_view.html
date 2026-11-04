@@ -1,0 +1,92 @@
+{% extends "web/base.html" %}
+
+{% comment %}
+What a visitor sees (FR-26). Deliberately plain: no nav, nothing to click,
+and no `timeline__meta` line anywhere - that is where the names live, and
+R-06 keeps them out of this page.
+{% endcomment %}
+
+{% block title %}{{ shared.destination }} &middot; {{ shared.dates }}{% endblock %}
+
+{% block chrome_top %}
+  <header class="share-header">
+    <span class="brand">Trip Sync</span>
+    <span class="badge">Read-only</span>
+  </header>
+{% endblock %}
+
+{% block chrome_bottom %}{% endblock %}
+
+{% block page_class %}join-body{% endblock %}
+
+{% block content %}
+  <article class="share-view">
+
+    <header class="share-view__hero">
+      <div class="photo photo--{{ shared.photo }} photo--wide">
+        <span class="badge badge--place photo__chip">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+          {{ shared.country }}
+        </span>
+      </div>
+      <h1 class="share-view__place">{{ shared.destination }}</h1>
+      <p class="share-view__dates">
+        {{ shared.dates }} &middot; {{ shared.summary }}
+      </p>
+    </header>
+
+    {% for day in shared.days %}
+      <section class="share-view__day">
+        <div class="share-view__day-head">
+          <h2 class="share-view__day-title">{{ day.title }}</h2>
+          <span class="share-view__day-note">{{ day.note }}</span>
+        </div>
+
+        <div class="timeline">
+          {% for entry in day.entries %}
+            <div class="timeline__entry">
+              <div class="timeline__time">{{ entry.time }}</div>
+              <div class="timeline__card">
+                <div>
+                  <h3 class="timeline__title">{{ entry.title }}</h3>
+                  <p class="timeline__place">{{ entry.place }}</p>
+                </div>
+                <svg class="icon icon--lg timeline__icon" aria-hidden="true">
+                  <use href="#i-{{ entry.icon }}"></use>
+                </svg>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if day.map %}
+          {% comment %}
+          The stay is deliberately not drawn here - see the map partial.
+          {% endcomment %}
+          <div class="map share-view__map">
+            {% include "web/partials/map_lisbon.html" with show_base=False %}
+            <div class="map__foot">
+              <div class="map__key">
+                <span class="map__key-item">
+                  <span class="map__mark">1</span>
+                  Stops, in order
+                </span>
+                <span class="map__key-item">
+                  <span class="map__mark map__mark--route"></span>
+                  The day&rsquo;s route
+                </span>
+              </div>
+            </div>
+          </div>
+          <p class="share-view__map-note">{{ day.map_caption }}</p>
+        {% endif %}
+      </section>
+    {% endfor %}
+
+    <p class="share-view__foot">
+      <svg class="icon icon--sm icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+      {{ shared.foot }}
+    </p>
+
+  </article>
+{% endblock %}

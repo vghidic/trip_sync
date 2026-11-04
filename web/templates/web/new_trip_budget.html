@@ -1,0 +1,38 @@
+{% extends "web/new_trip_base.html" %}
+
+{% block fields %}
+  <div class="field-pair">
+    <div class="field">
+      <label class="field__label" for="trip-budget">Total budget</label>
+      {% comment %}
+      The currency rides inside the amount field: it is a property of the
+      number next to it, not a separate decision to make.
+      {% endcomment %}
+      <div class="input-group">
+        <input class="input" id="trip-budget" name="budget" type="text"
+               inputmode="numeric" value="{{ draft.budget }}">
+        <select class="input-group__select" id="trip-currency" name="currency"
+                aria-label="Currency">
+          {% for option in draft.currencies %}
+            <option{% if forloop.first %} selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="trip-size">Number of people</label>
+      <input class="input" id="trip-size" name="group_size" type="text"
+             inputmode="numeric" value="{{ draft.group_size }}">
+    </div>
+  </div>
+
+  {% comment %}
+  The budget divided by the people above it - the number anyone actually
+  reacts to, shown where they are typing the one it comes from.
+  {% endcomment %}
+  <p class="derived">
+    <svg class="icon icon--sm" aria-hidden="true"><use href="#i-wallet"></use></svg>
+    {{ draft.per_person }}
+  </p>
+{% endblock %}

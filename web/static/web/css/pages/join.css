@@ -1,0 +1,226 @@
+/* Arriving from an invite link.
+
+   Reached from outside the app by someone who may not have an account yet,
+   so there is no nav: just the trip, and the one thing to do about it. */
+
+.join-header {
+    padding: var(--s-6) var(--page-pad);
+}
+
+.join-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--s-4) var(--page-pad) var(--s-10);
+}
+
+.join {
+    width: 100%;
+    max-width: 980px;
+}
+
+.join__head {
+    max-width: 34ch;
+    margin-bottom: var(--s-7);
+}
+
+.join__title {
+    margin-top: var(--s-3);
+    font-size: var(--t-display-l);
+}
+
+.join__lede {
+    margin-top: var(--s-3);
+    color: var(--c-muted);
+}
+
+.join__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: var(--s-7);
+    align-items: start;
+}
+
+/* ---- the trip, as a stranger sees it ---- */
+
+.join__preview {
+    overflow: hidden;
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.join__preview .photo {
+    border-radius: 0;
+}
+
+.join__preview-body {
+    padding: var(--s-5);
+}
+
+.join__inviter {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding-bottom: var(--s-4);
+    margin-bottom: var(--s-4);
+    border-bottom: var(--border);
+}
+
+.join__inviter-text {
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.join__inviter-text strong {
+    color: var(--c-ink);
+}
+
+.join__facts {
+    display: grid;
+    gap: var(--s-4);
+}
+
+.join__fact {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+}
+
+.join__fact-label {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.join__fact-value {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.join__fact-note {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.join__people {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding-top: var(--s-4);
+    margin-top: var(--s-4);
+    border-top: var(--border);
+}
+
+/* ---- the form ---- */
+
+.join__panel {
+    padding: var(--s-6);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.join__panel-title {
+    font-size: var(--t-display-s);
+    margin-bottom: var(--s-5);
+}
+
+.join__submit {
+    margin-top: var(--s-6);
+}
+
+.join__alt {
+    margin-top: var(--s-4);
+    text-align: center;
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.join__terms {
+    margin-top: var(--s-5);
+    padding-top: var(--s-4);
+    border-top: var(--border);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+/* ---- a link that no longer works ---- */
+
+.join--dead {
+    max-width: 560px;
+}
+
+.join__dead-steps {
+    margin-top: var(--s-5);
+}
+
+.join__dead-step {
+    display: flex;
+    gap: var(--s-3);
+    padding: var(--s-3) 0;
+    border-top: var(--border);
+    color: var(--c-body);
+    font-size: var(--t-sm);
+}
+
+.join__dead-step:first-child {
+    border-top: 0;
+}
+
+/* ---- just joined ---- */
+
+.join--welcome {
+    max-width: 640px;
+    text-align: center;
+}
+
+.join--welcome .join__head {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.join__avatars {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--s-6);
+}
+
+.join__waiting {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    text-align: left;
+}
+
+.join__welcome-cta {
+    margin-top: var(--s-6);
+}
+
+@media (max-width: 900px) {
+    .join__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .join__panel {
+        padding: var(--s-5);
+    }
+
+    .join-body {
+        align-items: flex-start;
+        padding-top: var(--s-2);
+    }
+}

@@ -1,0 +1,142 @@
+/* Image slots.
+
+   The prototype ships without photographs, so each slot falls back to a
+   gradient keyed to the subject. To use a real picture, drop the file into
+   web/static/web/img/ and override the one rule you need, e.g.
+
+       .photo--lisbon { background-image: url("../img/lisbon.jpg"); }
+
+   Nothing else has to change: the sizing, radius and overlay all live here. */
+
+.photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background-color: var(--c-sand);
+    background-size: cover;
+    background-position: center;
+}
+
+.photo > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---- aspect ratios ---- */
+.photo--wide {
+    aspect-ratio: 16 / 9;
+}
+.photo--landscape {
+    aspect-ratio: 4 / 3;
+}
+.photo--hero {
+    aspect-ratio: 16 / 10;
+}
+.photo--square {
+    aspect-ratio: 1 / 1;
+}
+.photo--portrait {
+    aspect-ratio: 3 / 4;
+}
+
+/* ---- fixed thumbnails ---- */
+.photo--thumb {
+    width: 84px;
+    height: 64px;
+    flex: none;
+}
+
+.photo--thumb-lg {
+    width: 136px;
+    height: 92px;
+    flex: none;
+}
+
+/* Dark wash so a title can sit on top of the picture. */
+.photo--overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 6, 0) 35%,
+        rgba(10, 10, 6, 0.55) 100%
+    );
+}
+
+.photo__content {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 1;
+    padding: var(--s-6);
+    color: #fff;
+}
+
+.photo__title {
+    color: #fff;
+    font-size: var(--t-display-l);
+}
+
+.photo__sub {
+    margin-top: var(--s-1);
+    color: rgba(255, 255, 255, 0.86);
+    font-size: var(--t-md);
+}
+
+/* Chip floating over the top of a picture. */
+.photo__chip {
+    position: absolute;
+    z-index: 1;
+    top: var(--s-4);
+    left: var(--s-4);
+}
+
+.photo__chip--right {
+    left: auto;
+    right: var(--s-4);
+}
+
+/* ---- subject placeholders ---- */
+.photo--lisbon {
+    background-image: linear-gradient(150deg, #9fc6d9, #e4c7a4 55%, #c08a63);
+}
+.photo--porto {
+    background-image: linear-gradient(150deg, #a9c4cf, #d8bb93 55%, #9d6f4e);
+}
+.photo--seville {
+    background-image: linear-gradient(150deg, #cfd9c4, #e8c98d 55%, #b4793f);
+}
+.photo--margate {
+    background-image: linear-gradient(150deg, #bcd3dd, #efe0c4 60%, #cbb08a);
+}
+.photo--casa {
+    background-image: linear-gradient(160deg, #cdd8bd, #e6ddc6 55%, #a9b58f);
+}
+.photo--loft {
+    background-image: linear-gradient(160deg, #ded3c2, #f0e7d6 55%, #c3b096);
+}
+.photo--bairro {
+    background-image: linear-gradient(160deg, #d6d3c3, #ece6da 55%, #b3ab93);
+}
+.photo--alfama {
+    background-image: linear-gradient(150deg, #a8c7d6, #e0c5a2 55%, #bd8a64);
+}
+.photo--azulejo {
+    background-image: linear-gradient(150deg, #c9b79c, #e3d3b6 55%, #8f7a5c);
+}
+.photo--sail {
+    background-image: linear-gradient(150deg, #f0c98f, #e2a56a 55%, #7d93a6);
+}
+.photo--nata {
+    background-image: linear-gradient(150deg, #e8d5b3, #c9a173 55%, #8a6744);
+}
+.photo--van {
+    background-image: linear-gradient(150deg, #cdd7dc, #e6d9c2 55%, #a8907a);
+}
+.photo--taxi {
+    background-image: linear-gradient(150deg, #d9d2c2, #cbb79b 55%, #8d7d6a);
+}
+.photo--metro {
+    background-image: linear-gradient(150deg, #b8c3cb, #d7cdbd 55%, #8c6f63);
+}

@@ -1,0 +1,43 @@
+from django.urls import path
+
+from . import views
+
+app_name = 'web'
+
+urlpatterns = [
+    path('', views.trips, name='trips'),
+    path('styleguide/', views.styleguide, name='styleguide'),
+    path('share/expired/', views.share_expired, name='share_expired'),
+    path('share/<slug:token>/', views.share_view, name='share_view'),
+    path('join/expired/', views.join_expired, name='join_expired'),
+    path('join/<slug:token>/', views.join, name='join'),
+    path('join/<slug:token>/signin/', views.join, {'mode': 'signin'},
+         name='join_signin'),
+    path('join/<slug:token>/welcome/', views.join_welcome, name='join_welcome'),
+    path('trips/new/', views.new_trip, name='new_trip'),
+    path('trips/new/<slug:step>/', views.new_trip, name='new_trip_step'),
+    path('trips/<slug:slug>/', views.trip_overview, name='trip_overview'),
+    path('trips/<slug:slug>/expenses/', views.money, name='money'),
+    path('trips/<slug:slug>/expenses/new/',
+         views.expense_new, name='expense_new'),
+    path('trips/<slug:slug>/expenses/balances/',
+         views.balances, name='balances'),
+    path('trips/<slug:slug>/itinerary/', views.itinerary, name='itinerary'),
+    path('trips/<slug:slug>/itinerary/map/',
+         views.itinerary_map, name='itinerary_map'),
+    path('trips/<slug:slug>/itinerary/share/',
+         views.share_manage, name='share_manage'),
+    path('trips/<slug:slug>/itinerary/build/',
+         views.itinerary_build, name='itinerary_build'),
+    path('trips/<slug:slug>/decisions/', views.decisions, name='decisions'),
+    path('trips/<slug:slug>/decisions/propose/<slug:kind>/',
+         views.propose, name='propose'),
+    path('trips/<slug:slug>/decisions/proposals/',
+         views.proposals, name='proposals'),
+    path('trips/<slug:slug>/decisions/constraints/',
+         views.constraints, name='constraints'),
+    path('trips/<slug:slug>/decisions/<slug:decision_slug>/close/',
+         views.close_vote, name='close_vote'),
+    path('trips/<slug:slug>/decisions/<slug:decision_slug>/',
+         views.decision, name='decision'),
+]

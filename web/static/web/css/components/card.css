@@ -1,0 +1,88 @@
+/* The white surface every panel is built on, plus its tone variants. */
+
+.card {
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.card__body {
+    padding: var(--s-5);
+}
+
+.card--flat {
+    box-shadow: none;
+}
+
+.card--sand {
+    background: var(--c-sand);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.card--tint {
+    background: var(--c-primary-soft);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.card--primary {
+    background: var(--c-primary);
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.82);
+    box-shadow: none;
+}
+
+.card--primary h2,
+.card--primary h3 {
+    color: var(--c-on-primary);
+}
+
+/* A whole card that behaves as one link (trip rows, idea rows). */
+.card--link {
+    display: block;
+    color: inherit;
+    transition:
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.card--link:hover {
+    border-color: var(--c-line-strong);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+}
+
+/* Horizontal strip of labelled values (budget / time on the activities vote). */
+.strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-8);
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-sand);
+    border-radius: var(--r-lg);
+}
+
+.strip__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+}
+
+.strip__label {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.strip__value {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}

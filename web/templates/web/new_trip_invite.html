@@ -1,0 +1,56 @@
+{% extends "web/new_trip_base.html" %}
+
+{% block fields %}
+  <div class="field">
+    <label class="field__label" for="trip-invite">Invite by email</label>
+    <div class="input-row">
+      <input class="input" id="trip-invite" name="invite" type="email"
+             placeholder="name@example.com" autocomplete="off">
+      <button class="btn btn--ghost" type="button">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+        Add
+      </button>
+    </div>
+    <p class="field__hint">One at a time. They get an email with the link.</p>
+  </div>
+
+  <div class="field">
+    <span class="field__label">Invited so far</span>
+    <div class="chips">
+      <span class="chip">
+        <span class="avatar avatar--sm avatar--me">{{ user_profile.initials }}</span>
+        You &middot; organizer
+      </span>
+      {% for email in draft.invites %}
+        <span class="chip">
+          <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-mail"></use></svg>
+          {{ email }}
+          <button class="chip__remove" type="button"
+                  aria-label="Remove {{ email }}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="field__label">Or share the link</span>
+    <div class="copy-row">
+      <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
+      <a class="copy-row__value" href="{% url 'web:join' draft.invite_token %}">{{ draft.invite_link }}</a>
+      <button class="btn btn--ghost btn--sm" type="button">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
+        Copy
+      </button>
+      <button class="btn btn--ghost btn--sm" type="button">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"></use></svg>
+        New link
+      </button>
+    </div>
+    <p class="field__hint">
+      Anyone with this link can join as a participant. Make a new one to revoke
+      the old.
+    </p>
+  </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% comment %}
+Right-hand rail shared by every decision screen: owner, vote progress and
+the signed-in user's call to action. Expects `decision` and `vote_progress`.
+{% endcomment %}
+<div class="decision__rail">
+
+  <div class="owner-card">
+    <div class="owner-card__who">
+      <span class="avatar">{{ decision.owner.initials }}</span>
+      <span>
+        <span class="owner-card__label">Decision owner</span>
+        <span class="owner-card__name">
+          {{ decision.owner.name }}{% if decision.owner.role %} &middot; {{ decision.owner.role }}{% endif %}
+        </span>
+      </span>
+    </div>
+    <hr class="owner-card__rule">
+    <span class="owner-card__label">Vote by</span>
+    <p class="owner-card__due">{{ decision.due }}</p>
+  </div>
+
+  <div class="vote-progress">
+    <p class="vote-progress__count">
+      {{ decision.voted }} of {{ decision.voters }} people voted
+    </p>
+    <div class="segments vote-progress__segments">
+      {% for filled in vote_progress %}
+        <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+      {% endfor %}
+    </div>
+    <p class="vote-progress__waiting">Waiting on {{ decision.waiting_on }}</p>
+  </div>
+
+  {% if decision.panel_cta %}
+    <div class="action-panel">
+      <p class="action-panel__status">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        Vote not submitted
+      </p>
+      <h2 class="action-panel__title">{{ decision.panel_title }}</h2>
+      <p class="action-panel__note">{{ decision.panel_note }}</p>
+      <button class="btn btn--spread action-panel__cta" type="button">
+        {{ decision.panel_cta }}
+        <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+      </button>
+      <p class="action-panel__foot">{{ decision.panel_foot }}</p>
+    </div>
+  {% endif %}
+
+  {% if decision.aside_title %}
+    <div class="rail-note">
+      <h2 class="rail-note__title">{{ decision.aside_title }}</h2>
+      <p class="rail-note__body">{{ decision.aside_body }}</p>
+    </div>
+  {% endif %}
+
+</div>

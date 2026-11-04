@@ -1,0 +1,116 @@
+{% extends "web/base.html" %}
+
+{% block title %}Add an expense &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Money &middot; New expense</p>
+    <h1 class="page-head__title">{{ expense.title }}</h1>
+    <p class="page-head__lede">{{ expense.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div class="card new-trip__form">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+
+        <div class="field">
+          <label class="field__label" for="expense-name">What was it?</label>
+          <input class="input" id="expense-name" name="name" type="text"
+                 placeholder="Taxi from the station" autocomplete="off">
+        </div>
+
+        <div class="field-pair">
+          <div class="field">
+            <label class="field__label" for="expense-amount">Amount</label>
+            <div class="input-group">
+              <span class="input-group__affix">&euro;</span>
+              <input class="input" id="expense-amount" name="amount" type="text"
+                     inputmode="decimal" placeholder="24.00">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label" for="expense-date">When</label>
+            <input class="input" id="expense-date" name="date" type="date"
+                   value="2027-06-18">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="expense-payer">Who paid</label>
+          <select class="select" id="expense-payer" name="payer">
+            {% for payer in expense.payers %}
+              <option{% if forloop.first %} selected{% endif %}>{{ payer }}</option>
+            {% endfor %}
+          </select>
+          <p class="field__hint">
+            Usually you, but you can record one on someone else&rsquo;s behalf.
+          </p>
+        </div>
+
+        <fieldset class="fieldset flow-lg">
+          <legend class="fieldset__legend">Who it was for</legend>
+          {% for person in expense.covers %}
+            <label class="check">
+              <input type="checkbox" name="covers" value="{{ forloop.counter0 }}"
+                     {% if person.checked %}checked{% endif %}>
+              <span class="check__face">
+                <span class="check__box">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+                </span>
+                <span class="avatar avatar--sm{% if person.is_me %} avatar--me{% endif %}">
+                  {{ person.initials }}
+                </span>
+                <span class="check__body">
+                  <span class="check__name">{{ person.name }}</span>
+                </span>
+              </span>
+            </label>
+          {% endfor %}
+          <p class="derived">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-users"></use></svg>
+            {{ expense.derived }}
+          </p>
+          <p class="field__hint">
+            Untick anyone it wasn&rsquo;t for &mdash; a taxi three of you
+            shared, a ticket someone skipped.
+          </p>
+        </fieldset>
+
+        <div class="step-actions">
+          <a class="step-actions__back" href="{% url 'web:money' trip.slug %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+            Cancel
+          </a>
+          <button class="btn" type="submit">
+            {{ expense.submit }}
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">Nothing is charged to anyone.</p>
+          <p class="organizer-note__body">
+            Recording an expense only changes the balances. Whoever owes money
+            pays it however the group normally does.
+          </p>
+        </div>
+      </div>
+
+      <div class="rail-note">
+        <h2 class="rail-note__title">One currency per trip.</h2>
+        <p class="rail-note__body">
+          This trip is in euros, set when it was created. Paid in something
+          else? Convert it first, so the totals stay comparable.
+        </p>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

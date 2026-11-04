@@ -1,0 +1,104 @@
+/* The create-a-trip flow. */
+
+.new-trip__head {
+    margin: var(--s-6) 0 var(--s-7);
+}
+
+.new-trip__title {
+    margin: var(--s-3) 0 0;
+    font-size: var(--t-display-l);
+}
+
+.new-trip__lede {
+    margin-top: var(--s-3);
+    max-width: 48ch;
+    color: var(--c-muted);
+}
+
+.new-trip__form {
+    padding: var(--s-6);
+}
+
+.new-trip__stepper {
+    margin-bottom: var(--s-7);
+}
+
+/* ---- the running summary in the rail ---- */
+
+.draft__title {
+    font-size: var(--t-display-s);
+}
+
+.draft__list {
+    margin-top: var(--s-4);
+}
+
+.draft__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: var(--s-3) 0;
+    border-top: var(--border);
+}
+
+.draft__item:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.draft__mark {
+    margin-top: 2px;
+    color: var(--c-primary);
+}
+
+.draft__item.is-pending .draft__mark {
+    color: var(--c-line-strong);
+}
+
+.draft__label {
+    display: block;
+    color: var(--c-muted);
+    font-size: var(--t-xxs);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+}
+
+.draft__value {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+}
+
+.draft__item.is-pending .draft__value {
+    color: var(--c-muted);
+}
+
+/* Reminder of what being the organizer means (R-05). */
+.organizer-note {
+    display: flex;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    background: var(--c-sand);
+    border-radius: var(--r-lg);
+}
+
+.organizer-note__title {
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 600;
+}
+
+.organizer-note__body {
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+@media (max-width: 720px) {
+    .new-trip__form {
+        padding: var(--s-5) var(--s-4);
+    }
+}

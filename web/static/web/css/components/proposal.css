@@ -1,0 +1,90 @@
+/* A member's suggestion waiting on the organizer, and the ones already
+   decided. */
+
+.proposal {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.proposal__who {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+.proposal__title {
+    margin-top: var(--s-2);
+    font-size: var(--t-display-s);
+}
+
+.proposal__meta {
+    margin-top: var(--s-2);
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+}
+
+.proposal__blurb {
+    margin-top: var(--s-2);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.proposal__actions {
+    display: flex;
+    gap: var(--s-2);
+}
+
+/* Already approved or rejected: quieter, one line each. */
+.verdict-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) 0;
+    border-top: var(--border);
+}
+
+.verdict-row:first-child {
+    border-top: 0;
+}
+
+.verdict-row__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.verdict-row__name {
+    display: block;
+    color: var(--c-ink);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.verdict-row__note {
+    display: block;
+    margin-top: 2px;
+    color: var(--c-muted);
+    font-size: var(--t-xs);
+}
+
+@media (max-width: 720px) {
+    .proposal {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .proposal__actions {
+        width: 100%;
+    }
+
+    .proposal__actions .btn {
+        flex: 1;
+    }
+}

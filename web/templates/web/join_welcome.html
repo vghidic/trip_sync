@@ -1,0 +1,43 @@
+{% extends "web/join_base.html" %}
+
+{% block title %}{{ welcome.title }} &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <div class="join join--welcome">
+
+    <div class="join__avatars">
+      <span class="avatar-stack">
+        {% for friend in trip.friends %}
+          <span class="avatar{% if friend.is_me %} avatar--me{% endif %}"
+                title="{{ friend.name }}">{{ friend.initials }}</span>
+        {% endfor %}
+      </span>
+    </div>
+
+    <div class="join__head">
+      <p class="eyebrow">{{ welcome.eyebrow }}</p>
+      <h1 class="join__title">{{ welcome.title }}</h1>
+      <p class="join__lede">{{ welcome.lede }}</p>
+    </div>
+
+    <div class="join__waiting">
+      {% for item in welcome.waiting %}
+        <a class="banner banner--nudge"
+           href="{% url 'web:decision' trip.slug item.slug %}">
+          <svg class="icon banner__icon" aria-hidden="true"><use href="#i-{{ item.icon }}"></use></svg>
+          <span class="banner__body">
+            <span class="banner__title">{{ item.title }}</span>
+            <span class="banner__note">{{ item.note }}</span>
+          </span>
+          <svg class="icon banner__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+      {% endfor %}
+    </div>
+
+    <a class="btn btn--block join__welcome-cta"
+       href="{% url 'web:trip_overview' trip.slug %}">
+      {{ welcome.cta }}
+    </a>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,92 @@
+/* Itinerary day: a time gutter on the left, plan cards on the right. */
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+
+.timeline__entry {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+}
+
+.timeline__time {
+    padding-top: var(--s-5);
+    text-align: right;
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.timeline__mark {
+    display: block;
+    margin-top: var(--s-2);
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+    color: var(--c-primary);
+}
+
+.timeline__card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--c-surface);
+    border: var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.timeline__title {
+    font-size: var(--t-display-s);
+}
+
+.timeline__place {
+    margin-top: var(--s-1);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.timeline__meta {
+    margin-top: var(--s-2);
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+}
+
+.timeline__icon {
+    flex: none;
+    color: var(--c-muted);
+}
+
+.timeline__gap {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    padding-left: calc(72px + var(--s-4));
+    color: var(--c-muted);
+    font-family: var(--font-display);
+    font-size: var(--t-md);
+    font-style: italic;
+}
+
+.timeline__gap::before {
+    content: "";
+    width: 40px;
+    height: 1px;
+    background: var(--c-line-strong);
+}
+
+@media (max-width: 720px) {
+    .timeline__entry {
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: var(--s-3);
+    }
+
+    .timeline__gap {
+        padding-left: calc(52px + var(--s-3));
+    }
+}

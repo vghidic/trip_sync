@@ -1,0 +1,42 @@
+/* Segmented progress: one block per decision settled, or per vote cast. */
+
+.segments {
+    display: flex;
+    gap: var(--s-1);
+}
+
+.segments__item {
+    flex: 1;
+    height: 5px;
+    border-radius: var(--r-pill);
+    background: var(--c-line-strong);
+}
+
+.segments__item.is-done {
+    background: var(--c-primary);
+}
+
+/* On the blue card the empty segments need a lighter base. */
+.card--primary .segments__item {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.card--primary .segments__item.is-done {
+    background: var(--c-surface);
+}
+
+/* Label + segments + caption, as used in the decision rail. */
+.vote-progress__count {
+    color: var(--c-ink);
+    font-size: var(--t-md);
+    font-weight: 500;
+}
+
+.vote-progress__segments {
+    margin: var(--s-3) 0 var(--s-2);
+}
+
+.vote-progress__waiting {
+    color: var(--c-primary);
+    font-size: var(--t-sm);
+}

@@ -1,0 +1,113 @@
+{% extends "web/base.html" %}
+
+{% block title %}{{ trip.destination }} &middot; Overview{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="split">
+    <div>
+
+      <div class="photo photo--{{ trip.photo }} photo--hero photo--overlay overview__hero">
+        <span class="badge badge--place photo__chip">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+          {{ trip.country }}
+        </span>
+        <div class="photo__content">
+          <h1 class="photo__title">{{ trip.destination }}</h1>
+          <p class="photo__sub">{{ trip.tagline }}</p>
+        </div>
+      </div>
+
+      <div class="card friends-card">
+        <div class="card__body">
+          <div class="friends-card__head">
+            <span class="friends-card__label">Friends</span>
+            <a class="friends-card__invite" href="#">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-user-plus"></use></svg>
+              Invite
+            </a>
+          </div>
+          <div class="people">
+            {% for friend in trip.friends %}
+              <span class="people__person">
+                <span class="avatar{% if friend.is_me %} avatar--me{% endif %}">
+                  {{ friend.initials }}
+                </span>
+                <span class="people__name">{{ friend.name }}</span>
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+
+      <div class="grid-2">
+        <div class="stat">
+          <p class="stat__head">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-calendar"></use></svg>
+            Dates set
+          </p>
+          <p class="stat__value">{{ trip.dates }}</p>
+          <p class="stat__note">{{ trip.dates_note }}</p>
+        </div>
+        <div class="stat">
+          <p class="stat__head">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-wallet"></use></svg>
+            Budget target
+          </p>
+          <p class="stat__value">{{ trip.budget }}</p>
+          <p class="stat__note">{{ trip.budget_note }}</p>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block__head">
+          <h2 class="progress-block__title">It&rsquo;s coming together.</h2>
+          <span class="progress-block__count">
+            {{ trip.decisions_settled }} / {{ trip.decisions_total }} settled
+          </span>
+        </div>
+        <div class="segments progress-block__segments">
+          {% for filled in trip_progress %}
+            <span class="segments__item{% if filled %} is-done{% endif %}"></span>
+          {% endfor %}
+        </div>
+        <p class="progress-block__note">
+          Next, where to sleep.
+        </p>
+      </div>
+
+      <div class="card card--tint next-decision">
+        <div class="next-decision__head">
+          <span class="next-decision__label">Next decision</span>
+          <span class="next-decision__due">Due {{ next_decision.due }}</span>
+        </div>
+        <svg class="icon icon--xl next-decision__icon" aria-hidden="true"><use href="#i-bed"></use></svg>
+        <h2 class="next-decision__title">{{ next_decision.title }}</h2>
+        <p class="next-decision__meta">{{ next_decision.summary }}</p>
+        <a class="btn btn--spread next-decision__cta"
+           href="{% url 'web:decision' trip.slug next_decision.slug %}">
+          Your vote is next
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+      </div>
+
+      <div class="agreed">
+        <div class="agreed__head">
+          <h2 class="agreed__title">The agreed plans</h2>
+          <a class="link-quiet" href="{% url 'web:itinerary' trip.slug %}">
+            View itinerary
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+          </a>
+        </div>
+        <p class="agreed__body">
+          Friday arrival at 14:30. First-night dinner at 19:30.
+        </p>
+      </div>
+
+    </aside>
+  </div>
+{% endblock %}

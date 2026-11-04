@@ -1,0 +1,19 @@
+{% comment %}Bottom tab bar; only visible below the mobile breakpoint.{% endcomment %}
+<nav class="tab-bar" aria-label="Primary">
+  <div class="tab-bar__items">
+    <a class="tab-bar__item{% if nav_section == 'trips' %} is-active{% endif %}"
+       href="{% url 'web:trips' %}">
+      <svg class="icon" aria-hidden="true"><use href="#i-compass"></use></svg>
+      Trips
+    </a>
+    <a class="tab-bar__item{% if nav_section == 'inbox' %} is-active{% endif %}" href="#">
+      <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+      Inbox
+    </a>
+    <a class="tab-bar__item{% if nav_section == 'you' %} is-active{% endif %}" href="#">
+      <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>
+      You
+    </a>
+  </div>
+  <span class="tab-bar__handle" aria-hidden="true"></span>
+</nav>

@@ -1,0 +1,76 @@
+{% extends "web/base.html" %}
+
+{% comment %}
+Shell for proposing something to the group (FR-10, FR-11). A step template
+fills in `fields`; everything else is the same for both kinds.
+{% endcomment %}
+
+{% block title %}{{ propose.title }} &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  <div class="crumbs">
+    <div class="crumbs__trail">
+      <a class="crumbs__back" href="{% url 'web:decisions' trip.slug %}"
+         aria-label="Back to decisions">
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+      </a>
+      <a class="crumbs__link" href="{% url 'web:decisions' trip.slug %}">Decisions</a>
+      <span class="crumbs__sep" aria-hidden="true">/</span>
+      <span class="crumbs__current">{{ propose.crumb }}</span>
+    </div>
+  </div>
+
+  <div class="new-trip__head">
+    <p class="eyebrow">{{ propose.eyebrow }}</p>
+    <h1 class="new-trip__title">{{ propose.title }}</h1>
+    <p class="new-trip__lede">{{ propose.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div class="card new-trip__form">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+
+        {% block fields %}{% endblock %}
+
+        <div class="step-actions">
+          <a class="step-actions__back" href="{% url 'web:decisions' trip.slug %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+            Cancel
+          </a>
+          <button class="btn" type="submit">
+            {{ propose.submit }}
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="card"><div class="card__body">
+        <h2 class="draft__title">What happens next</h2>
+        <ul class="draft__list">
+          {% for line in propose.next_steps %}
+            <li class="draft__item">
+              <svg class="icon icon--sm draft__mark" aria-hidden="true"><use href="#i-circle"></use></svg>
+              <span>
+                <span class="draft__label">Step {{ forloop.counter }}</span>
+                <span class="draft__value">{{ line }}</span>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div></div>
+
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">You can change your mind.</p>
+          <p class="organizer-note__body">
+            Edit or delete anything you propose, right up until voting closes.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

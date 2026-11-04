@@ -1,0 +1,93 @@
+{% extends "web/base.html" %}
+
+{% block title %}Share the itinerary &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Read-only link</p>
+    <h1 class="page-head__title">{{ share.title }}</h1>
+    <p class="page-head__lede">{{ share.lede }}</p>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <div class="card share-panel">
+        <span class="field__label">The link</span>
+        <div class="copy-row">
+          <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
+          <a class="copy-row__value" href="{% url 'web:share_view' share.token %}">
+            {{ share.link }}
+          </a>
+        </div>
+        <p class="share-panel__meta">
+          <span>{{ share.created }}</span>
+          <span>{{ share.views }}</span>
+        </p>
+
+        <div class="share-panel__actions">
+          <button class="btn" type="button">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
+            Copy link
+          </button>
+          <a class="btn btn--ghost" href="{% url 'web:share_view' share.token %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+            See what they see
+          </a>
+          <button class="btn btn--ghost" type="button">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"></use></svg>
+            Revoke &amp; make a new one
+          </button>
+        </div>
+
+        <div class="visibility">
+          <div>
+            <p class="visibility__title visibility__title--shown">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+              They can see
+            </p>
+            {% for line in share.shown %}
+              <p class="visibility__item">
+                <svg class="icon icon--sm icon--lead" aria-hidden="true"><use href="#i-check"></use></svg>
+                {{ line }}
+              </p>
+            {% endfor %}
+          </div>
+          <div>
+            <p class="visibility__title visibility__title--hidden">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-circle"></use></svg>
+              They cannot see
+            </p>
+            {% for line in share.hidden %}
+              <p class="visibility__item visibility__item--hidden">
+                <svg class="icon icon--sm icon--lead" aria-hidden="true"><use href="#i-x"></use></svg>
+                {{ line }}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">Anyone in the group can share.</p>
+          <p class="organizer-note__body">
+            You don&rsquo;t need to be the organizer to make or revoke this
+            link &mdash; it only ever shows the itinerary everyone agreed to.
+          </p>
+        </div>
+      </div>
+
+      <div class="rail-note">
+        <h2 class="rail-note__title">One link at a time.</h2>
+        <p class="rail-note__body">{{ share.revoke_note }}</p>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

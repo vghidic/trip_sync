@@ -1,0 +1,42 @@
+/* Underlined tabs inside a trip: Overview / Decisions / Itinerary. */
+
+.tabs {
+    display: flex;
+    gap: var(--s-6);
+    margin: var(--s-4) 0 var(--s-8);
+    border-bottom: var(--border);
+}
+
+.tabs__item {
+    position: relative;
+    padding: 0 0 var(--s-3);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.tabs__item:hover {
+    color: var(--c-ink);
+    text-decoration: none;
+}
+
+.tabs__item.is-active {
+    color: var(--c-primary);
+    font-weight: 600;
+}
+
+.tabs__item.is-active::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 2px;
+    background: var(--c-primary);
+    border-radius: var(--r-pill);
+}
+
+@media (max-width: 720px) {
+    .tabs {
+        gap: var(--s-5);
+        margin-bottom: var(--s-6);
+    }
+}

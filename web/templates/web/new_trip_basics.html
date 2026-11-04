@@ -1,0 +1,20 @@
+{% extends "web/new_trip_base.html" %}
+
+{% block fields %}
+  <div class="field">
+    <label class="field__label" for="trip-name">Trip name</label>
+    <input class="input" id="trip-name" name="name" type="text"
+           value="{{ draft.name }}"
+           placeholder="A weekend with the usuals" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="trip-description">
+      Description
+      <span class="field__optional">Optional</span>
+    </label>
+    <textarea class="textarea" id="trip-description" name="description"
+              placeholder="What&rsquo;s the idea? A sentence is plenty.">{{ draft.description }}</textarea>
+  </div>
+
+{% endblock %}

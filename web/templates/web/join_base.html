@@ -1,0 +1,16 @@
+{% extends "web/base.html" %}
+
+{% comment %}
+Shell for the invite link: the brand, and nothing else. Whoever is reading
+this is not a member yet, so there is no nav to put in front of them.
+{% endcomment %}
+
+{% block chrome_top %}
+  <header class="join-header">
+    <a class="brand" href="{% url 'web:trips' %}">Trip Sync</a>
+  </header>
+{% endblock %}
+
+{% block chrome_bottom %}{% endblock %}
+
+{% block page_class %}join-body{% endblock %}

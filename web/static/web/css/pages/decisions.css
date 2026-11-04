@@ -1,0 +1,58 @@
+/* Decision screens: destination, stay, activities, transfers. */
+
+.decision__meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-4);
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+}
+
+.decision__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+}
+
+.decision__count {
+    color: var(--c-muted);
+    font-size: var(--t-sm);
+    white-space: nowrap;
+}
+
+.decision__options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-5);
+    align-items: stretch;
+}
+
+.decision__activities {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+
+.decision__rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+}
+
+.decision__footnote {
+    margin-top: var(--s-6);
+}
+
+@media (max-width: 1080px) {
+    .decision__options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .decision__options {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

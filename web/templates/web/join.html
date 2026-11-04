@@ -1,0 +1,118 @@
+{% extends "web/join_base.html" %}
+
+{% block title %}{{ variant.title }} &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <div class="join">
+
+    <div class="join__head">
+      <p class="eyebrow">You&rsquo;ve been invited</p>
+      <h1 class="join__title">{{ variant.title }}</h1>
+      <p class="join__lede">{{ variant.lede }}</p>
+    </div>
+
+    <div class="join__grid">
+
+      <article class="join__preview">
+        <div class="photo photo--{{ trip.photo }} photo--wide photo--overlay">
+          <span class="badge badge--place photo__chip">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+            {{ trip.country }}
+          </span>
+          <div class="photo__content">
+            <h2 class="photo__title">{{ trip.destination }}</h2>
+          </div>
+        </div>
+
+        <div class="join__preview-body">
+          <div class="join__inviter">
+            <span class="avatar">{{ join.inviter.initials }}</span>
+            <span class="join__inviter-text">
+              <strong>{{ join.inviter.name }}</strong> invited you
+              &middot; {{ join.inviter.role }}
+            </span>
+          </div>
+
+          <div class="join__facts">
+            {% for fact in join.facts %}
+              <div class="join__fact">
+                <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+                  <use href="#i-{{ fact.icon }}"></use>
+                </svg>
+                <span>
+                  <span class="join__fact-label">{{ fact.label }}</span>
+                  <span class="join__fact-value">{{ fact.value }}</span>
+                  <span class="join__fact-note">{{ fact.note }}</span>
+                </span>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="join__people">
+            <span class="avatar-stack">
+              {% for friend in trip.friends %}
+                {% if not friend.is_me %}
+                  <span class="avatar avatar--sm" title="{{ friend.name }}">
+                    {{ friend.initials }}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </span>
+            <span class="meta meta--xs">{{ join.promise }}</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="join__panel">
+        <h2 class="join__panel-title">{{ variant.panel_title }}</h2>
+
+        <form method="post" action="" novalidate>
+          {% csrf_token %}
+
+          {% if mode == 'signup' %}
+            <div class="field">
+              <label class="field__label" for="join-name">Your name</label>
+              <input class="input" id="join-name" name="name" type="text"
+                     placeholder="How the group knows you" autocomplete="name">
+            </div>
+          {% endif %}
+
+          <div class="field">
+            <label class="field__label" for="join-email">Email</label>
+            <input class="input" id="join-email" name="email" type="email"
+                   placeholder="name@example.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="join-password">Password</label>
+            <input class="input" id="join-password" name="password"
+                   type="password"
+                   autocomplete="{% if mode == 'signup' %}new-password{% else %}current-password{% endif %}">
+            {% if mode == 'signup' %}
+              <p class="field__hint">At least 8 characters.</p>
+            {% else %}
+              <p class="field__hint">
+                <a href="#">Forgotten your password?</a>
+              </p>
+            {% endif %}
+          </div>
+
+          <button class="btn btn--block join__submit" type="submit">
+            {{ variant.submit }}
+          </button>
+        </form>
+
+        <p class="join__alt">
+          {{ variant.alt_text }}
+          <a href="{{ alt_url }}">{{ variant.alt_link }}</a>
+        </p>
+
+        <p class="join__terms">
+          You&rsquo;re joining one trip, not a mailing list. Leave whenever you
+          like and your votes leave with you.
+        </p>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

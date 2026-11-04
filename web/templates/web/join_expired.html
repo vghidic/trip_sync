@@ -1,0 +1,29 @@
+{% extends "web/join_base.html" %}
+
+{% block title %}This link has expired &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <div class="join join--dead">
+    <div class="join__panel">
+      <p class="eyebrow eyebrow--muted">Invite link</p>
+      <h1 class="join__title">{{ expired.title }}</h1>
+      <p class="join__lede">{{ expired.lede }}</p>
+
+      <div class="join__dead-steps">
+        {% for step in expired.steps %}
+          <p class="join__dead-step">
+            <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true">
+              <use href="#i-circle"></use>
+            </svg>
+            {{ step }}
+          </p>
+        {% endfor %}
+      </div>
+
+      <p class="join__terms">
+        Nothing was shared with you by this link. A revoked invite shows no
+        plans, no costs and nobody&rsquo;s details.
+      </p>
+    </div>
+  </div>
+{% endblock %}

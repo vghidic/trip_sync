@@ -1,0 +1,38 @@
+{% extends "web/propose_base.html" %}
+
+{% block fields %}
+  <div class="field">
+    <label class="field__label" for="place-name">Where</label>
+    <input class="input" id="place-name" name="name" type="text"
+           placeholder="Porto" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="place-country">Country</label>
+    <input class="input" id="place-country" name="country" type="text"
+           placeholder="Portugal" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="place-blurb">
+      Why there
+      <span class="field__optional">Optional</span>
+    </label>
+    <textarea class="textarea" id="place-blurb" name="blurb"
+              placeholder="Douro-side wandering, little wine bars and a slower pace."></textarea>
+    <p class="field__hint">
+      One or two lines. It&rsquo;s what the others read before they vote.
+    </p>
+  </div>
+
+  <div class="banner flow-lg">
+    <svg class="icon banner__icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+    <div class="banner__body">
+      <p class="banner__title">Destinations are a yes or a no.</p>
+      <p class="banner__note">
+        No scores here. The place with the most yeses wins, and the organizer
+        breaks a tie.
+      </p>
+    </div>
+  </div>
+{% endblock %}

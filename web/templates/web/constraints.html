@@ -1,0 +1,102 @@
+{% extends "web/base.html" %}
+
+{% block title %}Build constraints &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Organizer &middot; Before the build</p>
+    <h1 class="page-head__title">Anything that has to be in?</h1>
+    <p class="page-head__lede">
+      Pin the things the weekend would not be the same without, and set the
+      ceilings the build has to respect. Everything else is decided by the
+      scores.
+    </p>
+  </div>
+
+  <div class="split">
+    <div class="card new-trip__form">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+
+        <fieldset class="fieldset">
+          <legend class="fieldset__legend">Always include</legend>
+          {% for item in constraints.must_have %}
+            <label class="check">
+              <input type="checkbox" name="must_have" value="{{ forloop.counter0 }}"
+                     {% if item.pinned %}checked{% endif %}>
+              <span class="check__face">
+                <span class="check__box">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"></use></svg>
+                </span>
+                <span class="check__body">
+                  <span class="check__name">{{ item.name }}</span>
+                  <span class="check__meta">{{ item.meta }}</span>
+                </span>
+              </span>
+            </label>
+          {% endfor %}
+          <p class="field__hint">
+            Pinned activities go in whatever they scored, as long as they fit.
+            Pin too many and there is nothing left for the scores to decide.
+          </p>
+        </fieldset>
+
+        <div class="field flow-lg">
+          <label class="field__label" for="day-budget">Most to spend in a day</label>
+          <div class="input-group">
+            <span class="input-group__affix">&euro;</span>
+            <input class="input" id="day-budget" name="day_budget" type="text"
+                   inputmode="numeric" value="{{ constraints.day_budget }}">
+          </div>
+          <p class="field__hint">
+            Per person. Sits inside the trip budget &mdash; it stops one day
+            eating the whole weekend.
+          </p>
+        </div>
+
+        <fieldset class="fieldset flow-lg">
+          <legend class="fieldset__legend">Hours of plans in a day</legend>
+          <div class="choices">
+            {% for choice in constraints.hour_choices %}
+              <label class="choice">
+                <input type="radio" name="day_hours" value="{{ choice.value }}"
+                       {% if choice.value == constraints.day_hours %}checked{% endif %}>
+                <span class="choice__face">
+                  <span class="choice__value">{{ choice.label }}</span>
+                  <span class="choice__note">{{ choice.note }}</span>
+                </span>
+              </label>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        <div class="step-actions">
+          <a class="step-actions__back" href="{% url 'web:decisions' trip.slug %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+            Back to decisions
+          </a>
+          <button class="btn" type="submit">
+            Save &amp; build the Saturday
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="split__rail stack stack--loose">
+      <div class="organizer-note">
+        <svg class="icon icon--sm icon--muted icon--lead" aria-hidden="true"><use href="#i-info"></use></svg>
+        <div>
+          <p class="organizer-note__title">The build never breaks these.</p>
+          <p class="organizer-note__body">
+            The chosen set always costs less than the budget and fits inside
+            the hours. If a pin makes that impossible, you&rsquo;ll be told
+            which one.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+{% endblock %}

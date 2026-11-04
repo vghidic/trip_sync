@@ -1,0 +1,96 @@
+{% extends "web/base.html" %}
+
+{% block title %}Who owes whom &middot; {{ trip.destination }}{% endblock %}
+
+{% block content %}
+  {% include "web/partials/trip_header.html" %}
+
+  <div class="page-head">
+    <p class="eyebrow">Money &middot; Balances</p>
+    <h1 class="page-head__title">Who owes whom.</h1>
+    <p class="page-head__lede">
+      What everyone has put in, against what their share comes to. Two people
+      are carrying the group at the moment.
+    </p>
+  </div>
+
+  <div class="split">
+    <div>
+
+      <h2 class="outcome-group__title">The shortest way to settle</h2>
+      <div class="settle-list">
+        {% for payment in balances.settle %}
+          <div class="settle{% if payment.is_me %} is-mine{% endif %}">
+            <span class="settle__who">
+              <span class="avatar avatar--sm{% if payment.is_me %} avatar--me{% endif %}">
+                {{ payment.from_initials }}
+              </span>
+              {{ payment.from }}
+            </span>
+            <svg class="icon icon--sm settle__arrow" aria-hidden="true">
+              <use href="#i-arrow-right"></use>
+            </svg>
+            <span class="settle__who">
+              <span class="avatar avatar--sm">{{ payment.to_initials }}</span>
+              {{ payment.to }}
+            </span>
+            <span class="settle__amount">{{ payment.amount }}</span>
+          </div>
+        {% endfor %}
+      </div>
+      <p class="settle-note">{{ balances.settle_note }}</p>
+
+    </div>
+
+    <aside class="split__rail">
+      <div class="card"><div class="card__body">
+
+        <div class="balances__group">
+          <p class="balances__group-title balances__group-title--up">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+            Owed money
+          </p>
+          {% for person in balances.owed %}
+            <div class="balance">
+              <span class="avatar avatar--sm">{{ person.initials }}</span>
+              <span>
+                <span class="balance__name">{{ person.name }}</span>
+                <span class="balance__note">{{ person.note }}</span>
+              </span>
+              <span class="balance__amount balance__amount--up">
+                +{{ person.amount }}
+              </span>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="balances__group">
+          <p class="balances__group-title balances__group-title--down">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-circle"></use></svg>
+            Owes money
+          </p>
+          {% for person in balances.owes %}
+            <div class="balance">
+              <span class="avatar avatar--sm{% if person.is_me %} avatar--me{% endif %}">
+                {{ person.initials }}
+              </span>
+              <span>
+                <span class="balance__name">{{ person.name }}</span>
+                <span class="balance__note">{{ person.note }}</span>
+              </span>
+              <span class="balance__amount balance__amount--down">
+                &minus;{{ person.amount }}
+              </span>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div></div>
+
+      <p class="footnote flow-md">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        {{ money.disclaimer }}
+      </p>
+    </aside>
+  </div>
+{% endblock %}
