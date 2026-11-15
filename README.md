@@ -9,11 +9,13 @@ Instalați [uv](https://docs.astral.sh/uv/getting-started/installation/). Python
 ## Rulare
 
 ```sh
-uv run manage.py migrate     # creează/actualizează baza de date (db.sqlite3)
+docker compose up -d db     # pornește PostgreSQL cu volum persistent
+uv run manage.py migrate     # creează/actualizează schema PostgreSQL
 uv run manage.py runserver   # pornește serverul pe http://127.0.0.1:8000
 ```
 
 `uv run` creează și actualizează automat `.venv` cu dependențele din `pyproject.toml`, deci nu e nevoie să activați mediul virtual.
+Setările PostgreSQL sunt citite din variabilele `POSTGRES_*`; copiați `.env.example` în `.env` pentru configurare locală.
 
 ## Interfata (aplicatia `web`)
 

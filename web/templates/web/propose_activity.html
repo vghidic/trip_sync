@@ -7,18 +7,9 @@
            placeholder="Visit a museum" autocomplete="off">
   </div>
 
-  <div class="field">
-    <label class="field__label" for="activity-category">Category</label>
-    <select class="select" id="activity-category" name="category">
-      {% for category in propose.categories %}
-        <option>{{ category }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
   <div class="field-pair">
     <div class="field">
-      <label class="field__label" for="activity-cost">Cost per person</label>
+      <label class="field__label" for="activity-cost">Estimated total cost</label>
       <div class="input-group">
         <span class="input-group__affix">&euro;</span>
         <input class="input" id="activity-cost" name="cost" type="text"

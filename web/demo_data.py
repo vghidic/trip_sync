@@ -28,7 +28,7 @@ TRIP = {
     'dates_note': '2027 · Fri-Sun',
     'countdown': 'In 29 days',
     'budget': '€2,700',
-    'budget_note': 'per person · €450',
+    'budget_note': 'shared budget for the trip',
     'decisions_settled': 4,
     'decisions_total': 7,
     'photo': 'lisbon',
@@ -107,7 +107,7 @@ DECISIONS = {
         'eyebrow': 'Stay',
         'title': 'Choose your stay',
         'lede': '',
-        'meta': 'Jun 18-20 · Stay budget €160 each',
+        'meta': 'Jun 18-20 · Shared stay budget',
         'mode': 'pick',
         'owner': {'name': 'Jules', 'initials': 'JU', 'role': 'organizer'},
         'due': 'Fri, May 21 · 6 pm',
@@ -122,24 +122,24 @@ DECISIONS = {
             {
                 'name': 'Casa do Pátio', 'photo': 'casa',
                 'meta': 'Graça · 3 bedrooms',
-                'price': '€148', 'price_note': '/ person · 2 nights',
-                'badge': 'Within everyone’s budget', 'badge_tone': 'ok',
+                'price': '€888', 'price_note': 'total · 2 nights',
+                'badge': 'Within the shared budget', 'badge_tone': 'ok',
                 'votes': 3, 'vote_names': 'Jules, Theo, Maya',
                 'selected': True, 'flag': 'Selected',
             },
             {
                 'name': 'Alfama Loft', 'photo': 'loft',
                 'meta': 'Alfama · 3 bedrooms',
-                'price': '€156', 'price_note': '/ person · 2 nights',
-                'badge': 'Within everyone’s budget', 'badge_tone': 'ok',
+                'price': '€936', 'price_note': 'total · 2 nights',
+                'badge': 'Within the shared budget', 'badge_tone': 'ok',
                 'votes': 1, 'vote_names': 'Leo',
                 'selected': False, 'flag': '',
             },
             {
                 'name': 'Bairro House', 'photo': 'bairro',
                 'meta': 'Príncipe Real · 3 bedrooms',
-                'price': '€188', 'price_note': '/ person · 2 nights',
-                'badge': '€28 over budget / person', 'badge_tone': 'warn',
+                'price': '€1,128', 'price_note': 'total · 2 nights',
+                'badge': '€192 over the shared budget', 'badge_tone': 'warn',
                 'votes': 0, 'vote_names': 'No votes yet',
                 'selected': False, 'flag': '',
             },
@@ -160,7 +160,7 @@ DECISIONS = {
         'waiting_on': 'you & Nina',
         'stats': [
             {'icon': 'wallet', 'label': 'Total group activity budget',
-             'value': '€360 · €60 each'},
+             'value': '€360 total'},
             {'icon': 'clock', 'label': 'Available activity time',
              'value': '6 hours · breaks & travel reserved'},
         ],
@@ -173,23 +173,23 @@ DECISIONS = {
                       'voting. Votes are locked afterward.',
         'options': [
             {
-                'name': 'A wander through Alfama', 'category': 'Culture',
-                'photo': 'alfama', 'cost': '€0 / person · €0 group',
+                'name': 'A wander through Alfama',
+                'photo': 'alfama', 'cost': '€0 total',
                 'duration': '2 hours', 'score': '4.50', 'submitted': 4, 'my_score': 5,
             },
             {
-                'name': 'Make your own azulejo', 'category': 'Workshop',
-                'photo': 'azulejo', 'cost': '€30 / person · €180 group',
+                'name': 'Make your own azulejo',
+                'photo': 'azulejo', 'cost': '€180 total',
                 'duration': '2 hours', 'score': '4.00', 'submitted': 4, 'my_score': 4,
             },
             {
-                'name': 'Saturday sunset sail', 'category': 'On the water',
-                'photo': 'sail', 'cost': '€35 / person · €210 group',
+                'name': 'Saturday sunset sail',
+                'photo': 'sail', 'cost': '€210 total',
                 'duration': '2 hours', 'score': '4.75', 'submitted': 4, 'my_score': 3,
             },
             {
-                'name': 'A pastel de nata pit stop', 'category': 'Food & drink',
-                'photo': 'nata', 'cost': '€5 / person · €30 group',
+                'name': 'A pastel de nata pit stop',
+                'photo': 'nata', 'cost': '€30 total',
                 'duration': '1 hour', 'score': '4.25', 'submitted': 4, 'my_score': 2,
             },
         ],
@@ -359,7 +359,6 @@ DRAFT_TRIP = {
     'group_size': '6',
     'currency': 'EUR',
     'currencies': ['€ EUR', '£ GBP', 'lei RON'],
-    'per_person': '≈ €450 per person, activities included',
     'invites': [
         'jules@example.com',
         'theo@example.com',
@@ -378,7 +377,7 @@ DRAFT_SUMMARY = [
      'pending': 'Not set yet', 'step': 1},
     {'label': 'Plans per day', 'value': '6 hours',
      'pending': 'Not set yet', 'step': 1},
-    {'label': 'Budget', 'value': '€2,700 · €450 each',
+    {'label': 'Budget', 'value': '€2,700 shared trip budget',
      'pending': 'Not set yet', 'step': 2},
     {'label': 'Friends', 'value': '5 invited · 6 in the group',
      'pending': 'Just you so far', 'step': 3},
@@ -485,7 +484,6 @@ PROPOSALS = {
         {
             'name': 'Tram 28, end to end',
             'kind': 'Activity',
-            'category': 'Culture',
             'by': 'Leo',
             'when': 'Proposed 2 days ago',
             'meta': '€3 / person · €18 group · 1 hour',
@@ -494,7 +492,6 @@ PROPOSALS = {
         {
             'name': 'A night out in Bairro Alto',
             'kind': 'Activity',
-            'category': 'Food & drink',
             'by': 'Theo',
             'when': 'Proposed yesterday',
             'meta': '€25 / person · €150 group · 3 hours',
@@ -572,7 +569,7 @@ BUILD = {
             'until Jules approves it.',
     'meters': [
         {'label': 'Activity budget', 'value': '€240 of €360',
-         'note': '€120 left · €40 per person', 'pct': 67},
+         'note': '€120 left in the shared activity budget', 'pct': 67},
         {'label': 'Hours planned', 'value': '5 of 6 hours',
          'note': '1 hour kept free', 'pct': 83},
     ],
@@ -580,18 +577,18 @@ BUILD = {
               'note': 'Across 3 activities · mean 4.50'},
     'included': [
         {'name': 'A wander through Alfama', 'time': '10:00', 'photo': 'alfama',
-         'meta': '€0 / person · 2 hours', 'score': '4.50',
+         'meta': '€0 total · 2 hours', 'score': '4.50',
          'reason': 'Pinned by the organizer, and the highest score at no cost.'},
         {'name': 'A pastel de nata pit stop', 'time': '12:30', 'photo': 'nata',
-         'meta': '€5 / person · 1 hour', 'score': '4.25',
+         'meta': '€30 total · 1 hour', 'score': '4.25',
          'reason': 'Cheapest hour on the list and nobody scored it below 3.'},
         {'name': 'Saturday sunset sail', 'time': '18:30', 'photo': 'sail',
-         'meta': '€35 / person · 2 hours', 'score': '4.75',
+         'meta': '€210 total · 2 hours', 'score': '4.75',
          'reason': 'Best score of the day; the €210 fits what is left.'},
     ],
     'excluded': [
         {'name': 'Make your own azulejo', 'photo': 'azulejo',
-         'meta': '€30 / person · 2 hours', 'score': '4.00',
+         'meta': '€180 total · 2 hours', 'score': '4.00',
          'reason': 'Adding it would need 7 hours, an hour more than the day '
                    'allows. Dropping the sail to fit it would cost 0.75 of '
                    'group score.'},
@@ -610,8 +607,6 @@ PROPOSE_FORMS = {
         'eyebrow': 'Propose · Activity',
         'title': 'What should we make time for?',
         'submit': 'Send to the organizer',
-        'categories': ['Culture', 'Food & drink', 'On the water', 'Workshop',
-                       'Outdoors', 'Nightlife'],
         'durations': ['1 hour', '2 hours', '3 hours', 'Half a day'],
         'next_steps': [
             'Jules approves it, or says why not.',
@@ -650,8 +645,8 @@ JOIN = {
     'facts': [
         {'icon': 'calendar', 'label': 'When', 'value': 'Jun 18–20, 2027',
          'note': '2 nights · Fri to Sun'},
-        {'icon': 'wallet', 'label': 'Budget', 'value': '€450 each',
-         'note': '€2,700 for the group'},
+        {'icon': 'wallet', 'label': 'Budget', 'value': '€2,700 shared',
+         'note': 'One budget for the whole trip'},
         {'icon': 'users', 'label': 'Who', 'value': '5 friends so far',
          'note': 'You’d be the sixth'},
     ],
@@ -710,7 +705,7 @@ JOIN = {
 # The read-only link (FR-09, FR-26, NFR-02).
 #
 # R-06 is the whole design here: a visitor sees the approved itinerary and
-# nothing else. No names, no per-person costs, no balances. The entries below
+# nothing else. No names, no costs, no balances. The entries below
 # are deliberately a different shape from ITINERARY - they carry no `meta`
 # line, because that line is where the personal data lives.
 
@@ -732,7 +727,7 @@ SHARE = {
     'hidden': [
         'Where you are staying - it is not on the map or in the plans',
         'Everyone’s names and profiles',
-        'What anything costs, per person or in total',
+        'What anything costs',
         'Who paid what, and who owes whom',
         'Votes, scores and anything still being decided',
     ],
@@ -856,9 +851,7 @@ MONEY = {
     'remaining': '€1,755 left',
     'spent_pct': 35,
     'your_share': '€153.50',
-    'your_budget': '€450',
-    'your_share_note': '€296.50 of your share still unspent',
-    'your_share_pct': 34,
+    'your_share_note': 'Your part of recorded expenses, calculated from the selected participants',
     'position': {
         'label': 'You owe',
         'amount': '€153.50',

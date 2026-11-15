@@ -30,13 +30,8 @@
         </div>
         <div class="meter">
           <div class="meter__head">
-            <span class="meter__label">Your share so far</span>
-            <span class="meter__value">
-              {{ money.your_share }} of {{ money.your_budget }}
-            </span>
-          </div>
-          <div class="meter__track">
-            <span class="meter__fill" style="width: {{ money.your_share_pct }}%"></span>
+            <span class="meter__label">Your allocated expenses</span>
+            <span class="meter__value">{{ money.your_share }}</span>
           </div>
           <p class="meter__note">{{ money.your_share_note }}</p>
         </div>

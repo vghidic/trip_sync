@@ -1,4 +1,6 @@
 __pycache__/
 uv.lock
 .venv
+.env
+*.egg-info/
 .zed/
