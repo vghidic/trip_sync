@@ -20,7 +20,7 @@ Setările PostgreSQL sunt citite din variabilele `POSTGRES_*`; copiați `.env.ex
 ## Interfata (aplicatia `web`)
 
 Stratul de UI este aplicatia Django `web`. Deocamdata nu atinge baza de date:
-ecranele sunt randate din `web/demo_data.py`, ca sa putem revizui HTML-ul si
+ecranele sunt randate din datele seed-uite în baza de date, ca sa putem revizui HTML-ul si
 CSS-ul inainte sa existe modelele. Cand apar modelele, view-urile inlocuiesc
 dictionarele cu queryset-uri, iar sabloanele raman neschimbate.
 

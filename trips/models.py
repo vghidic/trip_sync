@@ -501,6 +501,32 @@ class Itinerary(models.Model):
             raise ValidationError({'approved_by': 'Only trip participants can approve itineraries.'})
 
 
+class ItineraryConstraint(models.Model):
+    trip = models.ForeignKey(
+        Trip,
+        on_delete=models.CASCADE,
+        related_name='itinerary_constraints',
+    )
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name='created_itinerary_constraints',
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        if self.created_by_id and self.trip_id and not TripParticipant.objects.filter(
+            trip_id=self.trip_id, user_id=self.created_by_id
+        ).exists():
+            raise ValidationError(
+                {'created_by': 'Only trip participants can add itinerary constraints.'}
+            )
+
+
 class ItineraryItem(models.Model):
     itinerary = models.ForeignKey(
         Itinerary,

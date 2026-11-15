@@ -18,9 +18,13 @@
         <span class="field__label">The link</span>
         <div class="copy-row">
           <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
-          <a class="copy-row__value" href="{% url 'web:share_view' share.token %}">
-            {{ share.link }}
-          </a>
+          {% if share.token %}
+            <a class="copy-row__value" href="{% url 'web:share_view' share.token %}">
+              {{ share.link }}
+            </a>
+          {% else %}
+            <span class="copy-row__value">Generate a new link to reveal it once.</span>
+          {% endif %}
         </div>
         <p class="share-panel__meta">
           <span>{{ share.created }}</span>
@@ -32,10 +36,12 @@
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
             Copy link
           </button>
-          <a class="btn btn--ghost" href="{% url 'web:share_view' share.token %}">
-            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-            See what they see
-          </a>
+          {% if share.token %}
+            <a class="btn btn--ghost" href="{% url 'web:share_view' share.token %}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+              See what they see
+            </a>
+          {% endif %}
           <button class="btn btn--ghost" type="button">
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"></use></svg>
             Revoke &amp; make a new one
