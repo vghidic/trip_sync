@@ -18,8 +18,8 @@
 | 0.3      | 19/10/2026 | Ghidic Vladislav | Adaugat Scrum Master                            |
 | 0.4      | 20/10/2026 | Ghidic Vladislav | Corecții gramaticale și un nou use case diagram |
 | 0.5      | 20/10/2026 | Ghidic Vladislav | Fix use case diagram                            |
+| 0.6      | 15/11/2026 | Oprea Marina     | Persistență pentru date mock, itinerar și share |
 
----
 
 ## 1. Scopul documentului
 

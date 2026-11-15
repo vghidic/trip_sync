@@ -11,18 +11,49 @@ Instalați [uv](https://docs.astral.sh/uv/getting-started/installation/). Python
 ```sh
 docker compose up -d db     # pornește PostgreSQL cu volum persistent
 uv run manage.py migrate     # creează/actualizează schema PostgreSQL
+uv run manage.py seed_demo_data  # creează datele mock comune, fără duplicate
 uv run manage.py runserver   # pornește serverul pe http://127.0.0.1:8000
 ```
 
 `uv run` creează și actualizează automat `.venv` cu dependențele din `pyproject.toml`, deci nu e nevoie să activați mediul virtual.
 Setările PostgreSQL sunt citite din variabilele `POSTGRES_*`; copiați `.env.example` în `.env` pentru configurare locală.
 
+### Date mock comune
+
+Pentru ca toți dezvoltatorii să vadă aceeași stare inițială, rulați după migrații:
+
+```sh
+uv run manage.py seed_demo_data
+```
+
+Comanda este idempotentă: poate fi rulată de mai multe ori și folosește `get_or_create`
+pentru utilizatori, tripul `lisbon`, participanți, destinații, propuneri, voturi,
+itinerar, cheltuieli, invitație, constraint-ul de itinerar și linkul read-only.
+Nu șterge datele existente și nu resetează baza de date.
+
+Pentru o bază de date goală, fluxul complet este:
+
+```sh
+docker compose up -d db
+uv run manage.py migrate
+uv run manage.py seed_demo_data
+uv run manage.py runserver
+```
+
+Conturile mock sunt create cu parole inutilizabile; ele servesc doar pentru
+afișarea datelor și testarea relațiilor. Pentru autentificare locală folosiți
+`uv run manage.py createsuperuser`.
+
 ## Interfata (aplicatia `web`)
 
-Stratul de UI este aplicatia Django `web`. Deocamdata nu atinge baza de date:
-ecranele sunt randate din datele seed-uite în baza de date, ca sa putem revizui HTML-ul si
-CSS-ul inainte sa existe modelele. Cand apar modelele, view-urile inlocuiesc
-dictionarele cu queryset-uri, iar sabloanele raman neschimbate.
+Stratul de UI este aplicația Django `web` și citește datele persistente prin ORM.
+Datele de domeniu sunt construite din modelele din aplicația `trips`; comanda
+`seed_demo_data` oferă datasetul mock folosit pentru dezvoltare.
+
+Balances sunt calculate din `Expense` și `ExpenseShare`. Itinerarul este citit din
+`Itinerary` și `ItineraryItem`, iar constrângerile active din `ItineraryConstraint`.
+Un link read-only nou se generează prin ecranul de share. Tokenul brut este afișat
+o singură dată la creare și este stocat în baza de date doar sub formă de hash.
 
 Rute:
 
@@ -49,7 +80,7 @@ Rute:
 | `/trips/lisbon/itinerary/`                     | Itinerar pe zile            |
 | `/trips/lisbon/itinerary/map/`                 | Harta zilei: cazare, opriri, traseu |
 | `/trips/lisbon/itinerary/share/`               | Link read-only: creare / revocare |
-| `/share/c41d-8f22-7b90/`                       | Ce vede un vizitator (inclusiv harta zilei, fara cazare) |
+| `/share/<token>/`                              | Ce vede un vizitator (doar pentru un token activ) |
 | `/share/expired/`                              | Link read-only revocat      |
 | `/trips/lisbon/expenses/`                      | Cheltuieli si buget cheltuit |
 | `/trips/lisbon/expenses/new/`                  | Inregistrare cheltuiala     |
