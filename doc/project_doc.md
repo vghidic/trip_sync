@@ -21,6 +21,9 @@
 | 0.6      | 15/11/2026 | Oprea Marina     | Persistență pentru date mock, itinerar și share |
 
 
+Schema bazei de date este documentată în
+[database_schema.md](database_schema.md).
+
 ## 1. Scopul documentului
 
 Documentul descrie problema abordată de TripSync, utilizatorii, cerințele funcționale și nefuncționale, obiectivul produsului și funcționalitățile sub forma unui Use Case Diagram. Este documentul de bază din care se derivă User Stories și Product Backlog-ul.
