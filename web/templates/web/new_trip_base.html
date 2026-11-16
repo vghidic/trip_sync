@@ -30,12 +30,21 @@ stepper and the running summary. A step template only fills in `fields`.
 
       <nav class="stepper new-trip__stepper" aria-label="Progress">
         {% for item in steps %}
-          <a class="stepper__step{% if item.is_done %} is-done{% endif %}{% if item.is_current %} is-current{% endif %}"
-             href="{% url 'web:new_trip_step' item.slug %}"
-             {% if item.is_current %}aria-current="step"{% endif %}>
-            <span class="stepper__bar"></span>
-            <span class="stepper__label">{{ item.label }}</span>
-          </a>
+          {% if steps_locked %}
+            {# The trip exists now: the earlier steps can't be reopened here. #}
+            <span class="stepper__step{% if item.is_done %} is-done{% endif %}{% if item.is_current %} is-current{% endif %}"
+                  {% if item.is_current %}aria-current="step"{% endif %}>
+              <span class="stepper__bar"></span>
+              <span class="stepper__label">{{ item.label }}</span>
+            </span>
+          {% else %}
+            <a class="stepper__step{% if item.is_done %} is-done{% endif %}{% if item.is_current %} is-current{% endif %}"
+               href="{% url 'web:new_trip_step' item.slug %}"
+               {% if item.is_current %}aria-current="step"{% endif %}>
+              <span class="stepper__bar"></span>
+              <span class="stepper__label">{{ item.label }}</span>
+            </a>
+          {% endif %}
         {% endfor %}
       </nav>
 
@@ -47,7 +56,9 @@ stepper and the running summary. A step template only fills in `fields`.
         {% block fields %}{% endblock %}
 
         <div class="step-actions">
-          {% if prev_slug %}
+          {% if skip_url %}
+            <a class="step-actions__back" href="{{ skip_url }}">Skip for now</a>
+          {% elif prev_slug %}
             <a class="step-actions__back" href="{% url 'web:new_trip_step' prev_slug %}">
               <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
               Back
@@ -58,7 +69,7 @@ stepper and the running summary. A step template only fills in `fields`.
               Cancel
             </a>
           {% endif %}
-          <button class="btn" type="submit">
+          <button class="btn" type="submit" name="action" value="done">
             {{ step.next }}
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
           </button>
