@@ -1,32 +1,48 @@
 {% extends "web/new_trip_base.html" %}
 
+{% comment %}
+Step 4 (FR-06). The trip already exists here. Every button posts an `action`:
+"add" (also what Enter in the email field does, being the first submit button),
+"remove:<invitation id>", "new_link", and "done" from the step footer.
+{% endcomment %}
+
 {% block fields %}
   <div class="field">
     <label class="field__label" for="trip-invite">Invite by email</label>
     <div class="input-row">
-      <input class="input" id="trip-invite" name="invite" type="email"
+      <input class="input{% if form.invite.errors %} input--invalid{% endif %}"
+             id="trip-invite" name="invite" type="email"
+             value="{{ form.invite.value|default_if_none:'' }}"
              placeholder="name@example.com" autocomplete="off">
-      <button class="btn btn--ghost" type="button">
+      <button class="btn btn--ghost" type="submit" name="action" value="add">
         <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
         Add
       </button>
     </div>
-    <p class="field__hint">One at a time. They get an email with the link.</p>
+    {% for error in form.invite.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
+    <p class="field__hint">One at a time. They get an email with their own link.</p>
   </div>
 
   <div class="field">
-    <span class="field__label">Invited so far</span>
+    <span class="field__label">In the group and invited</span>
     <div class="chips">
       <span class="chip">
         <span class="avatar avatar--sm avatar--me">{{ user_profile.initials }}</span>
         You &middot; organizer
       </span>
-      {% for email in draft.invites %}
+      {% for member in members %}
+        <span class="chip">
+          <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-check"></use></svg>
+          {{ member.get_full_name|default:member.email }} &middot; joined
+        </span>
+      {% endfor %}
+      {% for invitation in invited %}
         <span class="chip">
           <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-mail"></use></svg>
-          {{ email }}
-          <button class="chip__remove" type="button"
-                  aria-label="Remove {{ email }}">
+          {{ invitation.email }}
+          <button class="chip__remove" type="submit" name="action"
+                  value="remove:{{ invitation.pk }}"
+                  aria-label="Cancel the invitation for {{ invitation.email }}">
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"></use></svg>
           </button>
         </span>
@@ -35,22 +51,29 @@
   </div>
 
   <div class="field">
-    <span class="field__label">Or share the link</span>
-    <div class="copy-row">
-      <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
-      <a class="copy-row__value" href="{% url 'web:join' draft.invite_token %}">{{ draft.invite_link }}</a>
-      <button class="btn btn--ghost btn--sm" type="button">
-        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
-        Copy
-      </button>
-      <button class="btn btn--ghost btn--sm" type="button">
-        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"></use></svg>
-        New link
-      </button>
-    </div>
-    <p class="field__hint">
-      Anyone with this link can join as a participant. Make a new one to revoke
-      the old.
-    </p>
+    <span class="field__label">Or share the group link</span>
+    {% if invite_link %}
+      <div class="copy-row">
+        <svg class="icon icon--sm icon--muted" aria-hidden="true"><use href="#i-link"></use></svg>
+        <a class="copy-row__value" id="invite-link" href="{{ invite_link }}">{{ invite_link }}</a>
+        <button class="btn btn--ghost btn--sm" type="button"
+                onclick="navigator.clipboard.writeText(document.getElementById('invite-link').href); this.lastChild.textContent = ' Copied';">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-copy"></use></svg>
+          Copy</button>
+      </div>
+      <p class="field__hint">
+        Copy it now: for safety the link is shown only once. Anyone with it can
+        join as a participant.
+      </p>
+    {% else %}
+      <p class="field__hint">
+        The group link is active. It was shown once, when it was made; make a
+        new one to see a link again. That stops the old one from working.
+      </p>
+    {% endif %}
+    <button class="btn btn--ghost btn--sm" type="submit" name="action" value="new_link">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"></use></svg>
+      New link
+    </button>
   </div>
 {% endblock %}

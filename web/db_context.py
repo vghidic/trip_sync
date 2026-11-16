@@ -5,7 +5,7 @@ import secrets
 
 from django.shortcuts import get_object_or_404
 
-from trips.models import ReadOnlyShareLink, Trip
+from trips.models import ReadOnlyShareLink, Trip, TripInvitation
 
 
 def money(value, currency):
@@ -39,8 +39,14 @@ def trip_context(trip):
         ),
         'dates_note': f'{(trip.return_date - trip.departure_date).days} nights',
         'countdown': '',
-        'budget': money(trip.total_budget, trip.currency),
-        'budget_note': 'shared budget for the trip',
+        # The budget is set per person (total / expected group size), so show
+        # that: multiplying by who has joined so far would understate it.
+        'budget': f'{money(trip.budget_per_person, trip.currency)} / person',
+        'budget_note': (
+            f'{money(trip.total_budget, trip.currency)} for the '
+            f'{len(participants)} '
+            f'{"person" if len(participants) == 1 else "people"} in so far'
+        ),
         'decisions_settled': (
             trip.destinations.filter(status='approved').count()
             + trip.accommodation_proposals.filter(status='approved').count()
@@ -67,13 +73,17 @@ def trip_context(trip):
     }
 
 
-def user_context(user):
+def user_initials(user):
     initials = ''.join(
         part[0] for part in (user.first_name, user.last_name) if part
     ).upper()[:2]
+    return initials or user.get_username()[:1].upper()
+
+
+def user_context(user):
     return {
         'name': user.get_full_name() or user.username,
-        'initials': initials or user.get_username()[:1].upper(),
+        'initials': user_initials(user),
     }
 
 
@@ -227,5 +237,19 @@ def create_share_token(trip, user):
         trip=trip,
         created_by=user,
         token_hash=hashlib.sha256(token.encode()).hexdigest(),
+    )
+    return token
+
+
+def token_hash(token):
+    return hashlib.sha256(token.encode()).hexdigest()
+
+
+def create_invitation(trip, user, email=''):
+    """A new invite (FR-06). Only the hash is stored; the raw token is returned
+    once, to be put in an email or shown as the group link."""
+    token = secrets.token_urlsafe(24)
+    TripInvitation.objects.create(
+        trip=trip, created_by=user, email=email, token_hash=token_hash(token),
     )
     return token

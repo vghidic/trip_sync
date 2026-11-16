@@ -16,6 +16,7 @@
   <div class="split">
     <div class="stack">
 
+      {% if trip %}
       <a class="trip-card" href="{% url 'web:trip_overview' trip.slug %}">
         <div class="photo photo--{{ trip.photo }} photo--hero">
           <span class="badge badge--light photo__chip photo__chip--right">
@@ -26,8 +27,8 @@
         <div class="trip-card__body">
           <div class="trip-card__row">
             <div>
-              <h2 class="trip-card__name">{{ trip.destination }}</h2>
-              <p class="trip-card__dates">{{ trip.dates_long }}</p>
+              <h2 class="trip-card__name">{{ trip.name }}</h2>
+              <p class="trip-card__dates">{{ trip.destination }} &middot; {{ trip.dates_long }}</p>
             </div>
             <span class="btn btn--round" aria-hidden="true">
               <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
@@ -55,7 +56,7 @@
       </a>
 
       {% for other in other_trips %}
-        <a class="card card--link trip-row" href="#">
+        <a class="card card--link trip-row" href="{% url 'web:trip_overview' other.slug %}">
           <span class="photo photo--{{ other.photo }} photo--thumb-lg"></span>
           <span class="trip-row__body">
             <span class="trip-row__name">{{ other.name }}</span>
@@ -65,10 +66,20 @@
           <svg class="icon trip-row__chevron" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
         </a>
       {% endfor %}
+      {% else %}
+      <div class="card"><div class="card__body">
+        <h2 class="draft__title">No trips yet.</h2>
+        <p class="new-trip__lede">
+          Start one with the button above. You&rsquo;ll be its organizer and
+          can invite the others once it exists.
+        </p>
+      </div></div>
+      {% endif %}
 
     </div>
 
     <aside class="split__rail stack stack--loose">
+      {% if trip %}
 
       <div class="card card--primary your-move">
         <p class="your-move__head">
@@ -103,6 +114,7 @@
           <dd>{{ trip.destination }} &middot; {{ trip.dates }}</dd>
         </dl>
       </div>
+      {% endif %}
 
     </aside>
   </div>

@@ -9,22 +9,33 @@
       number next to it, not a separate decision to make.
       {% endcomment %}
       <div class="input-group">
-        <input class="input" id="trip-budget" name="budget" type="text"
-               inputmode="numeric" value="{{ draft.budget }}">
+        <input class="input{% if form.budget.errors %} input--invalid{% endif %}"
+               id="trip-budget" name="budget" type="text"
+               inputmode="decimal" placeholder="1500" value="{{ draft.budget }}">
         <select class="input-group__select" id="trip-currency" name="currency"
                 aria-label="Currency">
           {% for option in draft.currencies %}
-            <option{% if forloop.first %} selected{% endif %}>{{ option }}</option>
+            <option value="{{ option }}"{% if option == draft.currency %} selected{% endif %}>{{ option }}</option>
           {% endfor %}
         </select>
       </div>
+      {% for error in form.budget.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
+      {% for error in form.currency.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
     </div>
 
     <div class="field">
       <label class="field__label" for="trip-size">Number of people</label>
-      <input class="input" id="trip-size" name="group_size" type="text"
-             inputmode="numeric" value="{{ draft.group_size }}">
+      <input class="input{% if form.group_size.errors %} input--invalid{% endif %}"
+             id="trip-size" name="group_size" type="text"
+             inputmode="numeric" placeholder="4" value="{{ draft.group_size }}">
+      {% for error in form.group_size.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
     </div>
   </div>
 
+  {% if draft.per_person %}
+    <p class="derived">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-wallet"></use></svg>
+      {{ draft.per_person }}
+    </p>
+  {% endif %}
 {% endblock %}

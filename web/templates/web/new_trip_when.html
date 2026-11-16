@@ -1,57 +1,26 @@
-{% extends "web/new_trip_base.html" %} {% block fields %}
-<div class="field-pair">
-    <div class="field">
-        <label class="field__label" for="trip-start">Arriving</label>
-        <input
-            class="input"
-            id="trip-start"
-            name="start"
-            type="date"
-            value="{{ draft.start }}"
-        />
-    </div>
-    <div class="field">
-        <label class="field__label" for="trip-end">Leaving</label>
-        <input
-            class="input"
-            id="trip-end"
-            name="end"
-            type="date"
-            value="{{ draft.end }}"
-        />
-    </div>
-</div>
+{% extends "web/new_trip_base.html" %}
 
-<p class="derived">
-    <svg class="icon icon--sm" aria-hidden="true">
-        <use href="#i-calendar"></use>
-    </svg>
+{% block fields %}
+  <div class="field-pair">
+    <div class="field">
+      <label class="field__label" for="trip-start">Leaving</label>
+      <input class="input{% if form.start.errors %} input--invalid{% endif %}"
+             id="trip-start" name="start" type="date" value="{{ draft.start }}">
+      {% for error in form.start.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
+    </div>
+    <div class="field">
+      <label class="field__label" for="trip-end">Coming back</label>
+      <input class="input{% if form.end.errors %} input--invalid{% endif %}"
+             id="trip-end" name="end" type="date" value="{{ draft.end }}">
+      {% for error in form.end.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
+    </div>
+  </div>
+
+  {% comment %}
+  The duration (FR-04) is not asked for separately: it follows from the dates.
+  {% endcomment %}
+  <p class="derived">
+    <svg class="icon icon--sm" aria-hidden="true"><use href="#i-calendar"></use></svg>
     {{ draft.span }}
-</p>
-
-<fieldset class="fieldset flow-lg">
-    <legend class="fieldset__legend">How full should a day be?</legend>
-    <div class="choices">
-        {% for choice in draft.hour_choices %}
-        <label class="choice">
-            <input
-                type="radio"
-                name="hours_per_day"
-                value="{{ choice.value }}"
-                {%
-                if
-                choice.value=""
-                ="draft.hours_per_day"
-                %}checked{%
-                endif
-                %}
-            />
-            <span class="choice__face">
-                <span class="choice__value">{{ choice.label }}</span>
-                <span class="choice__note">{{ choice.note }}</span>
-            </span>
-        </label>
-        {% endfor %}
-    </div>
-</fieldset>
+  </p>
 {% endblock %}
