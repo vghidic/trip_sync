@@ -4,12 +4,18 @@ Each view renders one screen of the design using database-backed context.
 """
 
 import hashlib
+from urllib.parse import urlencode
 
+from django.conf import settings
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_not_required
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.views.decorators.http import require_POST
 
-from trips.models import ReadOnlyShareLink, Trip
+from trips.models import ReadOnlyShareLink, Trip, TripInvitation, TripParticipant
 
 from .db_context import (
     balances_context,
@@ -20,8 +26,8 @@ from .db_context import (
     money_context,
     trip_context,
     trip_for_slug,
-    user_context,
 )
+from .forms import LoginForm, RegisterForm
 from .ui_data import ui
 
 
@@ -36,7 +42,6 @@ def _shell(active_tab=''):
     if trip is None:
         raise Http404('No trips found. Run seed_demo_data first.')
     return {
-        'user_profile': user_context(trip.organizer),
         'trip': trip_context(trip),
         'active_tab': active_tab,
     }
@@ -44,10 +49,96 @@ def _shell(active_tab=''):
 
 def _shell_for_trip(active_tab, trip):
     return {
-        'user_profile': user_context(trip.organizer),
         'trip': trip_context(trip),
         'active_tab': active_tab,
     }
+
+
+AUTH_VARIANTS = {
+    'signin': {
+        'eyebrow': 'Welcome back',
+        'title': 'Sign in',
+        'lede': 'Pick up where your group left off.',
+        'submit': 'Sign in',
+        'alt_text': 'New to Trip Sync?',
+        'alt_link': 'Create an account',
+    },
+    'signup': {
+        'eyebrow': 'Get started',
+        'title': 'Create an account',
+        'lede': 'Plan trips with friends: vote, build the days, split the costs.',
+        'submit': 'Create account',
+        'alt_text': 'Already have an account?',
+        'alt_link': 'Sign in',
+    },
+}
+
+
+def _safe_next(request):
+    """The page to return to after signing in, if it is one of ours."""
+    target = request.POST.get('next') or request.GET.get('next') or ''
+    if url_has_allowed_host_and_scheme(
+        target,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return target
+    return ''
+
+
+def _account_form(request, mode):
+    """The bound sign-in or sign-up form for this request."""
+    data = request.POST if request.method == 'POST' else None
+    if mode == 'signup':
+        return RegisterForm(data)
+    return LoginForm(request, data)
+
+
+def _complete_account(request, form, mode):
+    """Create or authenticate the user behind a valid form and log them in."""
+    user = form.save() if mode == 'signup' else form.user
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    return user
+
+
+def _auth_page(request, mode):
+    if request.user.is_authenticated:
+        return redirect(settings.LOGIN_REDIRECT_URL)
+
+    form = _account_form(request, mode)
+    next_url = _safe_next(request)
+    if request.method == 'POST' and form.is_valid():
+        _complete_account(request, form, mode)
+        return redirect(next_url or resolve_url(settings.LOGIN_REDIRECT_URL))
+
+    alt = reverse('web:register' if mode == 'signin' else 'web:login')
+    if next_url:
+        alt += '?' + urlencode({'next': next_url})
+    return render(request, 'web/auth.html', {
+        'form': form,
+        'mode': mode,
+        'variant': AUTH_VARIANTS[mode],
+        'next': next_url,
+        'alt_url': alt,
+    })
+
+
+@login_not_required
+def login_view(request):
+    """Sign in with email and password (FR-02)."""
+    return _auth_page(request, 'signin')
+
+
+@login_not_required
+def register_view(request):
+    """Create an account (FR-01) and sign straight in."""
+    return _auth_page(request, 'signup')
+
+
+@require_POST
+def logout_view(request):
+    logout(request)
+    return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
 def trips(request):
@@ -277,6 +368,15 @@ def itinerary_build(request, slug):
     return render(request, 'web/itinerary_build.html', context)
 
 
+def _join_trip(token, user):
+    """Add the user to the trip the invite link belongs to, if it is live."""
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    invitation = TripInvitation.objects.filter(token_hash=token_hash).first()
+    if invitation is not None and invitation.is_active:
+        TripParticipant.objects.get_or_create(trip=invitation.trip, user=user)
+
+
+@login_not_required
 def join(request, token, mode='signup'):
     """The invite link (FR-07), with the account step it needs (FR-01, FR-02).
 
@@ -286,13 +386,17 @@ def join(request, token, mode='signup'):
     if mode not in ('signup', 'signin'):
         raise Http404('Unknown mode')
 
-    if request.method == 'POST':
+    form = _account_form(request, mode)
+    if request.method == 'POST' and form.is_valid():
+        user = _complete_account(request, form, mode)
+        _join_trip(token, user)
         return redirect('web:join_welcome', token=token)
 
     other = 'signin' if mode == 'signup' else 'signup'
     alt = ('web:join_signin', [token]) if other == 'signin' else ('web:join', [token])
 
     context = {
+        'form': form,
         'trip': ui.TRIP,
         'join': ui.JOIN,
         'mode': mode,
@@ -302,12 +406,14 @@ def join(request, token, mode='signup'):
     return render(request, 'web/join.html', context)
 
 
+@login_not_required
 def join_expired(request):
     """A revoked or replaced link (NFR-02) is a dead end, not an error page."""
     return render(request, 'web/join_expired.html',
                   {'expired': ui.JOIN['expired']})
 
 
+@login_not_required
 def join_welcome(request, token):
     """The moment after joining: what the group is already waiting on."""
     return render(request, 'web/join_welcome.html', {
@@ -338,6 +444,7 @@ def share_manage(request, slug):
     return render(request, 'web/share_manage.html', context)
 
 
+@login_not_required
 def share_view(request, token):
     """What a visitor sees: the approved itinerary, and nothing else (R-06)."""
     token_hash = hashlib.sha256(token.encode()).hexdigest()
@@ -354,6 +461,7 @@ def share_view(request, token):
     })
 
 
+@login_not_required
 def share_expired(request):
     """A revoked link shows the visitor nothing about the trip."""
     return render(request, 'web/share_expired.html',

@@ -156,6 +156,22 @@
     line-height: var(--lh-snug);
 }
 
+/* ---- signing in or registering without an invite ---- */
+
+.join--auth {
+    max-width: 440px;
+}
+
+.auth__title {
+    margin-top: var(--s-3);
+    margin-bottom: 0;
+}
+
+.auth__lede {
+    margin-top: var(--s-2);
+    margin-bottom: var(--s-6);
+}
+
 /* ---- a link that no longer works ---- */
 
 .join--dead {

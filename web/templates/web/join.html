@@ -69,33 +69,7 @@
         <form method="post" action="" novalidate>
           {% csrf_token %}
 
-          {% if mode == 'signup' %}
-            <div class="field">
-              <label class="field__label" for="join-name">Your name</label>
-              <input class="input" id="join-name" name="name" type="text"
-                     placeholder="How the group knows you" autocomplete="name">
-            </div>
-          {% endif %}
-
-          <div class="field">
-            <label class="field__label" for="join-email">Email</label>
-            <input class="input" id="join-email" name="email" type="email"
-                   placeholder="name@example.com" autocomplete="email">
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="join-password">Password</label>
-            <input class="input" id="join-password" name="password"
-                   type="password"
-                   autocomplete="{% if mode == 'signup' %}new-password{% else %}current-password{% endif %}">
-            {% if mode == 'signup' %}
-              <p class="field__hint">At least 8 characters.</p>
-            {% else %}
-              <p class="field__hint">
-                <a href="#">Forgotten your password?</a>
-              </p>
-            {% endif %}
-          </div>
+          {% include "web/partials/account_fields.html" %}
 
           <button class="btn btn--block join__submit" type="submit">
             {{ variant.submit }}
