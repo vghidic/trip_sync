@@ -41,8 +41,27 @@ uv run manage.py runserver
 ```
 
 Conturile mock sunt create cu parole inutilizabile; ele servesc doar pentru
-afișarea datelor și testarea relațiilor. Pentru autentificare locală folosiți
+afișarea datelor și testarea relațiilor.
+
+### Autentificare
+
+Toate paginile cer un utilizator autentificat; fără sesiune sunteți redirecționați
+la `/login/`. Creați un cont la `/register/` (nume, email, parolă de minim 8
+caractere) și veți fi autentificați direct. Login-ul se face cu email și parolă;
+„Sign out” din header vă deloghează. Pentru `/admin/` folosiți
 `uv run manage.py createsuperuser`.
+
+Rămân publice: `/login/`, `/register/`, linkurile de invitație `/join/...` și
+linkurile read-only `/share/...`. Formularul de pe linkul de invitație creează
+contul (sau autentifică) și adaugă utilizatorul în trip dacă invitația e activă.
+
+### Teste
+
+Cu baza de date pornită (`docker compose up -d db`):
+
+```sh
+uv run manage.py test
+```
 
 ## Interfata (aplicatia `web`)
 
@@ -60,6 +79,8 @@ Rute:
 | URL                                            | Ecran                       |
 | ---------------------------------------------- | --------------------------- |
 | `/`                                            | Lista de excursii           |
+| `/login/`                                      | Autentificare (email + parolă) |
+| `/register/`                                   | Cont nou                    |
 | `/trips/new/`                                  | Creare excursie (organizator), 4 pasi |
 | `/join/7f3b-91ac-24de/`                        | Invitatie: cont nou         |
 | `/join/7f3b-91ac-24de/signin/`                 | Invitatie: cont existent    |

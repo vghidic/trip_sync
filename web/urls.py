@@ -6,6 +6,9 @@ app_name = 'web'
 
 urlpatterns = [
     path('', views.trips, name='trips'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
+    path('logout/', views.logout_view, name='logout'),
     path('styleguide/', views.styleguide, name='styleguide'),
     path('share/expired/', views.share_expired, name='share_expired'),
     path('share/<slug:token>/', views.share_view, name='share_view'),
