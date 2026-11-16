@@ -26,6 +26,12 @@
       <span class="avatar avatar--me" title="{{ user_profile.name }}">
         {{ user_profile.initials }}
       </span>
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'web:logout' %}">
+          {% csrf_token %}
+          <button class="btn btn--quiet btn--sm" type="submit">Sign out</button>
+        </form>
+      {% endif %}
     </div>
   </div>
 </header>

@@ -23,6 +23,28 @@
     line-height: var(--lh-snug);
 }
 
+.field__error {
+    margin-top: var(--s-2);
+    color: var(--c-error-fg);
+    font-size: var(--t-xs);
+    line-height: var(--lh-snug);
+}
+
+/* A problem with the whole form, e.g. a wrong email and password pair. */
+.form-error {
+    margin-bottom: var(--s-5);
+    padding: var(--s-3) var(--s-4);
+    background: var(--c-error-bg);
+    border-radius: var(--r-md);
+    color: var(--c-error-fg);
+    font-size: var(--t-sm);
+}
+
+.input--invalid,
+.input--invalid:focus {
+    border-color: var(--c-error-fg);
+}
+
 .field__optional {
     margin-left: var(--s-2);
     color: var(--c-muted);

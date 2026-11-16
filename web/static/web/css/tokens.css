@@ -28,6 +28,8 @@
     --c-ok-fg: #2f6b3a;
     --c-warn-bg: #efe9de;
     --c-warn-fg: #6d5c3c;
+    --c-error-bg: #f8e6e3;
+    --c-error-fg: #a3291b;
 
     /* ---- type ---- */
     --font-display:

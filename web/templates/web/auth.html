@@ -1,0 +1,28 @@
+{% extends "web/join_base.html" %}
+
+{% block title %}{{ variant.title }} &middot; Trip Sync{% endblock %}
+
+{% block content %}
+  <div class="join join--auth">
+    <div class="join__panel">
+      <p class="eyebrow">{{ variant.eyebrow }}</p>
+      <h1 class="join__panel-title auth__title">{{ variant.title }}</h1>
+      <p class="join__lede auth__lede">{{ variant.lede }}</p>
+
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        {% include "web/partials/account_fields.html" %}
+
+        <button class="btn btn--block join__submit" type="submit">
+          {{ variant.submit }}
+        </button>
+      </form>
+
+      <p class="join__alt">
+        {{ variant.alt_text }}
+        <a href="{{ alt_url }}">{{ variant.alt_link }}</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

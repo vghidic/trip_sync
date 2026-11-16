@@ -68,11 +68,12 @@ def trip_context(trip):
 
 
 def user_context(user):
+    initials = ''.join(
+        part[0] for part in (user.first_name, user.last_name) if part
+    ).upper()[:2]
     return {
         'name': user.get_full_name() or user.username,
-        'initials': ''.join(
-            part[0] for part in (user.first_name, user.last_name) if part
-        ).upper()[:2],
+        'initials': initials or user.get_username()[:1].upper(),
     }
 
 
